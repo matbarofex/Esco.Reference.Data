@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "esco.reference.data.service
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "esco.reference.data.model", "esco.reference.data.model\esco.reference.data.model.csproj", "{DD387E40-1CAF-46CA-8268-75719B7B4D50}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "example", "example", "{5FA8FB4D-FE6B-4458-B264-E5B84E8DA508}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "esco.reference.data.App", "esco.reference.data.example\esco.reference.data.App.csproj", "{1F928EEC-BB1B-42BE-8A78-C26F3CA3B4A1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +29,10 @@ Global
 		{DD387E40-1CAF-46CA-8268-75719B7B4D50}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD387E40-1CAF-46CA-8268-75719B7B4D50}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DD387E40-1CAF-46CA-8268-75719B7B4D50}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F928EEC-BB1B-42BE-8A78-C26F3CA3B4A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F928EEC-BB1B-42BE-8A78-C26F3CA3B4A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F928EEC-BB1B-42BE-8A78-C26F3CA3B4A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F928EEC-BB1B-42BE-8A78-C26F3CA3B4A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -32,6 +40,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{17C55A41-3096-4ACE-B6A5-4B2FAF4B1BBB} = {41C62731-3CC0-4F76-9D47-F37F4EA888A2}
 		{DD387E40-1CAF-46CA-8268-75719B7B4D50} = {BC976FD5-3741-498F-AE44-CF3DF6D93133}
+		{1F928EEC-BB1B-42BE-8A78-C26F3CA3B4A1} = {5FA8FB4D-FE6B-4458-B264-E5B84E8DA508}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EA8BCB2E-6D94-4A9D-B64B-29CA5CEE01E4}
