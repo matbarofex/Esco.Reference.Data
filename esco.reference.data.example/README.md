@@ -30,11 +30,6 @@ Conector que se integra con el Servicio [**PMYDS - Reference Data de Primary**](
 public ReferenceDataServices (string id, string host)
 ```
 
-## Acknowledgements
-
-Esta solución contiene en [**esco.reference.data.example**](esco.reference.data.example/) el proyecto [**esco.reference.data.App**](esco.reference.data.example/esco.reference.data.App.csproj) como ejemplo de uso de las dll en una aplicación de prueba.
-Se brinda además la posibilidad de descarga de esta apliacación de manera independiente:
-
 #### PROGRAMA DE TEST
 
 - [Descargar Instalador (.zip)](esco.reference.documentation/reference.data.zip)
