@@ -14,4 +14,4 @@ Se puede descargar de manera independiente:
 
 Para su utilización es necesario la solicitud de suscripción a [**PMYDS - Reference Data de Primary**](https://dataservices.primary.com.ar/product/#product=reference-data-read)
 
-[[N|Solid](../esco.reference.documentation/05.jpg)](https://dataservices.primary.com.ar/product/#product=reference-data-read)
+[![N|Solid](../esco.reference.documentation/05.jpg)](https://dataservices.primary.com.ar/product/#product=reference-data-read)
