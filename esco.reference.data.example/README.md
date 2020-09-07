@@ -8,7 +8,7 @@ Se puede descargar de manera independiente:
 
 #### PROGRAMA DE TEST
 
-- [Descargar Instalador (.zip)](esco.reference.documentation/reference.data.zip)
+- [Descargar Instalador (.zip)](../esco.reference.documentation/reference.data.zip)
 
 #### Requerimientos
 
