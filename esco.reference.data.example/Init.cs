@@ -109,26 +109,11 @@ namespace ESCO.Reference.Data.App
             }
         }
 
-        private string getSchemaActive()
-        {            
-            if (schemaComboInit.SelectedItem == null)
-            {
-                _ = setSchemaActive();
-            }
-            else
-            {
-                _schemaActive = schemaComboInit.SelectedIndex.ToString();
-            }
-            return _schemaActive;            
-        }   
-        
-        private void versionCombo_SelectedIndexChanged(object sender, EventArgs e)
+        private async Task<string> getSchemaActive()
         {
-            _services = null;
-            string version = (versionCombo.SelectedItem != null)?
-                versionCombo.SelectedItem.ToString() :"prod";
-            _services = new ReferenceDataServices(keyText.Text, version);
-        }       
+            Schema spec = await _services.getSchema();
+            return spec.id;
+        }   
 
         #region ReferenceDatas
 
@@ -267,8 +252,8 @@ namespace ESCO.Reference.Data.App
                 }
 
                 ReferenceDatas spec = (search)? 
-                    await _services.searchReferenceDataTodayUpdated(val, getSchemaActive()) :
-                    await _services.getReferenceDataTodayUpdated(val, getSchemaActive());
+                    await _services.searchReferenceDataTodayUpdated(val, await getSchemaActive()) :
+                    await _services.getReferenceDataTodayUpdated(val, await getSchemaActive());
                 string result = JsonConvert.SerializeObject(spec, Formatting.Indented);
 
                 ReferenceDataView.AutoGenerateColumns = true;
@@ -300,8 +285,8 @@ namespace ESCO.Reference.Data.App
                 }
 
                 ReferenceDatas spec = (search) ?
-                    await _services.searchReferenceDataTodayAdded(val, getSchemaActive()) :
-                    await _services.getReferenceDataTodayAdded(val, getSchemaActive());
+                    await _services.searchReferenceDataTodayAdded(val, await getSchemaActive()) :
+                    await _services.getReferenceDataTodayAdded(val, await getSchemaActive());
                 string result = JsonConvert.SerializeObject(spec, Formatting.Indented);
 
                 ReferenceDataView.AutoGenerateColumns = true;
@@ -333,8 +318,8 @@ namespace ESCO.Reference.Data.App
                 }
 
                 ReferenceDatas spec = (search) ?
-                    await _services.searchReferenceDataTodayRemoved(val, getSchemaActive()) :
-                    await _services.getReferenceDataTodayRemoved(val, getSchemaActive());               
+                    await _services.searchReferenceDataTodayRemoved(val, await getSchemaActive()) :
+                    await _services.getReferenceDataTodayRemoved(val, await getSchemaActive());               
                 string result = JsonConvert.SerializeObject(spec, Formatting.Indented);
 
                 ReferenceDataView.AutoGenerateColumns = true;
@@ -366,8 +351,8 @@ namespace ESCO.Reference.Data.App
                 }
 
                 ReferenceDatas spec = (search) ?
-                    await _services.searchReferenceDatas(val, getSchemaActive()) :
-                    await _services.getReferenceDatas(val, getSchemaActive());
+                    await _services.searchReferenceData(val, await getSchemaActive()) :
+                    await _services.getReferenceData(val, await getSchemaActive());
                 string result = JsonConvert.SerializeObject(spec, Formatting.Indented);
 
                 ReferenceDataView.AutoGenerateColumns = true;
@@ -393,7 +378,7 @@ namespace ESCO.Reference.Data.App
         {
             try
             {
-                Specification result = await _services.getReferenceDataSpecification(getSchemaActive());
+                Specification result = await _services.getReferenceDataSpecification(await getSchemaActive());
                 string spec = JsonConvert.SerializeObject(result, Formatting.Indented);
 
                 ReferenceDataView.AutoGenerateColumns = true;
@@ -571,15 +556,7 @@ namespace ESCO.Reference.Data.App
         {
             try
             {
-                SuggestedFields spec = await _services.getInstrumentsSuggestedFields(getSchemaActive());
-                string result = JsonConvert.SerializeObject(spec, Formatting.Indented);
-
-                InstrumentsDataView.AutoGenerateColumns = true;
-                InstrumentsDataView.AutoResizeColumns();
-                InstrumentsDataView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-                InstrumentsDataView.DataSource = spec;
-                InstrumentsDataText.Text = result;
-                cantLabel.Text = spec.Count.ToString() + " records found.";
+                MessageBox.Show("Opcion no disponible en esta versión", "Info:", MessageBoxButtons.OK);
             }
             catch (Exception e)
             {
@@ -597,22 +574,7 @@ namespace ESCO.Reference.Data.App
         {
             try
             {
-                if (search && val == String.Empty)
-                {
-                    throw new Exception("Valor Id requerido");
-                }
-
-                Instruments spec = (search) ?
-                    await _services.searchInstrumentsTodayUpdated(val, getSchemaActive()) :
-                    await _services.getInstrumentsTodayUpdated(val, source, getSchemaActive());
-                string result = JsonConvert.SerializeObject(spec, Formatting.Indented);
-
-                InstrumentsDataView.AutoGenerateColumns = true;
-                InstrumentsDataView.AutoResizeColumns();
-                InstrumentsDataView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-                InstrumentsDataView.DataSource = spec;
-                InstrumentsDataText.Text = result;
-                cantLabel.Text = spec.Count.ToString() + " records found.";
+                MessageBox.Show("Opcion no disponible en esta versión", "Info:", MessageBoxButtons.OK);
             }
             catch (Exception e)
             {
@@ -630,22 +592,7 @@ namespace ESCO.Reference.Data.App
         {
             try
             {
-                if (search && val == String.Empty)
-                {
-                    throw new Exception("Valor Id requerido");
-                }
-
-                Instruments spec = (search) ?
-                    await _services.searchInstrumentsTodayAdded(val, getSchemaActive()) :
-                    await _services.getInstrumentsTodayAdded(val, source, getSchemaActive());
-                string result = JsonConvert.SerializeObject(spec, Formatting.Indented);
-
-                InstrumentsDataView.AutoGenerateColumns = true;
-                InstrumentsDataView.AutoResizeColumns();
-                InstrumentsDataView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-                InstrumentsDataView.DataSource = spec;
-                InstrumentsDataText.Text = result;
-                cantLabel.Text = spec.Count.ToString() + " records found.";
+                MessageBox.Show("Opcion no disponible en esta versión", "Info:", MessageBoxButtons.OK);
             }
             catch (Exception e)
             {
@@ -663,22 +610,7 @@ namespace ESCO.Reference.Data.App
         {
             try
             {
-                if (search && val == String.Empty)
-                {
-                    throw new Exception("Valor Id requerido");
-                }
-
-                Instruments spec = (search) ?
-                    await _services.searchInstrumentsTodayRemoved(val, getSchemaActive()) :
-                    await _services.getInstrumentsTodayRemoved(val, source, getSchemaActive());
-                string result = JsonConvert.SerializeObject(spec, Formatting.Indented);
-
-                InstrumentsDataView.AutoGenerateColumns = true;
-                InstrumentsDataView.AutoResizeColumns();
-                InstrumentsDataView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-                InstrumentsDataView.DataSource = spec;
-                InstrumentsDataText.Text = result;
-                cantLabel.Text = spec.Count.ToString() + " records found.";
+                MessageBox.Show("Opcion no disponible en esta versión", "Info:", MessageBoxButtons.OK);
             }
             catch (Exception e)
             {
@@ -696,22 +628,7 @@ namespace ESCO.Reference.Data.App
         {
             try
             {
-                if (search && val == String.Empty)
-                {
-                    throw new Exception("Valor Id requerido");
-                }
-
-                InstrumentsReport spec = (search) ?
-                    await _services.searchInstrumentsReport(val, getSchemaActive()) :
-                    await _services.getInstrumentsReport(val, getSchemaActive());
-                string result = JsonConvert.SerializeObject(spec, Formatting.Indented);
-
-                InstrumentsDataView.AutoGenerateColumns = true;
-                InstrumentsDataView.AutoResizeColumns();
-                InstrumentsDataView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-                InstrumentsDataView.DataSource = spec;
-                InstrumentsDataText.Text = result;
-                cantLabel.Text = spec.Count.ToString() + " records found.";
+                MessageBox.Show("Opcion no disponible en esta versión", "Info:", MessageBoxButtons.OK);
             }
             catch (Exception e)
             {
@@ -729,20 +646,7 @@ namespace ESCO.Reference.Data.App
         {
             try
             {
-                if (id == String.Empty)
-                {
-                    throw new Exception("Valor Id requerido");
-                }
-
-                Instrument spec = await _services.getInstrument(id, getSchemaActive());
-                string result = JsonConvert.SerializeObject(spec, Formatting.Indented);
-
-                InstrumentsDataView.AutoGenerateColumns = true;
-                InstrumentsDataView.AutoResizeColumns();
-                InstrumentsDataView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-                InstrumentsDataView.DataSource = spec;
-                InstrumentsDataText.Text = result;
-                cantLabel.Text = "Record found.";
+                MessageBox.Show("Opcion no disponible en esta versión", "Info:", MessageBoxButtons.OK);
             }
             catch (Exception e)
             {
@@ -760,22 +664,7 @@ namespace ESCO.Reference.Data.App
         {
             try
             {
-                if (search && val == String.Empty)
-                {
-                    throw new Exception("Valor Id requerido");
-                }
-
-                Instruments spec = (search) ?
-                    await _services.searchInstruments(val, getSchemaActive()) :
-                    await _services.getInstruments(val, source, getSchemaActive());
-                string result = JsonConvert.SerializeObject(spec, Formatting.Indented);
-
-                InstrumentsDataView.AutoGenerateColumns = true;
-                InstrumentsDataView.AutoResizeColumns();
-                InstrumentsDataView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-                InstrumentsDataView.DataSource = spec;
-                InstrumentsDataText.Text = result;
-                cantLabel.Text = spec.Count.ToString() + " records found.";
+                MessageBox.Show("Opcion no disponible en esta versión", "Info:", MessageBoxButtons.OK);
             }
             catch (Exception e)
             {
@@ -809,23 +698,7 @@ namespace ESCO.Reference.Data.App
         {
             try
             {
-                Cursor.Current = Cursors.WaitCursor;
-                Types values = await _services.getInstrumentTypes();
-                
-                Dictionary<int, string> keys = new Dictionary<int, string>();
-
-                for (int i = 0; i < values.Count; i++)
-                {
-                    int index = values[i].code;
-                    keys[index] = index + " | " + values[i].description;
-                }
-
-                keys[keys.Keys.LastOrDefault() + 1] = _all;
-
-                BindingSource bindingSource = new BindingSource(keys, null);
-                combo.DataSource = bindingSource;
-                combo.DisplayMember = "Value";
-                combo.ValueMember = "Value";
+                MessageBox.Show("Opcion no disponible en esta versión", "Info:", MessageBoxButtons.OK);
             }
             catch (Exception e)
             {
@@ -841,22 +714,7 @@ namespace ESCO.Reference.Data.App
         {
             try
             {
-                Cursor.Current = Cursors.WaitCursor;
-                Types values = await _services.getSourceTypes();
-
-                Dictionary<int, string> keys = new Dictionary<int, string>();
-
-                for (int i = 0; i < values.Count; i++)
-                {
-                    int index = values[i].code;
-                    keys[index] = values[i].description;
-                }
-                keys[keys.Keys.LastOrDefault() + 1] = _all;
-
-                BindingSource bindingSource = new BindingSource(keys, null);
-                combo.DataSource = bindingSource;
-                combo.DisplayMember = "Value";
-                combo.ValueMember = "Value";
+                MessageBox.Show("Opcion no disponible en esta versión", "Info:", MessageBoxButtons.OK);
             }
             catch (Exception e)
             {
@@ -979,21 +837,8 @@ namespace ESCO.Reference.Data.App
         private async Task getFund(string id)
         {
             try
-            {                
-                if (id == String.Empty)
-                {
-                    throw new Exception("Valor Id requerido");
-                }
-
-                Fund spec = await _services.getFund(id);
-                string result = JsonConvert.SerializeObject(spec, Formatting.Indented);
-
-                FundsDataView.AutoGenerateColumns = true;
-                FundsDataView.AutoResizeColumns();
-                FundsDataView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-                FundsDataView.DataSource = spec;
-                FundsDataText.Text = result;
-                cantLabel.Text = "Record found.";
+            {
+                MessageBox.Show("Opcion no disponible en esta versión", "Info:", MessageBoxButtons.OK);
             }
             catch (Exception e)
             {
@@ -1011,15 +856,7 @@ namespace ESCO.Reference.Data.App
         {
             try
             {
-                Funds spec = await _services.getFunds(managment, depositary, currency, rent);
-                string result = JsonConvert.SerializeObject(spec, Formatting.Indented);
-
-                FundsDataView.AutoGenerateColumns = true;
-                FundsDataView.AutoResizeColumns();
-                FundsDataView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-                FundsDataView.DataSource = spec;
-                FundsDataText.Text = result;
-                cantLabel.Text = spec.Count.ToString() + " records found.";
+                MessageBox.Show("Opcion no disponible en esta versión", "Info:", MessageBoxButtons.OK);
             }
             catch (Exception e)
             {
@@ -1037,19 +874,7 @@ namespace ESCO.Reference.Data.App
         {
             try
             {
-                if (id == String.Empty)
-                {
-                    throw new Exception("Valor Id requerido");
-                }
-                Funds spec = await _services.searchFunds(id);
-                string result = JsonConvert.SerializeObject(spec, Formatting.Indented);
-
-                FundsDataView.AutoGenerateColumns = true;
-                FundsDataView.AutoResizeColumns();
-                FundsDataView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-                FundsDataView.DataSource = spec;
-                FundsDataText.Text = result;
-                cantLabel.Text = spec.Count.ToString() + " records found.";
+                MessageBox.Show("Opcion no disponible en esta versión", "Info:", MessageBoxButtons.OK);
             }
             catch (Exception e)
             {
@@ -1244,20 +1069,7 @@ namespace ESCO.Reference.Data.App
         {
             try
             {
-                if (id == String.Empty)
-                {
-                    throw new Exception("Valor Id requerido");
-                }
-
-                Securitie spec = await _services.getSecuritie(id);
-                string result = JsonConvert.SerializeObject(spec, Formatting.Indented);
-
-                SecuritiesDataView.AutoGenerateColumns = true;
-                SecuritiesDataView.AutoResizeColumns();
-                SecuritiesDataView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-                SecuritiesDataView.DataSource = spec;
-                SecuritiesDataText.Text = result;
-                cantLabel.Text = "Records found.";
+                MessageBox.Show("Opcion no disponible en esta versión", "Info:", MessageBoxButtons.OK);
             }
             catch (Exception e)
             {
@@ -1275,15 +1087,7 @@ namespace ESCO.Reference.Data.App
         {
             try
             {
-                Securities spec = await _services.getSecurities(id);
-                string result = JsonConvert.SerializeObject(spec, Formatting.Indented);
-
-                SecuritiesDataView.AutoGenerateColumns = true;
-                SecuritiesDataView.AutoResizeColumns();
-                SecuritiesDataView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-                SecuritiesDataView.DataSource = spec;
-                SecuritiesDataText.Text = result;
-                cantLabel.Text = spec.Count.ToString() + " records found.";
+                MessageBox.Show("Opcion no disponible en esta versión", "Info:", MessageBoxButtons.OK);
             }
             catch (Exception e)
             {
@@ -1344,39 +1148,40 @@ namespace ESCO.Reference.Data.App
         {
             try
             {
-                Types result;
-                switch (index)
-                {
-                    case 0:
-                        result = await _services.getSourceFieldTypes();
-                        break;
-                    case 1:
-                        result = await _services.getPropertyControlTypes();
-                        break;
-                    case 2:
-                        result = await _services.getStateControlTypes();
-                        break;
-                    case 3:
-                        result = await _services.getInstrumentTypes();
-                        break;
-                    case 4:
-                        result = await _services.getPropertyOriginTypes();
-                        break;
-                    case 5:
-                        result = await _services.getSourceTypes();
-                        break;
-                    default:
-                        TypesBtn.Enabled = true;
-                        SectionsTab.Enabled = true;
-                        throw new Exception("Seleccionar opción");     
-                }
-                
-                string spec = JsonConvert.SerializeObject(result, Formatting.Indented);
-                TypesDataView.AutoGenerateColumns = true;
-                TypesDataView.AutoResizeColumns();
-                TypesDataView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-                TypesDataView.DataSource = result;
-                TypesDataText.Text = spec;
+                MessageBox.Show("Opcion no disponible en esta versión", "Info:", MessageBoxButtons.OK);
+                //Types result;
+                //switch (index)
+                //{
+                //    case 0:
+                //        result = await _services.getSourceFieldTypes();
+                //        break;
+                //    case 1:
+                //        result = await _services.getPropertyControlTypes();
+                //        break;
+                //    case 2:
+                //        result = await _services.getStateControlTypes();
+                //        break;
+                //    case 3:
+                //        result = await _services.getInstrumentTypes();
+                //        break;
+                //    case 4:
+                //        result = await _services.getPropertyOriginTypes();
+                //        break;
+                //    case 5:
+                //        result = await _services.getSourceTypes();
+                //        break;
+                //    default:
+                //        TypesBtn.Enabled = true;
+                //        SectionsTab.Enabled = true;
+                //        throw new Exception("Seleccionar opción");     
+                //}
+
+                //string spec = JsonConvert.SerializeObject(result, Formatting.Indented);
+                //TypesDataView.AutoGenerateColumns = true;
+                //TypesDataView.AutoResizeColumns();
+                //TypesDataView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+                //TypesDataView.DataSource = result;
+                //TypesDataText.Text = spec;
             }
             catch (Exception e)
             {
@@ -1511,15 +1316,7 @@ namespace ESCO.Reference.Data.App
         {
             try
             {
-                PromoteSchema spec= await _services.getPromoteSchema();
-                string result = JsonConvert.SerializeObject(spec, Formatting.Indented);
-
-                SchemaDataView.AutoGenerateColumns = true;
-                SchemaDataView.AutoResizeColumns();
-                SchemaDataView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-                SchemaDataView.DataSource = spec;
-                SchemaDataText.Text = result;
-                cantLabel.Text = "Record found.";
+                MessageBox.Show("Opcion no disponible en esta versión", "Info:", MessageBoxButtons.OK);
             }
             catch (Exception e)
             {
@@ -1537,20 +1334,7 @@ namespace ESCO.Reference.Data.App
         {
             try
             {
-                if (id == String.Empty)
-                {
-                    throw new Exception("Valor Id requerido");
-                }
-
-                Schema spec = await _services.getSchemaId(id);
-                string result = JsonConvert.SerializeObject(spec, Formatting.Indented);
-
-                SchemaDataView.AutoGenerateColumns = true;
-                SchemaDataView.AutoResizeColumns();
-                SchemaDataView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-                SchemaDataView.DataSource = spec;
-                SchemaDataText.Text = result;
-                cantLabel.Text = "Records found.";
+                MessageBox.Show("Opcion no disponible en esta versión", "Info:", MessageBoxButtons.OK);
             }
             catch (Exception e)
             {
@@ -1618,20 +1402,7 @@ namespace ESCO.Reference.Data.App
         {
             try
             {
-                if (id == String.Empty)
-                {
-                    throw new Exception("Valor Id requerido");
-                }
-
-                Field spec = await _services.getField(id, getSchemaActive());
-                string result = JsonConvert.SerializeObject(spec, Formatting.Indented);
-
-                FieldsDataView.AutoGenerateColumns = true;
-                FieldsDataView.AutoResizeColumns();
-                FieldsDataView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-                FieldsDataView.DataSource = spec;
-                FieldsDataText.Text = result;
-                cantLabel.Text = "Record found.";
+                MessageBox.Show("Opcion no disponible en esta versión", "Info:", MessageBoxButtons.OK);
             }
             catch (Exception e)
             {
@@ -1649,15 +1420,7 @@ namespace ESCO.Reference.Data.App
         {
             try
             {
-                FieldsList spec = await _services.getFields(getSchemaActive());
-                string result = JsonConvert.SerializeObject(spec, Formatting.Indented);
-
-                FieldsDataView.AutoGenerateColumns = true;
-                FieldsDataView.AutoResizeColumns();
-                FieldsDataView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-                FieldsDataView.DataSource = spec;
-                FieldsDataText.Text = result;
-                cantLabel.Text = spec.Count.ToString() + " records found.";
+                MessageBox.Show("Opcion no disponible en esta versión", "Info:", MessageBoxButtons.OK);
             }
             catch (Exception e)
             {
@@ -1724,20 +1487,7 @@ namespace ESCO.Reference.Data.App
         {
             try
             {
-                if (id == String.Empty)
-                {
-                    throw new Exception("Valor Id requerido");
-                }
-
-                Mapping spec = await _services.getMapping(id, getSchemaActive());
-                string result = JsonConvert.SerializeObject(spec, Formatting.Indented);
-
-                MappingDataView.AutoGenerateColumns = true;
-                MappingDataView.AutoResizeColumns();
-                MappingDataView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-                MappingDataView.DataSource = spec;
-                MappingDataText.Text = result;
-                cantLabel.Text = "Record found.";
+                MessageBox.Show("Opcion no disponible en esta versión", "Info:", MessageBoxButtons.OK);
             }
             catch (Exception e)
             {
@@ -1755,15 +1505,7 @@ namespace ESCO.Reference.Data.App
         {
             try
             {
-                Mappings spec = await _services.getMappings(getSchemaActive());
-                string result = JsonConvert.SerializeObject(spec, Formatting.Indented);
-
-                MappingDataView.AutoGenerateColumns = true;
-                MappingDataView.AutoResizeColumns();
-                MappingDataView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-                MappingDataView.DataSource = spec;
-                MappingDataText.Text = result;
-                cantLabel.Text = spec.Count.ToString() + " records found.";
+                MessageBox.Show("Opcion no disponible en esta versión", "Info:", MessageBoxButtons.OK);
             }
             catch (Exception e)
             {
@@ -1830,20 +1572,7 @@ namespace ESCO.Reference.Data.App
         {
             try
             {
-                if (id == String.Empty)
-                {
-                    throw new Exception("Valor Id requerido");
-                }
-
-                SourceField spec  = await _services.getSourceField(id, getSchemaActive());
-                string result = JsonConvert.SerializeObject(spec, Formatting.Indented);
-
-                SFDataView.AutoGenerateColumns = true;
-                SFDataView.AutoResizeColumns();
-                SFDataView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-                SFDataView.DataSource = spec;
-                SFDataText.Text = result;
-                cantLabel.Text = "Records found.";
+                MessageBox.Show("Opcion no disponible en esta versión", "Info:", MessageBoxButtons.OK);
             }
             catch (Exception e)
             {
@@ -1861,15 +1590,7 @@ namespace ESCO.Reference.Data.App
         {
             try
             {
-                SourceFields spec = await _services.getSourceFields(getSchemaActive());
-                string result = JsonConvert.SerializeObject(spec, Formatting.Indented);
-
-                SFDataView.AutoGenerateColumns = true;
-                SFDataView.AutoResizeColumns();
-                SFDataView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-                SFDataView.DataSource = spec;
-                SFDataText.Text = result;
-                cantLabel.Text = spec.Count.ToString() + " records found.";
+                MessageBox.Show("Opcion no disponible en esta versión", "Info:", MessageBoxButtons.OK);
             }
             catch (Exception e)
             {
@@ -1959,15 +1680,7 @@ namespace ESCO.Reference.Data.App
         {
             try
             {
-                Derivatives spec = await _services.getDerivatives(market, symbol);
-                string result = JsonConvert.SerializeObject(spec, Formatting.Indented);
-
-                DerivativesDataView.AutoGenerateColumns = true;
-                DerivativesDataView.AutoResizeColumns();
-                DerivativesDataView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-                DerivativesDataView.DataSource = spec;
-                DerivativesDataText.Text = result;
-                cantLabel.Text = spec.Count.ToString() + " records found.";
+                MessageBox.Show("Opcion no disponible en esta versión", "Info:", MessageBoxButtons.OK);
             }
             catch (Exception e)
             {
@@ -1985,20 +1698,7 @@ namespace ESCO.Reference.Data.App
         {
             try
             {
-                if (id == String.Empty)
-                {
-                    throw new Exception("Valor Id requerido");
-                }
-
-                Derivatives spec = await _services.searchDerivatives(id);
-                string result = JsonConvert.SerializeObject(spec, Formatting.Indented);
-
-                DerivativesDataView.AutoGenerateColumns = true;
-                DerivativesDataView.AutoResizeColumns();
-                DerivativesDataView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-                DerivativesDataView.DataSource = spec;
-                DerivativesDataText.Text = result;
-                cantLabel.Text = spec.Count.ToString() + " records found.";
+                MessageBox.Show("Opcion no disponible en esta versión", "Info:", MessageBoxButtons.OK);
             }
             catch (Exception e)
             {
@@ -2024,21 +1724,7 @@ namespace ESCO.Reference.Data.App
         {
             try
             {
-                Cursor.Current = Cursors.WaitCursor;
-                MarketSegments values = await _services.getMarketSegments();
-
-                Dictionary<int, string> keys = new Dictionary<int, string>();
-                for (int i = 0; i < values.Count; i++)
-                {
-                    int index = i;
-                    keys[index] = values[i].marketSegmentId;
-                }
-                keys[keys.Keys.LastOrDefault() + 1] = _all;
-
-                BindingSource bindingSource = new BindingSource(keys, null);
-                marketDerivativesCombo.DataSource = bindingSource;
-                marketDerivativesCombo.DisplayMember = "Value";
-                marketDerivativesCombo.ValueMember = "Value";
+                MessageBox.Show("Opcion no disponible en esta versión", "Info:", MessageBoxButtons.OK);
             }
             catch (Exception e)
             {
@@ -2062,21 +1748,7 @@ namespace ESCO.Reference.Data.App
         {
             try
             {
-                Cursor.Current = Cursors.WaitCursor;
-                UnderlyingSymbols values = await _services.getUnderlyingSymbols();
-
-                Dictionary<int, string> keys = new Dictionary<int, string>();
-                for (int i = 0; i < values.Count; i++)
-                {
-                    int index = i;
-                    keys[index] = values[i].underlyingSymbol;
-                }
-                keys[keys.Keys.LastOrDefault() + 1] = _all;
-
-                BindingSource bindingSource = new BindingSource(keys, null);
-                symbolDerivativesCombo.DataSource = bindingSource;
-                symbolDerivativesCombo.DisplayMember = "Value";
-                symbolDerivativesCombo.ValueMember = "Value";
+                MessageBox.Show("Opcion no disponible en esta versión", "Info:", MessageBoxButtons.OK);
             }
             catch (Exception e)
             {
@@ -2292,18 +1964,21 @@ namespace ESCO.Reference.Data.App
                 switch (ODataCombo.SelectedIndex)
                 {
                     case 0:
-                        ODataObject getReferenceDatas = await _services.getODataReferenceDatas(query);
-                        _showData(getReferenceDatas);
+                        MessageBox.Show("Opcion no disponible en esta versión", "Info:", MessageBoxButtons.OK);
+                        //ODataObject getReferenceDatas = await _services.getODataReferenceDatas(query);
+                        //_showData(getReferenceDatas);
                         break;
                     case 1:
-                        if (id == String.Empty)
-                        {
-                            throw new Exception("Valor Id requerido");
-                        }
-                        _showData(await _services.getODataReferenceDatasById(id));
+                        MessageBox.Show("Opcion no disponible en esta versión", "Info:", MessageBoxButtons.OK);
+                        //if (id == String.Empty)
+                        //{
+                        //    throw new Exception("Valor Id requerido");
+                        //}
+                        //_showData(await _services.getODataReferenceDatasById(id));
                         break;
                     case 2:
-                        _showData(await _services.searchODataReferenceDatas(type, currency, symbol, market, country));
+                        MessageBox.Show("Opcion no disponible en esta versión", "Info:", MessageBoxButtons.OK);
+                        //_showData(await _services.searchODataReferenceDatas(type, currency, symbol, market, country));
                         break;
                     case 3:
                         _showData(await _services.getCustodians());

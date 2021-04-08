@@ -4,16 +4,11 @@ namespace ESCO.Reference.Data.Services
 {
     class API
     {
-        private static string _ver { get; set; }
         public static string ver
-        {           
+        {  
             get
             {
-                return "prd-" + ((_ver == "demo") ? _ver : "ro");
-            }
-            set
-            {
-                _ver = value;
+                return "prd-ro";
             }
         }        
 
