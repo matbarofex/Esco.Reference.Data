@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Esco.Reference.Data.App</RootNamespace>
     <AssemblyName>Esco.Reference.Data.App</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
@@ -24,8 +24,8 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>6</ApplicationRevision>
-    <ApplicationVersion>1.0.0.6</ApplicationVersion>
+    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationVersion>2.0.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -38,6 +38,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -71,6 +72,9 @@
   <PropertyGroup>
     <ApplicationIcon>favicon.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -103,6 +107,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Esco.Reference.Data">
+      <Version>2.0.6</Version>
+    </PackageReference>
+    <PackageReference Include="Esco.Reference.Data.Model">
+      <Version>2.0.6</Version>
+    </PackageReference>
     <PackageReference Include="MetroFramework">
       <Version>1.2.0.3</Version>
     </PackageReference>
@@ -115,11 +125,8 @@
     <PackageReference Include="MetroFramework.RunTime">
       <Version>1.2.0.3</Version>
     </PackageReference>
-    <PackageReference Include="Newtonsoft.Json">
-      <Version>12.0.3</Version>
-    </PackageReference>
-    <PackageReference Include="Pathoschild.Http.FluentClient">
-      <Version>4.0.0</Version>
+    <PackageReference Include="System.Text.Json">
+      <Version>6.0.2</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
@@ -148,16 +155,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\esco.reference.data.model\esco.reference.data.model.csproj">
-      <Project>{dd387e40-1caf-46ca-8268-75719b7b4d50}</Project>
-      <Name>esco.reference.data.model</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\esco.reference.data.services\esco.reference.data.services.csproj">
-      <Project>{17c55a41-3096-4ace-b6a5-4b2faf4b1bbb}</Project>
-      <Name>esco.reference.data.services</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

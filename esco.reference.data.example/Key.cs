@@ -30,7 +30,7 @@ namespace ESCO.Reference.Data.App
             try
             {
                 services = new ReferenceDataServices(keyText.Text);
-                Schemas schemas = await services.getSchemas();
+                //Schemas schemas = await services.getSchemas();
                 key = keyText.Text;
                 Close();
             }

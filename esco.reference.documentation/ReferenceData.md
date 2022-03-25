@@ -2,7 +2,7 @@
 
 Métodos:
 
-**` getReferenceDataTodayUpdated`**
+**` GetReferenceDataTodayUpdated`**
 ```r
     /// <summary>
     /// Retorna la lista de instrumentos actualizados en el día.
@@ -10,21 +10,10 @@ Métodos:
     /// <param name="type">(Optional) Filtrar por tipo de Instrumentos. Si es null devuelve la lista completa. </param>
     /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma el activo </param>
     /// <returns>ReferenceDatas object result.</returns>
-    public async Task<ReferenceDatas> getReferenceDataTodayUpdated(string type , string schema )
+    public async Task<ReferenceDatas> GetReferenceDataTodayUpdated(string type, string schema )
 ```
 
-**` searchReferenceDataTodayUpdated`**
-```r
-    /// <summary>
-    /// Retorna la lista de instrumentos actualizados en el día que contengan una cadena de búsqueda como parte del id.
-    /// </summary>
-    /// <param name="id">(Requeried) Cadena de búsqueda de los Instrumentos actualizados en el día a filtrar. </param>
-    /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma el activo. </param>
-    /// <returns>ReferenceDatas object result.</returns>
-    public async Task<ReferenceDatas> searchReferenceDataTodayUpdated(string id, string schema )  
-```     
-
-**` getReferenceDataTodayAdded`**
+**` GetReferenceDataTodayAdded`**
 ``` 
     /// <summary>
     /// Retorna la lista de instrumentos dados de alta en el día.
@@ -32,21 +21,10 @@ Métodos:
     /// <param name="type">(Optional) Filtrar por tipo de Instrumentos. Si es null devuelve la lista completa.</param>
     /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma el activo.</param>
     /// <returns>ReferenceDatas object result.</returns>
-    public async Task<ReferenceDatas> getReferenceDataTodayAdded(string type , string schema )     
+    public async Task<ReferenceDatas> GetReferenceDataTodayAdded(string type , string schema )     
 ```   
 
-**` searchReferenceDataTodayAdded`**
-```r
-    /// <summary>
-    /// Retorna la lista de instrumentos dados de alta en el día que contengan una cadena de búsqueda como parte del id.
-    /// </summary>
-    /// <param name="id">(Requeried) Cadena de búsqueda de los Instrumentos dados de alta en el día a filtrar.</param>
-    /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma el activo.</param>
-    /// <returns>ReferenceDatas object result.</returns>
-    public async Task<ReferenceDatas> searchReferenceDataTodayAdded(string id, string schema )
-```
-
-**` getReferenceDataTodayRemoved`**
+**` GetReferenceDataTodayRemoved`**
 ```r
     /// <summary>
     /// Retorna la lista de instrumentos dados de baja en el día.
@@ -54,21 +32,10 @@ Métodos:
     /// <param name="type">(Optional) Filtrar por tipo de Instrumentos. Si es null devuelve la lista completa.</param>
     /// <param name="schema">(Optional) Id del esquema de devolución de la información.</param>
     /// <returns>ReferenceDatas object result.</returns>
-    public async Task <ReferenceDatas> getReferenceDataTodayRemoved(string type , string schema )     
+    public async Task <ReferenceDatas> GetReferenceDataTodayRemoved(string type , string schema )     
 ```
 
-**` searchReferenceDataTodayRemoved`**
-```r
-    /// <summary>
-    /// Retorna la lista de instrumentos dados de baja en el día que contengan una cadena de búsqueda como parte del id.
-    /// </summary>
-    /// <param name="id">(Requeried) Cadena de búsqueda de los Instrumentos dados de baja en el día a filtrar.</param>
-    /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma el activo.</param>
-    /// <returns>ReferenceDatas object result.</returns>
-    public async Task<ReferenceDatas> searchReferenceDataTodayRemoved(string id, string schema )      
-```
-
-**` getReferenceDatas`**
+**` GetReferenceData`**
 ```r
     /// <summary>
     /// Retorna la lista de instrumentos financieros.
@@ -76,26 +43,52 @@ Métodos:
     /// <param name="type">(Optional) Filtrar por tipo de Instrumentos. Si es null devuelve la lista completa.</param>
     /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma el activo.</param>
     /// <returns>ReferenceDatas object result.</returns>
-    public async Task<ReferenceDatas> getReferenceDatas(string type , string schema )              
+    public async Task<ReferenceDatas> GetReferenceData(string type , string schema )              
 ```
 
-**` searchReferenceDatas`**
+**` SearchReferenceDatas`**
 ```r
     /// <summary>
-    /// Retorna los Instrumentos financieros que contengan una cadena de búsqueda como parte del id.
+    /// Retorna la lista de instrumentos financieros filtrados por campos específicos (puede incluirse cadenas de búsqueda parcial).
     /// </summary>
-    /// <param name="id">(Requeried) Cadena de búsqueda de los Instrumentos financieros a filtrar.</param>
-    /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma el activo.</param>        
-    /// <returns>ReferenceDatas object result.</returns>
-    public async Task<ReferenceDatas> searchReferenceDatas(string id, string schema )     	
+    /// <param name="type">(Optional) Filtrar por tipo de Instrumentos financiero (Ej: "MF","FUT", "OPC", puede incluirse una cadena de búsqueda parcial.</param>
+    /// <param name="name">(Optional) Filtrar por nombre de Instrumentos (Ej: "ALUA", puede incluirse una cadena de búsqueda parcial).</param> 
+    /// <param name="currency">(Optional) Filtrar por tipo de Moneda. (Ej: "ARS", puede incluirse una cadena de búsqueda parcial)</param>
+    /// <param name="market">(Optional) Filtrar por Tipo de Mercado. (Ej "ROFX", "BYMA", puede incluirse una cadena de búsqueda parcial)</param>       
+    /// <param name="country">(Optional) Filtrar por nombre de País (Ej: "ARG", puede incluirse una cadena de búsqueda parcial).</param>
+    /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma el activo por defecto.</param>
+    /// <returns>ReferenceDatas object Result.</returns>
+    public async Task<ReferenceDatas> SearchReferenceData(string type, string name, string currency, string market, string country, string schema)
 ```
 
-**` getReferenceDataSpecification`**
+**` SearchReferenceDataById`**
+```r
+        /// <summary>
+        /// Retorna los Instrumentos financieros que contengan una cadena de búsqueda como parte del identificador (puede incluirse cadenas de búsqueda parcial).
+        /// </summary>
+        /// <param name="id">(Requeried) Cadena de búsqueda del Id de los Instrumentos financieros a filtrar.</param>
+        /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma el activo por defecto.</param>
+        /// <returns>ReferenceDatas object Result.</returns>
+        public async Task<ReferenceDatas> SearchReferenceDataById(string id, string schema)
+```
+
+**` GetReferenceDataAsString`**
+```r
+    /// <summary>
+    /// Retorna la lista de instrumentos financieros como una cadena.
+    /// </summary>
+    /// <param name="type">(Optional) Filtrar por tipo de Instrumentos financiero (Ej: "MF","FUT", "OPC", puede incluirse una cadena de búsqueda parcial.</param>
+    /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma el activo por defecto.</param>
+    /// <returns>string</returns>
+    public async Task<string> GetReferenceDataAsString(string type, string schema)
+```
+
+**` GetReferenceDataSpecification`**
 ```r
     /// <summary>
     /// Retorna una especificación del estado actual.
     /// </summary>
     /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma el activo.</param>
     /// <returns>Specification object result.</returns>
-    public async Task<Specification> getReferenceDataSpecification(string schema )       
+    public async Task<Specification> GetReferenceDataSpecification(string schema )       
 ```

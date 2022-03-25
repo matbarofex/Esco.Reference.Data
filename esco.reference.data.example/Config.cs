@@ -2,115 +2,123 @@
 {    
     class Config
     {   
-        public static string url = "https://apids.primary.com.ar/";
-        public static string cache = "no-cache";
 
-        private static string APIv1 = url + "prd-ro/v1";
-        private static string APIv2 = url + "prd-ro/v2";
-
-        public class Header
+        public static class Http
         {
-            public static string key = "Ocp-Apim-Subscription-Key";
-            public static string cache = "Cache-Control";
-            public static string xversion = "X-Version";
-        }        
+            public const string url = "https://apids.primary.com.ar/";
+            public const string v1 = url + "prd-ro/v1";
+            public const string v2 = url + "prd-ro/v2";
+            public const string v3 = url + "prd-ro/v3";
+        }
 
         //Filters
-        public static string FilterType         = "?$filter=type eq {1}";
-        public static string FilterTypeStr      = "?$filter=type eq '{1}'";
-        public static string FilterSource       = "?$filter=source eq {1}";
-        public static string FilterSourceStr    = "?$filter=source eq '{1}'";
-        public static string FilterBoth         = "?$filter=type eq {1} and source eq {2}";
-        public static string FilterId           = "?$filter=indexof(id, '{1}') ne -1";
+        #region Filters
+        //Generals Filters
+        public const string FilterId = "?$filter=indexof(name, '{name}') ne -1";
+        public const string FilterIdStr = " and indexof(name, '{name}') ne -1";
+        public const string FilterTypeStr = " and type eq '{type}'";
+        public const string FilterReports = "?$filter=type eq '{0}'";
 
-        public static string Depositary         = "?$filter=type eq 'MF' & $select=FundCustodianId,FundCustodianName & $count=true & apply=groupby((FundCustodianId))";         //Retorna la lista de Sociedades Depositarias
-        public static string Managment          = "?$filter=type eq 'MF' & $select=FundManagerId,FundManagerName & $count=true & apply=groupby((FundManagerId))";               //Retorna la lista de Sociedades Administradoras 
-        public static string RentType           = "?$filter=type eq 'MF' & $select=RentTypeId,RentTypeName & $count=true & apply=groupby((RentTypeId))";                        //Retorna la lista de Tipos de Renta    
-        public static string Region             = "?$filter=type eq 'MF' & $select=RegionId,RegionName & $count=true & apply=groupby((RegionId))";                              //Retorna la lista de Regiones 
-        public static string Currency           = "?$select=Currency & $count=true & apply=groupby((Currency))";                                                                //Retorna la lista de Monedas    
-        public static string Country            = "?$select=Country & $count=true & apply=groupby((Country))";                                                                  //Retorna la lista de Países    
-        public static string Issuer             = "?$select=Issuer & $count=true & apply=groupby((Issuer))";                                                                    //Retorna la lista de Issuer    
-        public static string Horizon            = "?$filter=type eq 'MF' & $select=HorizonId,HorizonName & $count=true & apply=groupby((HorizonId))";                           //Retorna la lista de Horizon 
-        public static string FundType           = "?$filter=type eq 'MF' & $select=FundTypeId,FundTypeName & $count=true & apply=groupby((FundTypeId))";                        //Retorna la lista de Tipos de Fondos 
-        public static string Benchmark          = "?$filter=type eq 'MF' & $select=FundBenchmarkId,FundBenchmarkName & $count=true & apply=groupby((FundBenchmarkId))";         //Retorna la lista de Benchmarks 
-        public static string RDTypes            = "?$select=type & $count=true & apply=groupby((type))";                                                                    //Retorna la lista de Benchmarks 
-        public static string Markets            = "?$select=MarketId & $count=true & apply=groupby((MarketId))";                                     //Retorna la lista de Benchmarks 
+        //Filters ReferenceData
+        public const string FilterAll = "?$filter=type ne null";
+        public const string FilterUpdated = "?$filter=updated ge {updated} and active eq true";
+        public const string FilterAdded = "?$filter=date eq '{date}'";
+        public const string FilterRemoved = "?$filter=updated ge {updated} and active eq false";
 
+        //Filters OData
+        public const string FilterType = "?$filter=indexof(type, 'type') ne -1";
+        public const string FilterName = " and indexof(name, 'name') ne -1";
+        public const string FilterCurrency = " and indexof(currency, 'currency') ne -1";
+        public const string FilterMarketId = " and indexof(marketId, 'market') ne -1";
+        public const string FilterCountry = " and indexof(country, 'country') ne -1";
+        public const string FilterSearch = FilterType + FilterName + FilterCurrency + FilterMarketId + FilterCountry;
+
+        public const string FilterOpts = "?$filter=type eq 'OPT' or type eq 'OOF'";
+        public const string FilterADRS = "?$filter=text eq 'A.D.R.S (ACCIONES)'&orderby name";
+        public const string FilterPrivadas = "?$filter=text eq 'ACCIONES PRIVADAS'&orderby name";
+        public const string FilterPymes = "?$filter=text eq 'ACCIONES PYMES'&orderby name";
+
+        #endregion
 
         #region Schemas
-        public static string WorkingSchema  = APIv2 + "/api/Schemas/working-schema";               //Devuelve el schema de trabajo actual.
-        public static string Schemas        = APIv2 + "/api/Schemas";                              //Devuelve la lista completa de esquemas.
-        public static string SchemasId      = APIv2 + "/api/Schemas/";                             //Devuelve un esquema con un id específico.
-        public static string PromoteSchema  = APIv2 + "/api/Schemas/is-promote-schema-running";    //Verifica si la tarea de promover un schema se está ejecutando
-        #endregion
-
-        #region Fields
-        public static string Fields = APIv2 + "/api/schema/{0}/Fields";      //Devuelve la lista completa de fields.
-        public static string Field  = APIv2 + "/api/schema/{0}/Fields/{1}";  //Devuelve un field con un id específico.
-        #endregion
-
-        #region Instruments
-        public static string InstrumentsSuggestedFields             = APIv2 + "/api/schema/{0}/Instruments/suggested-fields";    //Obtiene una lista de campos sugeridos.
-        public static string InstrumentsTodayUpdated                = APIv2 + "/api/schema/{0}/Instruments/today-updated";       //Retorna la lista de instrumentos actualizados en el día.                
-        public static string InstrumentsTodayAdded                  = APIv2 + "/api/schema/{0}/Instruments/today-added";         //Retorna la lista de instrumentos dados de alta en el día.
-        public static string InstrumentsTodayRemoved                = APIv2 + "/api/schema/{0}/Instruments/today-removed";       //Retorna la lista de instrumentos dados de baja en el día.
-        public static string InstrumentsReport                      = APIv2 + "/api/schema/{0}/Instruments/report";              //Retorna un reporte resumido de instrumentos.
-        public static string Instrument                             = APIv2 + "/api/schema/{0}/Instruments/{1}";                 //Retorna una instrumento por id.        
-        public static string Instruments                            = APIv2 + "/api/schema/{0}/Instruments";                     //Retorna una lista de instrumentos.              
+        public const string Mapping = Http.v3 + "/api/Schemas/schema-00x/field-mapping";                      //Devuelve el mapping que tiene un schema.  
         #endregion
 
         #region ReferenceDatas
-        public static string TodayUpdated           = APIv2 + "/api/schema/{0}/ReferenceDatas/today-updated";                //Retorna la lista de instrumentos actualizados en el día.
-        public static string TodayAdded             = APIv2 + "/api/schema/{0}/ReferenceDatas/today-added";                  //Retorna la lista de instrumentos dados de alta en el día.
-        public static string TodayRemoved           = APIv2 + "/api/schema/{0}/ReferenceDatas/today-removed";                //Retorna la lista de instrumentos dados de baja en el día.
-        public static string ReferenceDatas         = APIv2 + "/api/schema/{0}/ReferenceDatas";                              //Retorna la lista de instrumentos.        
-        public static string Specification          = APIv2 + "/api/schema/{0}/ReferenceDatas/specification";                //Retorna una especificación del estado actual.
+        public const string Specification = Http.v3 + "/api/Schemas/schema-00x/Data/specification";           //Retorna una especificación del estado actual.      
+        public const string ReferenceData = Http.v3 + "/api/Schemas/schema-00x/Data/by-odata";                //Retorna la lista de instrumentos.        
         #endregion
 
         #region Reports
-        public static string Reports    = APIv2 + "/api/schema/{0}/Reports";                 //Devuelve la lista completa de reportes.
-        public static string Report     = APIv2 + "/api/schema/{0}/Reports/{1}";             //Devuelve un reporte con un id específico.
+        public const string FieldsReports = Http.v3 + "/api/Schemas/schema-00x/Actions/fields-for-reports";   //Obtiene la lista completa de campos para los reportes
+        public const string Fields = Http.v3 + "/api/Schemas/schema-00x/Actions/fields";                      //Obtiene la lista completa de campos.
         #endregion
-
-        #region Types
-        public static string SourceFieldTypes       = APIv2 + "/api/Types/source-field-types";       //Devuelve los posibles tipos de datos de los orígenes.
-        public static string PropertyControlTypes   = APIv2 + "/api/Types/property-control-types";   //Devuelve los tipos de control de las propiedades de los instrumentos.
-        public static string StateControlTypes      = APIv2 + "/api/Types/state-control-types";      //Devuelve los tipos de control del estado de un instrumento.
-        public static string InstrumentTypes        = APIv2 + "/api/Types/instrument-types";         //Devuelve los tipos de instrumentos.
-        public static string PropertyOriginTypes    = APIv2 + "/api/Types/property-origin-types";    //Devuelve los tipos de origen para las propiedades de los instrumentos.
-        public static string SourceTypes            = APIv2 + "/api/Types/source-types";             //Devuelve los tipos de origen.        
-        #endregion
-
-        #region Mappings
-        public static string Mapping    = APIv2 + "/api/schema/{0}/Mappings/{1}";            //Devuelve un mapping para un id específico.
-        public static string Mappings   = APIv2 + "/api/schema/{0}/Mappings";                //Devuelve una lista de mappings.
-        #endregion
-
-        #region SourceFields
-        public static string SourceFields   = APIv2 + "/api/schema/{0}/SourceFields";        //Devuelve la lista completa de source fields.
-        public static string SourceField    = APIv2 + "/api/schema/{0}/SourceFields/{1}";    //Devuelve un source field con un id específico.
-        #endregion
-
-        #region StatusReports
-        public static string ProcessesStatus = APIv2 + "/api/StatusReports/processes-status";    //Devuelve el estado de los procesos.
-        #endregion
-
-        #region Derivatives
-        public static string Derivatives = APIv1 + "/api/Derivatives";     //Retorna una lista de derivados
-        #endregion
-
-        #region Funds
-        public static string Fund           = APIv1 + "/api/Funds/{0}";    //Retorna un fondo por id        
-        public static string Funds          = APIv1 + "/api/Funds";        //Retorna una lista de fondos
-        #endregion       
-
-        #region Securities
-        public static string Securitie  = APIv1 + "/api/Securities/{0}";   //Retorna un titulo valor por id        
-        public static string Securities = APIv1 + "/api/Securities";       //Retorna una lista de títulos valores
-        #endregion 
 
         #region OData
-        public static string OData = APIv2 + "/api/schema/2/refdata";      //Retorna una lista de instrumentos filtrados con OData
-        #endregion 
+        public const string Consolidated = Http.v3 + "/api/Schemas/schema-00x/Data/consolidated-by-odata";    //Retorna una lista de instrumentos consolidados filtrados con OData
+        public const string ODataCSV = Http.v3 + "/api/Schemas/schema-00x/Data/csv/by-odata";                 //Obtener instrumentos filtrados en un csv.
+        public const string ODataReports = Http.v3 + "/api/Schemas/schema-00x/Data/by-odata-for-reports";     //Obtener instrumentos filtrados por una query OData sin validar el estado del schema.
+        #endregion
+
+        #region ESCO
+        public const string Custodian = "?$filter=type eq 'MF'&$select=fundCustodianId,fundCustodianName&apply=groupby((fundCustodianId))";        //Retorna la lista de Sociedades Depositarias
+        public const string Managment = "?$filter=type eq 'MF' & $select=fundManagerId,fundManagerName&apply=groupby((fundManagerId))";            //Retorna la lista de Sociedades Administradoras 
+        public const string RentType = "?$filter=type eq 'MF' & $select=rentTypeId,rentTypeName&apply=groupby((rentTypeId))";                      //Retorna la lista de Tipos de Renta    
+        public const string Region = "?$filter=type eq 'MF' & $select=regionId,regionName&apply=groupby((regionId))";                              //Retorna la lista de Regiones 
+        public const string Currency = "?$select=currency&apply=groupby((currency))";                                                              //Retorna la lista de Monedas    
+        public const string Country = "?$select=country&apply=groupby((country))";                                                                 //Retorna la lista de Países    
+        public const string Issuer = "?$select=issuer&apply=groupby((issuer))";                                                                    //Retorna la lista de Issuer    
+        public const string Horizon = "?$filter=type eq 'MF' & $select=horizonId,horizonName&apply=groupby((horizonId))";                          //Retorna la lista de Horizon 
+        public const string FundType = "?$filter=type eq 'MF' & $select=fundTypeId,fundTypeName&apply=groupby((fundTypeId))";                      //Retorna la lista de Tipos de Fondos 
+        public const string Benchmark = "?$filter=type eq 'MF' & $select=fundBenchmarkId,fundBenchmarkName&apply=groupby((fundBenchmarkId))";      //Retorna la lista de Benchmarks                                             //Retorna la lista de Símbolos (UnderlyingSymbol) de Instrumentos financieros
+        public const string Markets = "?$select=marketId&apply=groupby((marketId))";                                                               //Retorna la lista de Mercados para los Instrumentos financieros
+        #endregion
+
+        #region TypesRD
+        //Set Url
+        public static string SetUrl(string value)
+        {
+            return string.Format(FilterReports, value);
+        }
+        public static class Types
+        {
+            public const string Fondos = "MF";         //MF es estándar fix y se refiere a FONDOS COMUNES DE INVERSIÓN
+            public const string Cedears = "CD";        //CD es estándar fix y se refiere a CEDEARS
+            public const string Acciones = "CS";       //Líderes CS //CS es estándar fix y se refiere a ACCIONES
+                                                       //Acciones Pymes CS CS es estándar fix y se refiere a ACCIONES PYMES
+                                                       //A.D.R.S(Acciones) //CS Incluido en Type CS
+            public const string Obligaciones = "CORP"; //CORP es estándar fix y se refiere a Obligaciones Negociables
+            public const string Titulos = "GO";        //Títulos Públicos > Bonos GO GO es estándar fix y se refiere a BONOS EXTERNOS, TITULOS PUBLICOS, BONOS CONSOLIDADOS
+                                                       //Títulos Públicos > Letras GO //Incluido en Type GO y se refiere a LETRAS, LETRAS TESORO NACIONAL
+                                                       //Especies de Fideicomisos GO // Incluido en Type GO y se refiere a TITULOS DE DEUDA, CERTIF. PARTICIP.
+            public const string Futuros = "FUT";       //FUT es estándar fix y se refiere a FUTUROS
+            public const string Opciones = "OPT";      //OPT y OOF son estándar fix y se refiere a OPCIONES
+            public const string OpcionesF = "OOF";     //OPT y OOF son estándar fix y se refiere a OPCIONES
+            public const string Pases = "BUYSELL";     //BUYSELL es estándar fix y se refiere a PASES
+            public const string Cauciones = "REPO";    //REPO es estándar fix y se refiere a CAUCIONES
+            public const string STN = "STN";           //Acciones Privadas
+            public const string T = "T";               //Plazo por Lotes
+            public const string TERM = "TERM";         //Préstamos de Valores
+            public const string Indices = "XLINKD";    //Índices XLINKD
+        }
+
+        public static class TypesDesc
+        {
+            public const string Fondos = "MF es estándar fix y se refiere a FONDOS COMUNES DE INVERSIÓN";
+            public const string Cedears = "CD es estándar fix y se refiere a CEDEARS";
+            public const string Acciones = "Líderes CS //CS es estándar fix y se refiere a ACCIONES / Acciones Pymes CS CS es estándar fix y se refiere a ACCIONES PYMES / A.D.R.S(Acciones) //CS Incluido en Type CS";
+            public const string Obligaciones = "CORP es estándar fix y se refiere a Obligaciones Negociables";
+            public const string Titulos = "Títulos Públicos > Bonos GO GO es estándar fix y se refiere a BONOS EXTERNOS, TITULOS PUBLICOS, BONOS CONSOLIDADOS / Títulos Públicos > Letras GO / Incluido en Type GO y se refiere a LETRAS, LETRAS TESORO NACIONAL / Especies de Fideicomisos GO / Incluido en Type GO y se refiere a TITULOS DE DEUDA, CERTIF. PARTICIP.";
+            public const string Futuros = "FUT es estándar fix y se refiere a FUTUROS";
+            public const string Opciones = "OPT y OOF son estándar fix y se refiere a OPCIONES";
+            public const string OpcionesF = "OPT y OOF son estándar fix y se refiere a OPCIONES";
+            public const string Pases = "BUYSELL es estándar fix y se refiere a PASES";
+            public const string Cauciones = "REPO es estándar fix y se refiere a CAUCIONES";
+            public const string STN = "Acciones Privadas";
+            public const string T = "Plazo por Lotes";
+            public const string TERM = "Préstamos de Valores";
+            public const string Indices = "Índices XLINKD";
+        }
+        #endregion
     }
 }

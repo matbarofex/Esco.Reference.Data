@@ -1,350 +1,106 @@
-﻿using System;
+﻿using ESCO.Reference.Data.Model;
+
+using System;
 using System.IO;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Net.Http.Json;
+using System.Text;
+using System.Text.Encodings.Web;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using System.Text.Unicode;
 using System.Threading.Tasks;
-using ESCO.Reference.Data.Model;
-using Pathoschild.Http.Client;
+
+using static ESCO.Reference.Data.Config.Config;
 
 namespace ESCO.Reference.Data.Services
 {
     class ReferenceDataHttpClient
     {
-        private string _baseUrl;
-        private string _key;
+        private static HttpClient httpClient;
 
-        public ReferenceDataHttpClient(
-            string key,
-            string baseUrl = null)
+        public ReferenceDataHttpClient(string key, string baseUrl = null)
         {
-            _key = key;
-            _baseUrl = baseUrl ?? Config.url;
-        }
-
-        public void changeKey(string key)
-        {            
-            _key = key;         
-        }        
-
-        #region Schemas        
-
-        //Devuelve la lista completa de esquemas.
-        public async Task<Schemas> getSchemas()
-        {
-            using (var client = new FluentClient(_baseUrl))
+            httpClient = new HttpClient
             {
-                var rest = await client.GetAsync(API.ver + Config.Schemas)
-                    .WithHeader(Config.Header.cache, Config.cache)
-                    .WithHeader(Config.Header.key, _key).As<Schemas>();
-                return rest;
-            }
+                BaseAddress = new Uri(baseUrl ?? Http.url)
+            };
+
+            httpClient.DefaultRequestHeaders.Accept.Add(
+                new MediaTypeWithQualityHeaderValue(Http.json));
+            httpClient.DefaultRequestHeaders.Add(Header.cache, Http.cache);
+            httpClient.DefaultRequestHeaders.Add(Header.key, key);
         }
 
-        #endregion
 
-        #region OData
-
-        //Retorna la lista de instrumentos filtrados con OData.
-        public async Task<ODataList> getODataReferenceData(string query, string schema)
+        public JsonSerializerOptions Options() => new()
         {
-            string url = String.Format(Config.OData + query, schema);
-            using (var client = new FluentClient(_baseUrl))
-            {
-                var rest = await client.GetAsync(API.ver + url)
-                    .WithHeader(Config.Header.cache, Config.cache)
-                    .WithHeader(Config.Header.key, _key).As<ODataList>();
-                return rest;
-            }
-        }
+            Encoder = JavaScriptEncoder.Create(UnicodeRanges.All),
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+            WriteIndented = true
+        };
 
-        //Retorna la lista de instrumentos filtrados por Id
-        public async Task<ODataList> getODataReferenceDataById(string id, string schema)
+        public void ChangeKey(string key)
         {
-            string url = String.Format(Config.OData + Config.FilterId, schema, id);
-            using (var client = new FluentClient(_baseUrl))
-            {
-                var rest = await client.GetAsync(API.ver + url)
-                    .WithHeader(Config.Header.cache, Config.cache)
-                    .WithHeader(Config.Header.key, _key).As<ODataList>();
-                return rest;
-            }
+            httpClient.DefaultRequestHeaders.Remove(Header.key);
+            httpClient.DefaultRequestHeaders.Add(Header.key, key);
         }
 
-        //Retorna la lista de instrumentos filtrados por campos específicos (puede incluirse cadenas de búsqueda parcial).
-        public async Task<ODataList> searchODataReferenceData(
-            string type,
-            string currency,
-            string symbol,
-            string market,
-            string country,
-            string schema)
-        {
-            string url = API.getUrlOData(type, currency, symbol, market, country, schema);
-            using (var client = new FluentClient(_baseUrl))
-            {
-                var rest = await client.GetAsync(API.ver + url)
-                    .WithHeader(Config.Header.cache, Config.cache)
-                    .WithHeader(Config.Header.key, _key).As<ODataList>();
-                return rest;
-            }
-        }
-
+        #region Schemas
+        //Devuelve el mapping que tiene un schema.
+        public async Task<Mappings> GetMapping(string url) => await httpClient.GetFromJsonAsync<Mappings>(url, Options());
         #endregion
 
         #region ReferenceDatas
-
         //Retorna la lista de instrumentos financieros.
-        public async Task<ReferenceDatas> getReferenceData(string cfg, string type, string schema)
-        {
-            string url = (type != null) ?
-                String.Format(cfg + Config.FilterTypeStr, schema, type) :
-                String.Format(cfg, schema);
-            using (var client = new FluentClient(_baseUrl))
-            {
-                var rest = await client.GetAsync(API.ver + url)
-                    .WithHeader(Config.Header.cache, Config.cache)
-                    .WithHeader(Config.Header.key, _key).As<ReferenceDatas>();
-                return rest;
-            }
-        }        
+        public async Task<ReferenceDatas> GetReferenceData(string url) => await httpClient.GetFromJsonAsync<ReferenceDatas>(url, Options());
 
-        //Retorna los instrumentos financieros que contengan una cadena de búsqueda como parte del id.
-        public async Task<ReferenceDatas> searchReferenceData(string cfg, string id, string schema)
-        {
-            string url = String.Format(cfg + Config.FilterId, schema, id);
-            using (var client = new FluentClient(_baseUrl))
-            {
-                var rest = await client.GetAsync(API.ver + url)
-                    .WithHeader(Config.Header.cache, Config.cache)
-                    .WithHeader(Config.Header.key, _key).As<ReferenceDatas>();
-                return rest;
-            }
-        }
+        public async Task<Stream> GetAsStream(string url) => await httpClient.GetStreamAsync(url);
+
+        public async Task<string> GetAsString(string url) => await httpClient.GetStringAsync(url);
 
         //Retorna una especificación del estado actual.        
-        public async Task<Specification> getSpecification(string schema)
-        {
-            string url = String.Format(Config.Specification, schema);
-            using (var client = new FluentClient(_baseUrl))
-            {
-                var rest = await client.GetAsync(API.ver + url)
-                    .WithHeader(Config.Header.cache, Config.cache)
-                    .WithHeader(Config.Header.key, _key).As<Specification>();
-                return rest;
-            }
-        }
+        public async Task<Specification> GetSpecification(string url) => await httpClient.GetFromJsonAsync<Specification>(url, Options());
         #endregion     
 
         #region ESCO
-
         // Retorna la lista de Sociedades Depositarias o Custodia de Fondos
-        public async Task<CustodiansList> getCustodians(string schema)
-        {
-            string url = String.Format(Config.OData + Config.Depositary, schema);
-            using (var client = new FluentClient(_baseUrl))
-            {
-                var rest = await client.GetAsync(API.ver + url)
-                    .WithHeader(Config.Header.cache, Config.cache)
-                    .WithHeader(Config.Header.key, _key).As<CustodiansList>();
-                return rest;
-            }
-        }
+        public async Task<CustodiansList> GetCustodians(string url) => await httpClient.GetFromJsonAsync<CustodiansList>(url, Options());
 
         // Retorna la lista de Sociedades Administradoras de Fondos
-        public async Task<ManagmentsList> getManagements(string schema)
-        {
-            string url = String.Format(Config.OData + Config.Managment, schema);
-            using (var client = new FluentClient(_baseUrl))
-            {
-                var rest = await client.GetAsync(API.ver + url)
-                    .WithHeader(Config.Header.cache, Config.cache)
-                    .WithHeader(Config.Header.key, _key).As<ManagmentsList>();
-                return rest;
-            }
-        }
-
+        public async Task<ManagmentsList> GetManagements(string url) => await httpClient.GetFromJsonAsync<ManagmentsList>(url, Options());
         // Retorna la lista de Tipos de Rentas
-        public async Task<RentsList> getRentTypes(string schema)
-        {
-            string url = String.Format(Config.OData + Config.RentType, schema);
-            using (var client = new FluentClient(_baseUrl))
-            {
-                var rest = await client.GetAsync(API.ver + url)
-                    .WithHeader(Config.Header.cache, Config.cache)
-                    .WithHeader(Config.Header.key, _key).As<RentsList>();
-                return rest;
-            }
-        }
+        public async Task<RentsList> GetRentTypes(string url) => await httpClient.GetFromJsonAsync<RentsList>(url, Options());
 
         // Retorna la lista de Regiones
-        public async Task<RegionsList> getRegions(string schema)
-        {
-            string url = String.Format(Config.OData + Config.Region, schema);
-            using (var client = new FluentClient(_baseUrl))
-            {
-                var rest = await client.GetAsync(API.ver + url)
-                    .WithHeader(Config.Header.cache, Config.cache)
-                    .WithHeader(Config.Header.key, _key).As<RegionsList>();
-                return rest;
-            }
-        }
+        public async Task<RegionsList> GetRegions(string url) => await httpClient.GetFromJsonAsync<RegionsList>(url, Options());
 
         // Retorna la lista de Monedas
-        public async Task<CurrencysList> getCurrencys(string schema)
-        {
-            string url = String.Format(Config.OData + Config.Currency, schema);
-            using (var client = new FluentClient(_baseUrl))
-            {
-                var rest = await client.GetAsync(API.ver + url)
-                    .WithHeader(Config.Header.cache, Config.cache)
-                    .WithHeader(Config.Header.key, _key).As<CurrencysList>();
-                return rest;
-            }
-        }
+        public async Task<CurrencysList> GetCurrencys(string url) => await httpClient.GetFromJsonAsync<CurrencysList>(url, Options());
 
         // Retorna la lista de Países
-        public async Task<CountrysList> getCountrys(string schema)
-        {
-            string url = String.Format(Config.OData + Config.Country, schema);
-            using (var client = new FluentClient(_baseUrl))
-            {
-                var rest = await client.GetAsync(API.ver + url)
-                    .WithHeader(Config.Header.cache, Config.cache)
-                    .WithHeader(Config.Header.key, _key).As<CountrysList>();
-                return rest;
-            }
-        }
+        public async Task<CountrysList> GetCountrys(string url) => await httpClient.GetFromJsonAsync<CountrysList>(url, Options());
 
         // Retorna la lista de Issuers
-        public async Task<IssuersList> getIssuers(string schema)
-        {
-            string url = String.Format(Config.OData + Config.Issuer, schema);
-            using (var client = new FluentClient(_baseUrl))
-            {
-                var rest = await client.GetAsync(API.ver + url)
-                    .WithHeader(Config.Header.cache, Config.cache)
-                    .WithHeader(Config.Header.key, _key).As<IssuersList>();
-                return rest;
-            }
-        }
+        public async Task<IssuersList> GetIssuers(string url) => await httpClient.GetFromJsonAsync<IssuersList>(url, Options());
 
         // Retorna la lista de Horizons
-        public async Task<HorizonsList> getHorizons(string schema)
-        {
-            string url = String.Format(Config.OData + Config.Horizon, schema);
-            using (var client = new FluentClient(_baseUrl))
-            {
-                var rest = await client.GetAsync(API.ver + url)
-                    .WithHeader(Config.Header.cache, Config.cache)
-                    .WithHeader(Config.Header.key, _key).As<HorizonsList>();
-                return rest;
-            }
-        }
+        public async Task<HorizonsList> GetHorizons(string url) => await httpClient.GetFromJsonAsync<HorizonsList>(url, Options());
 
         // Retorna la lista de Tipos de Fondos
-        public async Task<FundTypesList> getFundTypes(string schema)
-        {
-            string url = String.Format(Config.OData + Config.FundType, schema);
-            using (var client = new FluentClient(_baseUrl))
-            {
-                var rest = await client.GetAsync(API.ver + url)
-                    .WithHeader(Config.Header.cache, Config.cache)
-                    .WithHeader(Config.Header.key, _key).As<FundTypesList>();
-                return rest;
-            }
-        }
+        public async Task<FundTypesList> GetFundTypes(string url) => await httpClient.GetFromJsonAsync<FundTypesList>(url, Options());
 
         // Retorna la lista de Issuers
-        public async Task<BenchmarksList> getBenchmarks(string schema)
-        {
-            string url = String.Format(Config.OData + Config.Benchmark, schema);
-            using (var client = new FluentClient(_baseUrl))
-            {
-                var rest = await client.GetAsync(API.ver + url)
-                    .WithHeader(Config.Header.cache, Config.cache)
-                    .WithHeader(Config.Header.key, _key).As<BenchmarksList>();
-                return rest;
-            }
-        }
-
-        // Retorna la lista de Tipos de Instrumentos financieros
-        public async Task<ReferenceDataTypesList> getReferenceDataTypes(string schema)
-        {
-            string url = String.Format(Config.OData + Config.RDTypes, schema);
-            using (var client = new FluentClient(_baseUrl))
-            {
-                var rest = await client.GetAsync(API.ver + url)
-                    .WithHeader(Config.Header.cache, Config.cache)
-                    .WithHeader(Config.Header.key, _key).As<ReferenceDataTypesList>();
-                return rest;
-            }
-        }
-
-        // Retorna la lista de Símbolos (UnderlyingSymbol) de Instrumentos financieros
-        public async Task<ReferenceDataSymbolsList> getReferenceDataSymbols(string schema)
-        {
-            string url = String.Format(Config.OData + Config.RDSymbols, schema);
-            using (var client = new FluentClient(_baseUrl))
-            {
-                var rest = await client.GetAsync(API.ver + url)
-                    .WithHeader(Config.Header.cache, Config.cache)
-                    .WithHeader(Config.Header.key, _key).As<ReferenceDataSymbolsList>();
-                return rest;
-            }
-        }
+        public async Task<BenchmarksList> GetBenchmarks(string url) => await httpClient.GetFromJsonAsync<BenchmarksList>(url, Options());
 
         // Retorna la lista de Mercados para los Instrumentos financieros
-        public async Task<MarketsList> getMarkets(string schema)
-        {
-            string url = String.Format(Config.OData + Config.Markets, schema);
-            using (var client = new FluentClient(_baseUrl))
-            {
-                var rest = await client.GetAsync(API.ver + url)
-                    .WithHeader(Config.Header.cache, Config.cache)
-                    .WithHeader(Config.Header.key, _key).As<MarketsList>();
-                return rest;
-            }
-        }
+        public async Task<MarketsList> GetMarkets(string url) => await httpClient.GetFromJsonAsync<MarketsList>(url, Options());
         #endregion 
 
-        #region Reports        
-
-        //Devuelve la lista completa de Reportes.
-        public async Task<Reports> getReports(string schema)
-        {
-            string url = String.Format(Config.Reports, schema);
-            using (var client = new FluentClient(_baseUrl))
-            {
-                var rest = await client.GetAsync(API.ver + url)
-                    .WithHeader(Config.Header.cache, Config.cache)
-                    .WithHeader(Config.Header.key, _key).As<Reports>();
-                return rest;
-            }
-        }
-
-        //Devuelve un reporte con un id específico.
-        public async Task<Report> getReport(string id, string schema)
-        {
-            string url = String.Format(Config.Report, schema, id);
-            using (var client = new FluentClient(_baseUrl))
-            {
-                var rest = await client.GetAsync(API.ver + url)
-                    .WithHeader(Config.Header.cache, Config.cache)
-                    .WithHeader(Config.Header.key, _key).As<Report>();
-                return rest;
-            }
-        }
-
-        //Retorna un reporte resumido de instrumentos.
-        public async Task<string> getInstrumentsReport(string schema)
-        {
-            string url = String.Format(Config.InstrumentsReport, schema);
-            using (var client = new FluentClient(_baseUrl))
-            {
-                var rest = await client.GetAsync(API.ver + url)
-                    .WithHeader(Config.Header.cache, Config.cache)
-                    .WithHeader(Config.Header.key, _key).AsString();                  
-                return rest;
-            }
-        }
+        #region Reports    
+        //Devuelve la lista  de Campos.
+        public async Task<Reports> GetReports(string url) => await httpClient.GetFromJsonAsync<Reports>(url, Options());
         #endregion
     }
 }

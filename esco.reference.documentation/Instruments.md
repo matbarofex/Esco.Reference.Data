@@ -1,138 +1,124 @@
-# Instruments
+# Reference Data ESCO Endpoints
 
 Métodos:
 
-**` getInstrumentsSuggestedFields`**
+**` getCustodians`**
 ```r
-    /// <summary>
-    /// Obtiene una lista de campos sugeridos.
-    /// </summary>        
-    /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma el activo.</param>
-    /// <returns>SuggestedFields object result.</returns>
-    public async Task<SuggestedFields> getInstrumentsSuggestedFields(string schema )        
+    /// <summary>    
+    /// Retorna la lista de Sociedades Depositarias o Custodia de Fondos    
+    /// </summary>    
+    /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma por defecto el esquema activo.</param>    
+    /// <returns>Depositary object Result.</returns>    
+    public async Task<Custodians> getCustodians(string schema)    
 ```
 
-**` getInstrumentsTodayUpdated`**
+**` getManagements`**
 ```r
-    /// <summary>
-    /// Retorna la lista de instrumentos actualizados en el día.
-    /// </summary>
-    /// <param name="type">(Optional) Filtrar por tipo de Instrumentos. Si es null devuelve la lista completa.</param>
-    /// <param name="source">(Optional) Filtrar por mercado (source). Valores permitidos: "ROFEX", "CAFCI", "BYMA". Si es null devuelve la lista completa.</param>
-    /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma el activo.</param>
-    /// <returns> Instruments object result.</returns> 
-    public async Task<Instruments> getInstrumentsTodayUpdated(string type , string source , string schema )       
- ```
- 
- **` searchInstrumentsTodayUpdated`**
- ```r
-    /// <summary>
-    /// Retorna los instrumentos actualizados en el día que contengan una cadena de búsqueda como parte del id.
-    /// </summary>
-    /// <param name="id">(Requeried) Cadena de búsqueda de los Instrumentos actualizados en el día a filtrar.</param>
-    /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma el activo.</param>
-    /// <returns> object result.</returns>
-    public async Task<Instruments> searchInstrumentsTodayUpdated(string id, string schema )    
+    /// <summary>    
+    /// Retorna la lista de Sociedades Administradoras de Fondos      
+    /// </summary>    
+    /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma por defecto el esquema activo.</param>    
+    /// <returns>Managers object Result.</returns>    
+    public async Task<Managments> getManagements(string schema)    
 ```
 
-**` getInstrumentsTodayAdded`**
+**` getRentType`**
 ```r
-    /// <summary>
-    /// Retorna la lista de instrumentos dados de alta en el día.
-    /// </summary>
-    /// <param name="type">(Optional) Filtrar por tipo de Instrumentos. Si es null devuelve la lista completa.</param>
-    /// <param name="source">(Optional) Filtrar por mercado (source). Valores permitidos: "ROFEX", "CAFCI", "BYMA". Si es null devuelve la lista completa.</param>
-    /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma el activo.</param>
-    /// <returns>Instruments object result.</returns>
-    public async Task<Instruments> getInstrumentsTodayAdded(string type , string source , string schema )        
-```
+    /// <summary>    
+    /// Retorna la lista de Tipos de Rentas    
+    /// </summary>    
+    /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma por defecto el esquema activo.</param>    
+    /// <returns>Rents object Result.</returns>    
+	public async Task<Rents> getRentType(string schema)
+``` 
 
-**` searchInstrumentsTodayAdded`**
+**` getRegions`**
 ```r
-    /// <summary>
-    /// Retorna los instrumentos dados de alta en el día que contengan una cadena de búsqueda como parte del id.
-    /// </summary>
-    /// <param name="id">(Requeried) Cadena de búsqueda de los Instrumentos dados de alta en el día a filtrar.</param>
-    /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma el activo.</param>
-    /// <returns>Instruments object result.</returns>
-    public async Task<Instruments> searchInstrumentsTodayAdded(string id, string schema )
-```
+    /// <summary>    
+    /// Retorna la lista de Regiones    
+    /// </summary>    
+    /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma por defecto el esquema activo.</param>    
+    /// <returns>Regions object Result.</returns>    
+    public async Task<Regions> getRegions(string schema)    
+``` 
 
-**` getInstrumentsTodayRemoved`**
-```r
-    /// <summary>
-    /// Retorna la lista de instrumentos dados de baja en el día.
-    /// </summary>
-    /// <param name="type">(Optional) Filtrar por tipo de Instrumentos. Si es null devuelve la lista completa.</param>
-    /// <param name="source">(Optional) Filtrar por mercado (source). Valores permitidos: "ROFEX", "CAFCI", "BYMA". Si es null devuelve la lista completa.</param>
-    /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma el activo.</param>
-    /// <returns>Instruments object result.</returns>
-    public async Task<Instruments> getInstrumentsTodayRemoved(string type , string source , string schema )        
-```
+**` getCurrencys`**
+```r 
+    /// <summary>    
+    /// Retorna la lista de Monedas      
+    /// </summary>    
+    /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma por defecto el esquema activo.</param>    
+    /// <returns>Currencys object Result.</returns>    
+    public async Task<Currencys> getCurrencys(string schema)    
+``` 
 
-**` searchInstrumentsTodayRemoved`**
+**` getCountrys`**
 ```r
-    /// <summary>
-    /// Retorna los instrumentos dados de baja en el día que contengan una cadena de búsqueda como parte del id.
-    /// </summary>
-    /// <param name="id">(Requeried) Cadena de búsqueda de los Instrumentos dados de baja en el día a filtrar.</param>
-    /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma el activo.</param>
-    /// <returns>Instruments object result.</returns>
-    public async Task<Instruments> searchInstrumentsTodayRemoved(string id, string schema )     
-```
+    /// <summary>    
+    /// Retorna la lista de Países      
+    /// </summary>    
+    /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma por defecto el esquema activo.</param>    
+    /// <returns>Countrys object Result.</returns>    
+    public async Task<Countrys> getCountrys(string schema)    
+``` 
 
-**` getInstrumentsReport`**
+**` getIssuers`**
 ```r
-    /// <summary>
-    /// Retorna un reporte resumido de instrumentos.
-    /// </summary>
-    /// <param name="source">(Optional) Filtrar por tipo de mercado (source). Valores permitidos: "ROFEX", "CAFCI", "BYMA". Si es null devuelve la lista completa.</param>      
-    /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma el activo.</param>
-    /// <returns>InstrumentsReport object result.</returns>
-    public async Task<InstrumentsReport> getInstrumentsReport(string source , string schema )    
-```  
+    /// <summary>    
+    /// Retorna la lista de Issuers     
+    /// </summary>    
+    /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma por defecto el esquema activo.</param>    
+    /// <returns>Issuers object Result.</returns>    
+    public async Task<Issuers> getIssuers(string schema)    
+``` 
 
-**` searchInstrumentsReport`**
+**` getHorizons`**
 ```r
-    /// <summary>
-    /// Retorna los instrumentos del reporte resumido contengan una cadena de búsqueda como parte del id.
+    /// <summary>    
+    /// Retorna la lista de Horizons    
+    /// </summary>    
+    /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma por defecto el esquema activo.</param>    
+    /// <returns>Horizons object Result.</returns>    
+    public async Task<Horizons> getHorizons(string schema)    
+``` 
+
+**` getFundTypes`**
+```r
+    /// <summary>    
+    /// Retorna la lista de Tipos de Fondos    
+    /// </summary>    
+    /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma por defecto el esquema activo.</param>    
+    /// <returns>FundTypes object Result.</returns>    
+    public async Task<FundTypes> getFundTypes(string schema)    
+``` 
+
+**` getBenchmarks`**
+```r
+    
+    /// <summary>    
+    /// Retorna la lista de Benchmarks    
+    /// </summary>    
+    /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma por defecto el esquema activo.</param>    
+    /// <returns>Benchmarks object Result.</returns>    
+    public async Task<Benchmarks> getBenchmarks(string schema)    
+``` 
+
+**` getReferenceDataTypes`**
+```r
+	/// <summary>
+    /// Retorna la lista de Tipos de Instrumentos financieros
     /// </summary>
-    /// <param name="id">(Requeried) Cadena de búsqueda de los Instrumentos del reporte resumido a filtrar.</param>   
     /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma por defecto el esquema activo.</param>
-    /// <returns>InstrumentsReport object result.</returns>
-    public async Task<InstrumentsReport> searchInstrumentsReport(string id, string schema = null)
-```
+    /// <returns>ReferenceDataTypes object Result.</returns>
+    public async Task<ReferenceDataTypes> getReferenceDataTypes(string schema)
+``` 
 
-**` getInstrument`**
-```r
-    /// <summary>
-    /// Retorna una instrumento por id.
+**` getMarkets`**
+```r 
+	/// <summary>
+    /// Retorna la lista de Mercados para los Instrumentos financieros
     /// </summary>
-    /// <param name="id">(Requeried) Id del Instrumento a filtrar.</param>
-    /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma el activo.</param>
-    /// <returns> Instrument object result.</returns>
-    public async Task<Instrument> getInstrument(string id, string schema )      
-```
-
-**` searchInstruments`**
-```r
-    /// <summary>
-    /// Retorna los instrumentos que contengan una cadena de búsqueda como parte del id.
-    /// </summary>
-    /// <param name="id">(Requeried) Cadena de búsqueda de los Instrumentos a filtrar.</param>
-    /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma el activo.</param>
-    /// <returns> Instruments object result.</returns> 
-    public async Task<Instruments> searchInstruments(string id, string schema )       
-```
-
-**` getInstruments`**
-```r
-    /// <summary>
-    /// Retorna la lista de instrumentos.
-    /// </summary>
-    /// <param name="type">(Optional) Filtrar por tipo de Instrumentos. Si es null devuelve todos los tipos de Instrumentos.</param>
-    /// <param name="source">(Optional) Filtrar por mercado (source). Valores permitidos: "ROFEX", "CAFCI", "BYMA". Si es null devuelve la lista completa.</param>
-    /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma el activo.</param>
-    /// <returns>Instruments object result.</returns>
-    public async Task<Instruments> getInstruments(string type , string source , string schema )        
-```
+    /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma por defecto el esquema activo.</param>
+    /// <returns>Markets object Result.</returns>
+    public async Task<Markets> getMarkets(string schema)
+``` 

@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageId>Esco.Reference.Data.Model.NET</PackageId>
+    <Authors>Sistemas ESCO</Authors>
+    <Copyright>Sistemas ESCO srl.</Copyright>
+    <Product>Esco.Reference.Data.Model.NET</Product>
+    <Version>2.0.6</Version>
+    <PackageIcon>esco.png</PackageIcon>
+    <Description>Dominio de tipos de Datos del Conector ESCO Reference Data</Description>
+    <PackageTags>2.0.6</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\esco.reference.documentation\esco.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>
