@@ -44,5 +44,10 @@ namespace ESCO.Reference.Data.Model
         public string collateralElegible { get; set; }
         public string collateralQuota { get; set; }
         public string isShortable { get; set; }
+        public string minQty { get; set; }
+        public string closePrice { get; set; }
+        public string closePriceDate { get; set; }
+        public string volume { get; set; }
+        public string volumeDate { get; set; }
     }
 }

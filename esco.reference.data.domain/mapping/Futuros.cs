@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System;
+using System.Text.Json.Serialization;
 
 namespace ESCO.Reference.Data.Model
 {
@@ -36,7 +37,7 @@ namespace ESCO.Reference.Data.Model
         public string instrumentPricePrecision { get; set; }        
         public string marketId { get; set; }        
         public string maturityMonthYear { get; set; }        
-        public string qumaxTradeVolalityRating { get; set; }        
+        public string maxTradeVol { get; set; }        
         public string minPriceIncrement { get; set; }        
         public string minTradeVol { get; set; }        
         public string underlyingSecurityId { get; set; }        
@@ -46,6 +47,14 @@ namespace ESCO.Reference.Data.Model
         public string issuer { get; set; }        
         public string bloombergTicker { get; set; }        
         public string isinTicker { get; set; }        
-        public string securityStatus { get; set; } 
+        public string securityStatus { get; set; }
+        public string closePrice { get; set; }
+        public string closePriceDate { get; set; }
+        public string volume { get; set; }
+        public string volumeDate { get; set; }
+        public string settlementPrice { get; set; }
+        public string settlementPriceDate { get; set; }
+        public string clearingSymbol { get; set; }
+        public string optionStyle { get; set; }
     }
 }

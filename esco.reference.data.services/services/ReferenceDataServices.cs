@@ -2,10 +2,15 @@
 using ESCO.Reference.Data.Services.Contracts;
 
 using System;
+using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
+using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 using static ESCO.Reference.Data.Config.Config;
 
@@ -62,7 +67,7 @@ namespace ESCO.Reference.Data.Services
         {
             try
             {
-                return await httpClient.GetMapping(SetUrl(Url.Mapping, schema ?? Schema.v3));
+                return await httpClient.GetMapping(SetUrl(Url.Mapping, schema ?? Schema.actual));
             }
             catch
             {
@@ -79,7 +84,17 @@ namespace ESCO.Reference.Data.Services
         /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma por defecto el esquema activo.</param>
         /// <returns>ReferenceDatas object Result.</returns>
         public async Task<ReferenceDatas> GetReferenceDataByOData(string query = null, string schema = null) =>
-            await GetAsReferenceData(SetUrl(Url.ReferenceData + (query ?? string.Empty), schema ?? Schema.v3));
+            await GetAsReferenceData(SetUrl(Url.ReferenceData + (query ?? Url.FilterAll), schema ?? Schema.actual));
+
+        /// <summary>
+        /// Retorna la lista de instrumentos financieros como string, filtrados con Query en formato OData.
+        /// </summary>
+        /// <param name="query">(Optional) Query de filtrado en formato OData. Diccionario de campos disponible con el método getReferenceDataSpecification(). (Ejemplo de consulta:"?$top=5 & $filter=type eq 'MF' & $select=currency,name,region" </param>
+        /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma por defecto el esquema activo.</param>
+        /// <returns>String Result.</returns>
+        public async Task<string> GetByODataAsString(string query = null, string schema = null) =>
+            JsonSerializer.Serialize(await GetAsReferenceData(SetUrl(Url.ReferenceData + (query ?? Url.FilterAll), schema ?? Schema.actual)), httpClient.Options());
+
 
         /// <summary>
         /// Retorna la lista de instrumentos financieros consolidados filtrados con Query en formato OData.
@@ -88,7 +103,16 @@ namespace ESCO.Reference.Data.Services
         /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma por defecto el esquema activo.</param>
         /// <returns>ReferenceDatas object Result.</returns>
         public async Task<ReferenceDatas> GetConsolidatedByOData(string query = null, string schema = null) =>
-            await GetAsReferenceData(SetUrl(Url.Consolidated + (query ?? string.Empty), schema ?? Schema.v3));
+            await GetAsReferenceData(SetUrl(Url.Consolidated + (query ?? Url.FilterAll), schema ?? Schema.actual));
+
+        /// <summary>
+        /// Retorna la lista de instrumentos financieros consolidados como string, filtrados con Query en formato OData.
+        /// </summary>
+        /// <param name="query">(Optional) Query de filtrado en formato OData. Diccionario de campos disponible con el método getReferenceDataSpecification(). (Ejemplo de consulta:"?$top=5 & $filter=type eq 'MF' & $select=currency,name,region" </param>
+        /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma por defecto el esquema activo.</param>
+        /// <returns>String Result.</returns>
+        public async Task<string> GetConsolidatedAsString(string query = null, string schema = null) =>
+            JsonSerializer.Serialize(await GetAsReferenceData(SetUrl(Url.Consolidated + (query ?? Url.FilterAll), schema ?? Schema.actual)), httpClient.Options());
 
 
         /// <summary>
@@ -98,7 +122,7 @@ namespace ESCO.Reference.Data.Services
         /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma por defecto el esquema activo.</param>
         /// <returns>ReferenceDatas object Result.</returns>
         public async Task<Stream> GetCSVByOData(string query = null, string schema = null) =>
-            await httpClient.GetAsStream(SetUrl(Url.ODataCSV + (query ?? string.Empty), schema ?? Schema.v3));
+            await httpClient.GetAsStream(SetUrl(Url.ODataCSV + (query ?? string.Empty), schema ?? Schema.actual));
 
 
         /// <summary>
@@ -252,42 +276,106 @@ namespace ESCO.Reference.Data.Services
             JsonSerializer.Deserialize<Indices>(await GetAsString(Types.Indices, schema));
         #endregion
 
+        #region Prices
+      
+        /// <summary>
+        /// Retorna los campos de precios actualizados de un instrumento financiero como una cadena.
+        /// </summary>
+        /// <param name="name">(Requeried) Filtrar por nombre de Instrumento.</param>    
+        /// <returns>string</returns>
+        public async Task<string> GetPriceAsString(string name = null)
+        {
+            return JsonSerializer.Serialize(await httpClient.GetPrice(string.Format(Url.PriceByInstrument, name)), httpClient.Options());
+        }
+
+        /// <summary>
+        /// Retorna los campos de precios actualizados de un instrumento financiero dado.
+        /// </summary>
+        /// <param name="name">(Requeried) Filtrar por nombre de Instrumentos.</param>      
+        /// <returns>Price</returns>
+        public async Task<Price> GetPrice(string name = null) =>
+            await httpClient.GetPrice(string.Format(Url.PriceByInstrument, name));
+
+
+        /// <summary>
+        /// Retorna la lista de campos de precios actualizados de los instrumentos financieros como una cadena.
+        /// </summary>
+        /// <param name="type">(Optional) Filtrar por tipo de Instrumentos.</param>  
+        /// <returns>string</returns>
+        public async Task<string> GetPricesAsString(string type = null) => 
+            JsonSerializer.Serialize(await GetAsPrices(type), httpClient.Options());
+
+        /// <summary>
+        /// Retorna la lista de campos de precios actualizados de los instrumentos financieros.
+        /// </summary>   
+        /// <param name="type">(Optional) Filtrar por tipo de Instrumentos.</param> 
+        /// <returns>List<Price></returns>
+        public async Task<List<Price>> GetPrices(string type = null) =>
+            await GetAsPrices(type); 
+
+        public async Task<List<Price>> GetPricesInParallell(string url, string type = null)
+        {
+            var skip = 0;
+            var count = -1;
+            var list = new List<Price>();
+
+            while (count != 0)
+            {
+                string pages = SetUrl(url + Url.FilterSkip, skip.ToString());
+                var prices = await httpClient.GetPrices(pages);
+                count = prices.Count;
+                if (count != 0)
+                {
+                    list.AddRange(prices);
+                    skip += 300;
+                }
+            }
+            return list;
+        }
+
+        private async Task<List<Price>> GetAsPrices(string type = null)
+        {
+            try
+            {
+                var typestr = (type != null) ? string.Format(Url.FilterTypeStr, null, null, type) : string.Empty;
+                var url = Url.Prices + Url.FilterAll + typestr;
+                if (_paginated)
+                {
+                    return await httpClient.GetPrices(url);
+                }
+                return await GetPricesInParallell(url, type);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        #endregion
+
         #region ReferenceDatas 
-        /// <summary>
-        /// Retorna la lista de instrumentos actualizados en el día.
-        /// </summary>
-        /// <param name="type">(Optional) Filtrar por tipo de Instrumentos. Si es null devuelve la lista completa.</param>
-        /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma por defecto el esquema activo.</param>
-        /// <returns>ReferenceDatas json.</returns>
-        public async Task<ReferenceDatas> GetReferenceDataTodayUpdated(string type = null, string schema = null) =>
-            await GetAsReferenceData(GetUrl(Url.FilterUpdated, type, schema));
 
         /// <summary>
-        /// Retorna la lista de instrumentos dados de alta en el día.
+        /// Retorna la lista de instruments actualizados en el día como cadena string
         /// </summary>
         /// <param name="type">(Optional) Filtrar por tipo de Instrumentos. Si es null devuelve la lista completa.</param>
         /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma por defecto el esquema activo.</param>
-        /// <returns>ReferenceDatas json.</returns>
-        public async Task<ReferenceDatas> GetReferenceDataTodayAdded(string type = null, string schema = null) =>
-            await GetAsReferenceData(GetUrl(Url.FilterAdded, type, schema));
-
-        /// <summary>
-        /// Retorna la lista de instrumentos dados de baja en el día.
-        /// </summary>
-        /// <param name="type">(Optional) Filtrar por tipo de Instrumentos. Si es null devuelve la lista completa.</param>
-        /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma por defecto el esquema activo.</param>
-        /// <returns>ReferenceDatas json.</returns>
-        public async Task<ReferenceDatas> GetReferenceDataTodayRemoved(string type = null, string schema = null) =>
-            await GetAsReferenceData(GetUrl(Url.FilterRemoved, type, schema));
+        /// <returns>string</returns>
+        public async Task<string> GetUpdatedAsString(string type = null, string schema = null) =>
+            await httpClient.GetAsString(GetUrl(Url.FilterUpdated, type, schema));
 
         /// <summary>
         /// Retorna la lista de instrumentos financieros.
         /// </summary>
+        /// <param name="date">(Optional) Filtrar por Fecha de actualizacion de Instrumentos. Si es null devuelve la lista completa.</param>
         /// <param name="type">(Optional) Filtrar por Id del tipo de Instrumentos. Si es null devuelve la lista completa.</param>
         /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma por defecto el esquema activo.</param>        
         /// <returns>ReferenceDatas json.</returns>
-        public async Task<ReferenceDatas> GetReferenceData(string type = null, string schema = null) =>
-            await GetAsReferenceData(GetUrl(null, type, schema));
+        public async Task<ReferenceDatas> GetReferenceData(DateTime? date = null, string type = null, string schema = null)
+        {
+            string cfg = (date != null) ? Url.FilterDated : null;
+            return await GetAsReferenceData(GetUrl(cfg, type, schema, false, date));
+        }
 
         /// <summary>
         /// Retorna la lista de instrumentos financieros filtrados por campos específicos (puede incluirse cadenas de búsqueda parcial).
@@ -306,7 +394,7 @@ namespace ESCO.Reference.Data.Services
             string market = null,
             string country = null,
             string schema = null) =>
-            await GetAsReferenceData(GetUrlOData(Url.ReferenceData, type, name, currency, market, country, schema ?? Schema.v3));
+            await GetAsReferenceData(GetUrlOData(Url.ReferenceData, type, name, currency, market, country, schema ?? Schema.actual));
 
         /// <summary>
         /// Retorna los Instrumentos financieros que contengan una cadena de búsqueda como parte del identificador (puede incluirse cadenas de búsqueda parcial).
@@ -315,7 +403,8 @@ namespace ESCO.Reference.Data.Services
         /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma el activo por defecto.</param>
         /// <returns>ReferenceDatas object Result.</returns>
         public async Task<ReferenceDatas> SearchReferenceDataById(string id = null, string schema = null) =>
-            await GetAsReferenceData(GetUrl(null, id, schema ?? Schema.v3, true));
+            await GetAsReferenceData(GetUrl(null, id, schema ?? Schema.actual, true));
+
 
         /// <summary>
         /// Retorna la lista de instrumentos financieros como una cadena.
@@ -323,20 +412,43 @@ namespace ESCO.Reference.Data.Services
         /// <param name="type">(Optional) Filtrar por Id del tipo de Instrumentos. Si es null devuelve la lista completa.</param>
         /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma por defecto el esquema activo.</param>        
         /// <returns>string</returns>
-        public async Task<string> GetReferenceDataAsString(string type = null, string schema = null) =>
-            await GetAsString(type, schema, null);
+        public async Task<string> GetReferenceDataAsString(DateTime? date = null, string type = null, string schema = null) =>
+            await GetAsString(type, schema, null, date);
 
-        private async Task<string> GetAsString(string type = null, string schema = null, string cfg = null)
+        private async Task<string> GetAsString(string type = null, string schema = null, string cfg = null, DateTime? date = null)
         {
             try
             {
-                var result = await GetAsReferenceData(GetUrl(cfg, type, schema));                
+                cfg = (date != null) ? Url.FilterDated : cfg;
+                var result = await GetAsReferenceData(GetUrl(cfg, type, schema, false, date));
                 return JsonSerializer.Serialize(result, httpClient.Options());
             }
             catch
             {
                 throw;
             }
+        }
+
+        private async Task<int> GetBatches(string url)
+        {
+            ReferenceDatas response = await httpClient.GetReferenceData(url);
+            return (int)Math.Ceiling((double)response.totalCount / 500);
+        }
+
+        public async Task<IEnumerable<ReferenceData>> GetInParallelInWithBatches(string url)
+        {
+            var skip = 0;
+            var tasks = new List<Task<ReferenceDatas>>();
+            int numberOfBatches = await GetBatches(url);
+
+            for (int i = 0; i < numberOfBatches + 1; i++)
+            {
+                string pages = SetUrl(url + Url.FilterPages, skip.ToString());
+                tasks.Add(httpClient.GetReferenceData(pages));
+                skip += 500;
+            }
+
+            return (await Task.WhenAll(tasks)).SelectMany(u => u.data);
         }
 
         private async Task<ReferenceDatas> GetAsReferenceData(string url)
@@ -347,20 +459,13 @@ namespace ESCO.Reference.Data.Services
                 {
                     return await httpClient.GetReferenceData(url);
                 }
+                var data = await GetInParallelInWithBatches(url);
 
-                var skip = 0;
-                ReferenceDatas response = new();
-                response.data = new();
-                do
+                return new()
                 {
-                    var pages = SetUrl(url + Url.FilterPages, skip.ToString());
-                    ReferenceDatas rd = await httpClient.GetReferenceData(pages);
-                    response.data.AddRange(rd.data);
-                    response.totalCount = rd.totalCount;
-                    skip += 500;
-                } while (response.totalCount > skip);
-
-                return response;
+                    data = data.ToList(),
+                    totalCount = data.Count() 
+                };
             }
             catch
             {
@@ -377,7 +482,7 @@ namespace ESCO.Reference.Data.Services
         {
             try
             {
-                return await httpClient.GetSpecification(SetUrl(Url.Specification, schema ?? Schema.v3));
+                return await httpClient.GetSpecification(SetUrl(Url.Specification, schema ?? Schema.actual));
             }
             catch
             {
@@ -709,7 +814,7 @@ namespace ESCO.Reference.Data.Services
         /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma por defecto el esquema activo.</param>
         /// <returns>Reports object Result.</returns>
         public async Task<Reports> GetFieldsReports(string schema = null) =>
-            await httpClient.GetReports(SetUrl(Url.FieldsReports, schema ?? Schema.v3));
+            await httpClient.GetReports(SetUrl(Url.FieldsReports, schema ?? Schema.actual));
 
         /// <summary>
         /// Devuelve la lista completa de campos
@@ -717,7 +822,7 @@ namespace ESCO.Reference.Data.Services
         /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma por defecto el esquema activo.</param>
         /// <returns>Reports object Result.</returns>
         public async Task<Reports> GetFields(string schema = null) =>
-            await httpClient.GetReports(SetUrl(Url.Fields, schema ?? Schema.v3));
+            await httpClient.GetReports(SetUrl(Url.Fields, schema ?? Schema.actual));
         #endregion
     }
 }

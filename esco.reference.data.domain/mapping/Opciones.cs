@@ -3,23 +3,23 @@ using System;
 
 namespace ESCO.Reference.Data.Model
 {
-    public class Pases
+    public class Opciones
     {
-        public BuySellList data { get; set; }
+        public OpcionesList data { get; set; }
         public int? totalCount { get; set; }
     }
-    public class BuySellList : List<BuySellEntity> { }
+    public class OpcionesList : List<Opcion> { }
 
-    public class BuySellEntity
+    public class Opcion
     {
         public string name { get; set; }
         public string type { get; set; }
         public bool? active { get; set; }
-        public BuySellFields fields { get; set; }
+        public OpcionesFields fields { get; set; }
         public DateTime? updated { get; set; }
     }
 
-    public class BuySellFields
+    public class OpcionesFields
     {        
         public string cfiCode { get; set; }        
         public string currency { get; set; }        
@@ -46,6 +46,8 @@ namespace ESCO.Reference.Data.Model
         public string issuer { get; set; }        
         public string bloombergTicker { get; set; }        
         public string isinTicker { get; set; }        
-        public string securityStatus { get; set; } 
+        public string securityStatus { get; set; }
+        public string clearingSymbol { get; set; }
+        public string optionStyle { get; set; }
     }
 }

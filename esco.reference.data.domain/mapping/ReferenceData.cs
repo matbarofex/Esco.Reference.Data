@@ -1,6 +1,4 @@
-﻿using Microsoft.VisualBasic;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
@@ -8,10 +6,9 @@ namespace ESCO.Reference.Data.Model
 {
     public class ReferenceDatas
     {
-        public ReferenceDataList data { get; set; }
+        public List<ReferenceData>? data { get; set; }
         public int? totalCount { get; set; }
     }
-    public class ReferenceDataList : List<ReferenceData> { }
 
     public class ReferenceData
     {
@@ -36,6 +33,10 @@ namespace ESCO.Reference.Data.Model
         public string strikePrice { get; set; }
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string classTypeName { get; set; }
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public string clearingSymbol { get; set; }
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public string optionStyle { get; set; }
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string shareCurrencyName { get; set; }
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -197,8 +198,24 @@ namespace ESCO.Reference.Data.Model
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string isShortable { get; set; }
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public string PersonTypeId { get; set; }
+        public string personTypeId { get; set; }
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public string PersonTypeName { get; set; }
+        public string personTypeName { get; set; }
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public string minQty { get; set; }
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public string closePrice { get; set; }
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public string closePriceDate  { get; set; }
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public string volume { get; set; }
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public string volumeDate { get; set; }
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public string settlementPrice { get; set; }
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public string settlementPriceDate { get; set; }
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public string issueCurrency { get; set; }
     }
 }

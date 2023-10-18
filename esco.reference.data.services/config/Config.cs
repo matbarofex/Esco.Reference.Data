@@ -8,17 +8,13 @@ namespace ESCO.Reference.Data.Config
             public const string url = "https://apids.primary.com.ar/";
             public const string cache = "no-cache";
             public const string json = "application/json";
-
-            public const string v1 = "prd-ro/v1";
-            public const string v2 = "prd-ro/v2";
+            public const string v1 = "pip-ro/v1";
             public const string v3 = "prd-ro/v3";
         }
 
         public static class Schema
         {
-            public const string v2 = "2";
-            public const string v3 = "schema-000";
-            public const string v4 = "schema-001";
+            public const string actual = "schema-008";
         }
 
         public class Header
@@ -36,10 +32,12 @@ namespace ESCO.Reference.Data.Config
             public const string FilterIdStr = " and indexof(name, '{2}') ne -1";
             public const string FilterTypeStr = " and type eq '{2}'";
             public const string FilterPages = "&$top=500&$skip={0}";
+            public const string FilterSkip = "&$skip={0}";
 
             //Filters ReferenceData
             public const string FilterAll = "?$filter=type ne null";
-            public const string FilterUpdated = "?$filter=updated ge {1} and active eq true";
+            public const string FilterUpdated = "?$filter=updated eq {1} and active eq true";
+            public const string FilterDated = "?$filter=updated ge {1} and active eq true";
             public const string FilterAdded = "?$filter=date eq '{1}'";
             public const string FilterRemoved = "?$filter=updated ge {1} and active eq false";
 
@@ -61,6 +59,11 @@ namespace ESCO.Reference.Data.Config
             public const string Mapping = Http.v3 + "/api/Schemas/{0}/field-mapping";                      //Devuelve el mapping que tiene un schema.  
             #endregion
 
+            #region Prices
+            public const string Prices = Http.v1 + "/api/InstrumentPrices";                                 //Retorna los precios de todos los instrumentos.      
+            public const string PriceByInstrument = Http.v1 + "/api/InstrumentPrices/{0}";                  //Retorna la lista un instrumento especifico.        
+            #endregion
+
             #region ReferenceDatas
             public const string Specification = Http.v3 + "/api/Schemas/{0}/Data/specification";           //Retorna una especificación del estado actual.      
             public const string ReferenceData = Http.v3 + "/api/Schemas/{0}/Data/by-odata";                //Retorna la lista de instrumentos.        
@@ -78,17 +81,17 @@ namespace ESCO.Reference.Data.Config
             #endregion
 
             #region ESCO
-            public const string Custodian = "?$filter=type eq 'MF'&$select=fundCustodianId,fundCustodianName&apply=groupby((fundCustodianId))";        //Retorna la lista de Sociedades Depositarias
-            public const string Managment = "?$filter=type eq 'MF' & $select=fundManagerId,fundManagerName&apply=groupby((fundManagerId))";            //Retorna la lista de Sociedades Administradoras 
-            public const string RentType = "?$filter=type eq 'MF' & $select=rentTypeId,rentTypeName&apply=groupby((rentTypeId))";                      //Retorna la lista de Tipos de Renta    
-            public const string Region = "?$filter=type eq 'MF' & $select=regionId,regionName&apply=groupby((regionId))";                              //Retorna la lista de Regiones 
-            public const string Currency = "?$select=currency&apply=groupby((currency))";                                                              //Retorna la lista de Monedas    
-            public const string Country = "?$select=country&apply=groupby((country))";                                                                 //Retorna la lista de Países    
-            public const string Issuer = "?$select=issuer&apply=groupby((issuer))";                                                                    //Retorna la lista de Issuer    
-            public const string Horizon = "?$filter=type eq 'MF' & $select=horizonId,horizonName&apply=groupby((horizonId))";                          //Retorna la lista de Horizon 
-            public const string FundType = "?$filter=type eq 'MF' & $select=fundTypeId,fundTypeName&apply=groupby((fundTypeId))";                      //Retorna la lista de Tipos de Fondos 
-            public const string Benchmark = "?$filter=type eq 'MF' & $select=fundBenchmarkId,fundBenchmarkName&apply=groupby((fundBenchmarkId))";      //Retorna la lista de Benchmarks                                             //Retorna la lista de Símbolos (UnderlyingSymbol) de Instrumentos financieros
-            public const string Markets = "?$select=marketId&apply=groupby((marketId))";                                                               //Retorna la lista de Mercados para los Instrumentos financieros
+            public const string Custodian = "?$filter=type eq 'MF'&$select=fundCustodianId,fundCustodianName&$groupby(fundCustodianId)";        //Retorna la lista de Sociedades Depositarias
+            public const string Managment = "?$filter=type eq 'MF' & $select=fundManagerId,fundManagerName&$groupby(fundManagerId)";            //Retorna la lista de Sociedades Administradoras 
+            public const string RentType = "?$filter=type eq 'MF' & $select=rentTypeId,rentTypeName&groupby(rentTypeId)";                      //Retorna la lista de Tipos de Renta    
+            public const string Region = "?$filter=type eq 'MF' & $select=regionId,regionName&$groupby(regionId)";                              //Retorna la lista de Regiones 
+            public const string Currency = "?$filter=(type eq 'MF' or type eq 'T') & $select=currency&$groupby(currency)";                                                              //Retorna la lista de Monedas    
+            public const string Country = "?$select=country&$groupby(country)";                                                                 //Retorna la lista de Países    
+            public const string Issuer = "?$select=issuer&$groupby(issuer)";                                                                    //Retorna la lista de Issuer    
+            public const string Horizon = "?$filter=type eq 'MF' & $select=horizonId,horizonName&$groupby(horizonId)";                          //Retorna la lista de Horizon 
+            public const string FundType = "?$filter=type eq 'MF' & $select=fundTypeId,fundTypeName&$groupby(fundTypeId)";                      //Retorna la lista de Tipos de Fondos 
+            public const string Benchmark = "?$filter=type eq 'MF' & $select=fundBenchmarkId,fundBenchmarkName&$groupby(fundBenchmarkId)";      //Retorna la lista de Benchmarks                                             //Retorna la lista de Símbolos (UnderlyingSymbol) de Instrumentos financieros
+            public const string Markets = "?$select=marketId&$groupby(marketId)";                                                               //Retorna la lista de Mercados para los Instrumentos financieros
             #endregion
         }
 
@@ -107,12 +110,12 @@ namespace ESCO.Reference.Data.Config
         }
 
         //Format Url
-        public static string GetUrl(string cfg, string typeorid, string schema, bool search = false)
+        public static string GetUrl(string cfg, string typeorid, string schema, bool search = false, DateTime? daterd = null)
         {
-            schema ??= Schema.v3;
+            schema ??= Schema.actual;
             string format = (cfg == Url.FilterAdded) ? "d/MM/yyyy" : "yyyy-MM-d";
             cfg = (cfg == null) ? Url.ReferenceData + Url.FilterAll : Url.ReferenceData + cfg;
-            string date = DateTime.Now.ToString(format);
+            string date = (daterd != null)? daterd.Value.ToString(format): DateTime.Now.ToString(format);
             return (search) ?
                     SetUrl(cfg + Url.FilterIdStr, schema, date, typeorid) :
                     ((typeorid != null) ?
@@ -160,6 +163,7 @@ namespace ESCO.Reference.Data.Config
 
             return url + urlStr;
         }
+
         #endregion
 
     }

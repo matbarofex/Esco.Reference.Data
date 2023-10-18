@@ -1,5 +1,7 @@
 ﻿using ESCO.Reference.Data.Model;
 
+using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -19,20 +21,28 @@ namespace ESCO.Reference.Data.Services.Contracts
 
         #region OData
         Task<ReferenceDatas> GetReferenceDataByOData(string query = null, string schema = null);                  // Retorna la lista de instrumentos filtrados con OData.        
+        Task<string> GetByODataAsString(string query, string schema);                                             // Retorna la lista de instrumentos financieros como string, filtrados con Query en formato OData.
         Task<ReferenceDatas> GetConsolidatedByOData(string query = null, string schema = null);                   // Retorna la lista de instrumentos financieros consolidados filtrados con Query en formato OData.
-        Task<Stream> GetCSVByOData(string query = null, string schema = null);                                    //  Retorna la lista de instrumentos financieros filtrados en un CSV con Query en formato OData.
-        Task<bool> SaveCSVByOData(string filePath, string fileName, string query = null, string schema = null);   //  Retorna la lista de instrumentos financieros en un CSV (compactado en archivo ZIP) filtrados con Query en formato OData.
+        Task<string> GetConsolidatedAsString(string query = null, string schema = null);                          // Retorna la lista de instrumentos financieros consolidados como string filtrados con Query en formato OData.
+        Task<Stream> GetCSVByOData(string query = null, string schema = null);                                    // Retorna la lista de instrumentos financieros filtrados en un CSV con Query en formato OData.
+        Task<bool> SaveCSVByOData(string filePath, string fileName, string query = null, string schema = null);   // Retorna la lista de instrumentos financieros en un CSV (compactado en archivo ZIP) filtrados con Query en formato OData.
         #endregion
 
-        #region ReferenceDatas
-        Task<ReferenceDatas> GetReferenceDataTodayUpdated(string type = null, string schema = null);      //Retorna la lista de instruments actualizados en el día.      
-        Task<ReferenceDatas> GetReferenceDataTodayAdded(string type = null, string schema = null);        //Retorna la lista de instrumentos dados de alta en el día.
-        Task<ReferenceDatas> GetReferenceDataTodayRemoved(string type = null, string schema = null);      //Retorna la lista de instrumentos dados de baja en el día.
-        Task<ReferenceDatas> GetReferenceData(string type = null, string schema = null);                  //Retorna la lista de instrumentos.
-        Task<string> GetReferenceDataAsString(string type = null, string schema = null);                  //Retorna la lista de instrumentos como una cadena.
+        #region Prices
+        Task<string> GetPriceAsString(string name);              //Retorna el precio actualizado de un  instrumentos financiero como una cadena.
+        Task<Price> GetPrice(string name);                       //Retorna el precio actualizado de un  instrumentos financiero.
+
+        Task<string> GetPricesAsString(string type = null);      //Retorna la lista de campos de precios actualizados de los instrumentos financieros como una cadena.
+        Task<List<Price>> GetPrices(string type = null);         //Retorna la lista de campos de precios actualizados de los instrumentos financieros.
+        #endregion
+
+        #region ReferenceData
+        Task<string> GetUpdatedAsString(string type = null, string schema = null);                              //Retorna la lista de instruments actualizados en el día como cadena string.      
+        Task<ReferenceDatas> GetReferenceData(DateTime? date, string type = null, string schema = null);        //Retorna la lista de instrumentos.
+        Task<string> GetReferenceDataAsString(DateTime? date = null, string type = null, string schema = null); //Retorna la lista de instrumentos como una cadena.
         Task<ReferenceDatas> SearchReferenceData(string type = null, string name = null, string currency = null, string market = null, string country = null, string schema = null); //Retorna la lista de instrumentos financieros filtrados por campos específicos.
-        Task<ReferenceDatas> SearchReferenceDataById(string id = null, string schema = null);             //Retorna la lista de instrumentos financieros filtrados por el identificador.
-        Task<Specification> GetReferenceDataSpecification(string schema = null);                          //Retorna una especificación del estado actual.
+        Task<ReferenceDatas> SearchReferenceDataById(string id = null, string schema = null);                   //Retorna la lista de instrumentos financieros filtrados por el identificador.
+        Task<Specification> GetReferenceDataSpecification(string schema = null);                                //Retorna una especificación del estado actual.
         #endregion
 
         #region ReferenceDatasTypes

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.1.32228.430
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30309.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "domain", "domain", "{9DDA73F9-B1D0-4C03-86A6-CEB850DAB623}"
 EndProject
@@ -10,6 +10,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "esco.reference.data.domain", "esco.reference.data.domain\esco.reference.data.domain.csproj", "{239B85CA-98B6-4FB9-8DD7-CBEAC35C655D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "esco.reference.data.services", "esco.reference.data.services\esco.reference.data.services.csproj", "{D394C98A-1647-4544-9EFE-B3223626F7DA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{7338E5F7-AD11-4E2F-83ED-7FEFB3CDB910}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "esco.reference.data.test", "esco.reference.data.test\esco.reference.data.test.csproj", "{F7F10319-B4E9-469F-A1E7-076582C09B69}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,6 +29,10 @@ Global
 		{D394C98A-1647-4544-9EFE-B3223626F7DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D394C98A-1647-4544-9EFE-B3223626F7DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D394C98A-1647-4544-9EFE-B3223626F7DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7F10319-B4E9-469F-A1E7-076582C09B69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7F10319-B4E9-469F-A1E7-076582C09B69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7F10319-B4E9-469F-A1E7-076582C09B69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7F10319-B4E9-469F-A1E7-076582C09B69}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -32,6 +40,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{239B85CA-98B6-4FB9-8DD7-CBEAC35C655D} = {9DDA73F9-B1D0-4C03-86A6-CEB850DAB623}
 		{D394C98A-1647-4544-9EFE-B3223626F7DA} = {F3A62BAF-15EF-4715-B921-28CD1467F3F2}
+		{F7F10319-B4E9-469F-A1E7-076582C09B69} = {7338E5F7-AD11-4E2F-83ED-7FEFB3CDB910}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2F58E690-CACC-4E2A-A352-9A1B4E798213}

@@ -5,7 +5,6 @@ using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
-using System.Text;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -55,6 +54,11 @@ namespace ESCO.Reference.Data.Services
         #region ReferenceDatas
         //Retorna la lista de instrumentos financieros.
         public async Task<ReferenceDatas> GetReferenceData(string url) => await httpClient.GetFromJsonAsync<ReferenceDatas>(url, Options());
+
+        public async Task<Prices> GetPrices(string url) => await httpClient.GetFromJsonAsync<Prices>(url, Options());
+        public async Task<Price> GetPrice(string url) => await httpClient.GetFromJsonAsync<Price>(url, Options());
+
+        public async Task<HttpResponseMessage> GetAsync(string url) => await httpClient.GetAsync(url);
 
         public async Task<Stream> GetAsStream(string url) => await httpClient.GetStreamAsync(url);
 

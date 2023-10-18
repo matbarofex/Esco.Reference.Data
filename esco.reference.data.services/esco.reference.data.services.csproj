@@ -6,29 +6,29 @@
     <PackageId>Esco.Reference.Data.NET</PackageId>
     <Authors>Sistemas ESCO</Authors>
     <Product>Esco.Reference.Data.NET</Product>
-    <Description>Conector que se integra con el Servicio que ofrece información de referencia de instrumentos financieros en forma consolidada.</Description>
+    <Description>Conector que se integra con el Servicio que ofrece información de referencia de instrumentos financieros</Description>
     <Copyright>Sistemas ESCO srl.</Copyright>
     <PackageIcon>esco.png</PackageIcon>
-    <Version>2.0.6</Version>
+    <Version>3.1</Version>
     <PackageProjectUrl>https://github.com/matbarofex/esco.reference.data</PackageProjectUrl>
     <RepositoryUrl>https://github.com/matbarofex/esco.reference.data</RepositoryUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageTags>2.0.6</PackageTags>
+    <PackageTags>3.1</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\esco.reference.documentation\esco.png">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
+    <ProjectReference Include="..\esco.reference.data.domain\esco.reference.data.domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="..\README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\esco.reference.data.domain\esco.reference.data.domain.csproj" />
+    <None Include="..\esco.reference.documentation\esco.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
