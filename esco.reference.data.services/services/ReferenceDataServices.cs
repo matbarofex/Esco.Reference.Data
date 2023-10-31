@@ -228,6 +228,14 @@ namespace ESCO.Reference.Data.Services
             JsonSerializer.Deserialize<Futuros>(await GetAsString(Types.Futuros, schema));
 
         /// <summary>
+        /// Retorna la lista de instrumentos financieros de tipo Futuros OTC (FUTOTC).
+        /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma por defecto el esquema activo.</param>
+        /// </summary>     
+        /// <returns>Modelo de datos json de tipo FuturosOTC json.</returns>
+        public async Task<FuturosOTC> GetFuturosOTC(string schema = null) =>
+             JsonSerializer.Deserialize<FuturosOTC>(await GetAsString(Types.FuturosOTC, schema));
+
+        /// <summary>
         /// Retorna la lista de instrumentos financieros de tipo Opciones (OPT-OOF).
         /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma por defecto el esquema activo.</param>
         /// </summary>     

@@ -88,8 +88,8 @@ namespace ESCO.Reference.Data.App
             {
                 Dictionary<int, string> schemasKeys = new Dictionary<int, string>()
                 {
-                    [0] = "schema-005",
-                    [1] = "schema-003"
+                    [0] = "schema-010",
+                    [1] = "schema-009"
                 };
 
                 BindingSource bindingSource = new BindingSource(schemasKeys, null);

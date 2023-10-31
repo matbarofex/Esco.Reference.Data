@@ -29,6 +29,8 @@ namespace ESCO.Reference.Data.Model
         public const string T = "T";               //Plazo por Lotes
         public const string TERM = "TERM";         //Préstamos de Valores
         public const string Indices = "XLINKD";    //Índices XLINKD
+        public const string FuturosOTC = "FUTOTC";    //Futuros OTC
+        public const string OpcionesOTC = "OOFOTC";    //Opciones OTC
     }
 
     public static class TypesDesc
@@ -47,6 +49,8 @@ namespace ESCO.Reference.Data.Model
         public const string T = "Plazo por Lotes";
         public const string TERM = "Préstamos de Valores";
         public const string Indices = "Índices XLINKD";
+        public const string FuturosOTC = "Futuros OTC";
+        public const string OpcionesOTC = "Opciones OTC";
     }
 
     public class ReferenceDataTypes : List<Type> { }
@@ -71,6 +75,8 @@ namespace ESCO.Reference.Data.Model
                         { new Type() { id = 11, type = Types.T, description = TypesDesc.T } },
                         { new Type() { id = 12, type = Types.TERM, description = TypesDesc.TERM } },
                         { new Type() { id = 13, type = Types.Indices, description = TypesDesc.Indices } },
+                        { new Type() { id = 14, type = Types.FuturosOTC, description = TypesDesc.FuturosOTC } },
+                        { new Type() { id = 15, type = Types.OpcionesOTC, description = TypesDesc.OpcionesOTC } },
                 };
         }
     }

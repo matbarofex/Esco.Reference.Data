@@ -14,7 +14,7 @@ namespace ESCO.Reference.Data.Config
 
         public static class Schema
         {
-            public const string actual = "schema-008";
+            public const string actual = "schema-010";
         }
 
         public class Header

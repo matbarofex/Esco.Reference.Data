@@ -23,7 +23,8 @@ namespace ESCO.Reference.Data.Model
     public class FuturosFields
     {        
         public string cfiCode { get; set; }        
-        public string currency { get; set; }        
+        public string currency { get; set; }
+        public string currency2 { get; set; }
         public string symbol { get; set; }        
         public string contractMultiplier { get; set; }        
         public string highLimitPrice { get; set; }        
@@ -56,5 +57,26 @@ namespace ESCO.Reference.Data.Model
         public string settlementPriceDate { get; set; }
         public string clearingSymbol { get; set; }
         public string optionStyle { get; set; }
+        public string tickSize { get; set; }
+        public List<TypeTickPriceRules>tickPriceRules { get; set; }
+        public string roundLot { get; set; }
+
+        public string[] orderTypes { get; set; }
+
+        public string[] timeInForces { get; set; }
+
+        public string blockTrade { get; set; }
+
+        public string minLotSize { get; set; }
+
+        public string maxLotSize { get; set; }
+
+        public string maxSize { get; set; }
+
+        public string minSize { get; set; }
+
+        public string execInstValue { get; set; }
     }
+
+
 }

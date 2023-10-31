@@ -310,6 +310,16 @@ namespace esco.reference.data.test
 
         [TestMethod]
         [TestCategory("ByTypes")]
+        public void GetFuturosOTC()
+        {
+            FuturosOTC result = services.GetFuturosOTC().Result;
+            Console.Write(JsonSerializer.Serialize(result, options));
+
+            Assert.IsTrue(result.data.Count != 0);
+        }
+
+        [TestMethod]
+        [TestCategory("ByTypes")]
         public void GetOpciones()
         {
             ReferenceDatas result = services.GetOpciones().Result;
@@ -444,7 +454,7 @@ namespace esco.reference.data.test
         public void GetReferenceDataAsString()
         {
             var date = DateTime.Parse("03-13-2023");
-            string result = services.GetReferenceDataAsString().Result;
+            string result = services.GetReferenceDataAsString(null, "FUTOTC").Result;
             Console.Write(JsonSerializer.Serialize(result, options));
 
             Assert.IsTrue(result != string.Empty);
@@ -455,7 +465,7 @@ namespace esco.reference.data.test
         public void GetReferenceData()
         {
             var date = DateTime.Parse("03-27-2023");
-            ReferenceDatas result = services.GetReferenceData(null, "MF").Result;
+            ReferenceDatas result = services.GetReferenceData(null, "FUTOTC").Result;
             Console.Write(JsonSerializer.Serialize(result, options));
 
             Assert.IsTrue(result.data.Count != 0);
