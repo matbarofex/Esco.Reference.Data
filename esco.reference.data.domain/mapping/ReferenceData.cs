@@ -237,8 +237,9 @@ namespace ESCO.Reference.Data.Model
         public string maxSize { get; set; }
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string minSize { get; set; }
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public string execInstValue { get; set; }
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public bool execInstValue { get; set; }
+
     }
 
     public class TypeTickPriceRules

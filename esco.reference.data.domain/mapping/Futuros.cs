@@ -75,7 +75,7 @@ namespace ESCO.Reference.Data.Model
 
         public string minSize { get; set; }
 
-        public string execInstValue { get; set; }
+        public bool execInstValue { get; set; }
     }
 
 

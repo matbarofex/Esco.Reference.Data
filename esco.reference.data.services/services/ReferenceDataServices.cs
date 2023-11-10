@@ -243,6 +243,15 @@ namespace ESCO.Reference.Data.Services
         public async Task<ReferenceDatas> GetOpciones(string schema = null) =>
             await GetAsReferenceData(GetUrl(Url.FilterOpts, null, schema));
 
+
+        /// <summary>
+        /// Retorna la lista de instrumentos financieros de tipo OpcionesOTC (OOFOTC).
+        /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma por defecto el esquema activo.</param>
+        /// </summary>     
+        /// <returns>Modelo de datos json de tipo Opciones OTC.</returns>
+        public async Task<OpcionesOTC> GetOpcionesOTC(string schema = null) =>
+            JsonSerializer.Deserialize<OpcionesOTC>(await GetAsString(Types.OpcionesOTC, schema));
+
         /// <summary>
         /// Retorna la lista de instrumentos financieros de tipo Pases (BUYSELL).
         /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma por defecto el esquema activo.</param>
@@ -429,7 +438,9 @@ namespace ESCO.Reference.Data.Services
             {
                 cfg = (date != null) ? Url.FilterDated : cfg;
                 var result = await GetAsReferenceData(GetUrl(cfg, type, schema, false, date));
-                return JsonSerializer.Serialize(result, httpClient.Options());
+                var serializedResult = JsonSerializer.Serialize(result, httpClient.Options());
+
+                return serializedResult;
             }
             catch
             {

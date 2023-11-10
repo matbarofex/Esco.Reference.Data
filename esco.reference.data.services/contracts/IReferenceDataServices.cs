@@ -57,6 +57,7 @@ namespace ESCO.Reference.Data.Services.Contracts
         Task<Futuros> GetFuturos(string schema = null);
         Task<FuturosOTC> GetFuturosOTC(string schema = null);
         Task<ReferenceDatas> GetOpciones(string schema = null);
+        Task<OpcionesOTC> GetOpcionesOTC(string schema = null);
         Task<Pases> GetPases(string schema = null);
         Task<Cauciones> GetCauciones(string schema = null);
         Task<Plazos> GetPlazos(string schema = null);

@@ -17,7 +17,7 @@ namespace esco.reference.data.test
     [TestClass]
     public class ReferenceDataTest
     {
-        private const string subscriptionKey = "";
+        private const string subscriptionKey = "6VMzeCB2BqQucS6wXSMtkmRLv2IdzSI0Tl";
         private readonly ReferenceDataServices services = new(subscriptionKey);
 
 
@@ -328,6 +328,17 @@ namespace esco.reference.data.test
             Assert.IsTrue(result.data.Count != 0);
         }
 
+
+        [TestMethod]
+        [TestCategory("ByTypes")]
+        public void GetOpcionesOTC()
+        {
+            OpcionesOTC result = services.GetOpcionesOTC().Result;
+            Console.Write(JsonSerializer.Serialize(result, options));
+
+            Assert.IsTrue(result.data.Count != 0);
+        }
+
         [TestMethod]
         [TestCategory("ByTypes")]
         public void GetPases()
@@ -337,7 +348,7 @@ namespace esco.reference.data.test
 
             Assert.IsTrue(result.data.Count != 0);
         }
-
+        
         [TestMethod]
         [TestCategory("ByTypes")]
         public void GetCauciones()
@@ -454,7 +465,7 @@ namespace esco.reference.data.test
         public void GetReferenceDataAsString()
         {
             var date = DateTime.Parse("03-13-2023");
-            string result = services.GetReferenceDataAsString(null, "FUTOTC").Result;
+            string result = services.GetReferenceDataAsString(null, "OOFOTC").Result;
             Console.Write(JsonSerializer.Serialize(result, options));
 
             Assert.IsTrue(result != string.Empty);
@@ -465,7 +476,7 @@ namespace esco.reference.data.test
         public void GetReferenceData()
         {
             var date = DateTime.Parse("03-27-2023");
-            ReferenceDatas result = services.GetReferenceData(null, "FUTOTC").Result;
+            ReferenceDatas result = services.GetReferenceData(null, "OOFOTC").Result;
             Console.Write(JsonSerializer.Serialize(result, options));
 
             Assert.IsTrue(result.data.Count != 0);
