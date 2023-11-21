@@ -25,7 +25,7 @@ namespace ESCO.Reference.Data.Model
         public double? tradeVolume { get; set; }
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string type { get; set; }
-        //[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string instrumentCode{ get; set; }
 
         public class PriceOld
