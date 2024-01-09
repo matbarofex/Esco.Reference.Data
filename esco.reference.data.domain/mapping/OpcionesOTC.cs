@@ -9,7 +9,7 @@ namespace ESCO.Reference.Data.Model
 {
     public class OpcionesOTC
     {
-        public FuturosOTCList data { get; set; }
+        public OpcionesOTCList data { get; set; }
         public int? totalCount { get; set; }    
     }
 
