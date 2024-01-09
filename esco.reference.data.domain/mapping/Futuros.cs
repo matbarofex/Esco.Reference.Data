@@ -75,6 +75,12 @@ namespace ESCO.Reference.Data.Model
 
         public string minSize { get; set; }
 
+        public string priceScale { get; set; }
+
+        public string sizeScale { get; set; }
+
+        public string settlementDate { get; set; }
+
         public bool execInstValue { get; set; }
     }
 

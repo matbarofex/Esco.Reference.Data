@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace ESCO.Reference.Data.Model
@@ -34,9 +35,11 @@ namespace ESCO.Reference.Data.Model
 
         public string symbol { get; set; }
 
-        public string realtedSymbol { get; set; }
+        public string relatedSymbol { get; set; }
 
         public string contractMultiplier { get; set; }
+
+        public string maturityDate { get; set; }
 
         public string underlyingSymbol { get; set; }
 
@@ -48,9 +51,9 @@ namespace ESCO.Reference.Data.Model
 
         public string marketId { get; set; }    
 
-        public string country { get; set; } 
+        public string country { get; set; }
 
-        public string putOrCall { get; set; }  
+        public string putOrCall { get; set; }
 
     }
 }

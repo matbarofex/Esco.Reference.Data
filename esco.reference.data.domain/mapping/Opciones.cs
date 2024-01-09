@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System;
+using System.Text.Json.Serialization;
 
 namespace ESCO.Reference.Data.Model
 {
@@ -22,11 +23,10 @@ namespace ESCO.Reference.Data.Model
     public class OpcionesFields
     {        
         public string cfiCode { get; set; }        
-        public string currency { get; set; }     
-        
+        public string currency { get; set; }            
         public string currency2 { get; set; }
         public string symbol { get; set; }        
-        public string contractMultiplier { get; set; }        
+        public string contractMultiplier { get; set; }
         public string highLimitPrice { get; set; }        
         public string lowLimitPrice { get; set; }        
         public string maturityDate { get; set; }        
@@ -51,27 +51,21 @@ namespace ESCO.Reference.Data.Model
         public string securityStatus { get; set; }
         public string clearingSymbol { get; set; }
         public string optionStyle { get; set; }  
-        
-        public string tickSize { get; set; }    
-
-        public List<TypeTickPriceRules> tickPriceRules { get; set; }
-        
+        public string tickSize { get; set; }   
+        public string settlType {  get; set; }
+        public string priceScale { get; set; }
+        public string sizeScale { get; set; }
+        public string settlementDate { get; set; }
+        public string putOrCall { get; set; }
+        public List<TypeTickPriceRules> tickPriceRules { get; set; }       
         public string roundLot { get; set; }
-
         public string[] orderTypes { get; set; }
-
         public string[] timeInForces { get; set; }  
-
         public string blockTrade { get; set; }  
-
         public string minLotSize { get; set; }
-
         public string maxLotSize { get; set; }
-
         public string maxSize { get; set; }
-
         public string minSize { get; set; }
-
         public bool execInstValue { get; set; }
 
     }
