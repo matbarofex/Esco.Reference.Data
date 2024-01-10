@@ -198,7 +198,7 @@ namespace ESCO.Reference.Data.Model
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string PersonTypeId { get; set; }
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public string PersonTypeName { get; set; }
+        public string personTypeName { get; set; }
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string minQty { get; set; }
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -236,7 +236,7 @@ namespace ESCO.Reference.Data.Model
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string minSize { get; set; }
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
-        public bool execInstValue { get; set; }
+        public dynamic execInstValue { get; set; }
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string instrumentCode { get; set; }
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
