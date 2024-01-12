@@ -48,7 +48,6 @@ namespace ESCO.Reference.Data.Config
             public const string FilterMarketId = "indexof(marketId, '{0}') ne -1";
             public const string FilterCountry = "indexof(country, '{0}') ne -1";
 
-            public const string FilterOpts = "?$filter=type eq 'OPT' or type eq 'OOF'";
             public const string FilterADRS = "?$filter=text eq 'A.D.R.S (ACCIONES)'&orderby name";
             public const string FilterPrivadas = "?$filter=text eq 'ACCIONES PRIVADAS'&orderby name";
             public const string FilterPymes = "?$filter=text eq 'ACCIONES PYMES'&orderby name";

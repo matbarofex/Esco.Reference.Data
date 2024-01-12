@@ -236,7 +236,7 @@ namespace ESCO.Reference.Data.Model
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string minSize { get; set; }
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
-        public dynamic execInstValue { get; set; }
+        public bool execInstValue { get; set; }
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string instrumentCode { get; set; }
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]

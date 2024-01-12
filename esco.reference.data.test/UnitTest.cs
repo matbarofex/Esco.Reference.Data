@@ -322,7 +322,17 @@ namespace esco.reference.data.test
         [TestCategory("ByTypes")]
         public void GetOpciones()
         {
-            ReferenceDatas result = services.GetOpciones().Result;
+            Opciones result = services.GetOpciones().Result;
+            Console.Write(JsonSerializer.Serialize(result, options));
+
+            Assert.IsTrue(result.data.Count != 0);
+        }
+
+        [TestMethod]
+        [TestCategory("ByTypes")]
+        public void GetOpcionesMTR()
+        {
+            OpcionesMTR result = services.GetOpcionesMTR().Result;
             Console.Write(JsonSerializer.Serialize(result, options));
 
             Assert.IsTrue(result.data.Count != 0);

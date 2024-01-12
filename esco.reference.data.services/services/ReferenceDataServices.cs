@@ -236,13 +236,20 @@ namespace ESCO.Reference.Data.Services
              JsonSerializer.Deserialize<FuturosOTC>(await GetAsString(Types.FuturosOTC, schema));
 
         /// <summary>
-        /// Retorna la lista de instrumentos financieros de tipo Opciones (OPT-OOF).
+        /// Retorna la lista de instrumentos financieros de tipo Opciones de ByMA (OPT).
         /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma por defecto el esquema activo.</param>
         /// </summary>     
         /// <returns>Modelo de datos json de tipo Opciones.</returns>
-        public async Task<ReferenceDatas> GetOpciones(string schema = null) =>
-            await GetAsReferenceData(GetUrl(Url.FilterOpts, null, schema));
+        public async Task<Opciones> GetOpciones(string schema = null) =>
+            JsonSerializer.Deserialize<Opciones>(await GetAsString(Types.Opciones, schema));
 
+        /// <summary>
+        /// Retorna la lista de instrumentos financieros de tipo Opciones de MatbaRofex (OOF).
+        /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma por defecto el esquema activo.</param>
+        /// </summary>     
+        /// <returns>Modelo de datos json de tipo OpcionesMTR.</returns>
+        public async Task<OpcionesMTR> GetOpcionesMTR(string schema = null) =>
+            JsonSerializer.Deserialize<OpcionesMTR>(await GetAsString(Types.OpcionesMTR, schema));
 
         /// <summary>
         /// Retorna la lista de instrumentos financieros de tipo OpcionesOTC (OOFOTC).
