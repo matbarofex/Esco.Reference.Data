@@ -83,8 +83,8 @@ namespace ESCO.Reference.Data.Model
         public string collateralHaircut { get; set; }
         public string collateralElegible { get; set; }
         public string collateralQuota { get; set; }
-        public string PersonTypeId { get; set; }
-        public string PersonTypeName { get; set; }
+        public string personTypeId { get; set; }
+        public string personTypeName { get; set; }
         public string speciesCode { get; set; }
         public string denomination { get; set; }
 

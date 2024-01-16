@@ -49,5 +49,16 @@ namespace ESCO.Reference.Data.Model
         public string closePriceDate { get; set; }
         public string volume { get; set; }
         public string volumeDate { get; set; }
+        public string issueCurrency { get; set; }
+        public string priceScale { get; set; }
+        public string sizeScale { get; set; }
+        public string tickSize { get; set; }
+        public List<TypeTickPriceRules> tickPriceRules { get; set; }
+        public string minSize { get; set; }
+        public string maxSize { get; set; }
+        public string settlType { get; set; }
+        public string[] orderTypes { get; set; }
+        public string[] timeInForces { get; set; }
+        public string securitySubType { get; set; }
     }
 }

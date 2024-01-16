@@ -46,6 +46,22 @@ namespace ESCO.Reference.Data.Model
         public string issuer { get; set; }        
         public string bloombergTicker { get; set; }        
         public string isinTicker { get; set; }        
-        public string securityStatus { get; set; } 
+        public string securityStatus { get; set; }
+        public string blockTrade { get; set; }
+        public string minLotSize { get; set; }
+        public string maxLotSize { get; set; }
+        public string roundLot { get; set; }
+        public string tickSize { get; set; }
+        public string minSize { get; set; }
+        public string maxSize { get; set; }
+        public string priceScale { get; set; }
+        public string sizeScale { get; set; }
+        public string[] orderTypes { get; set; }
+        public string[] timeInForces { get; set; }
+        public List<TypeLegs> legs { get; set; }
+        public string settlementDate { get; set; }
+        public List<TypeTickPriceRules> tickPriceRules { get; set; }
+        public bool execInstValue { get; set; }
+
     }
 }
