@@ -7,10 +7,10 @@
     <Authors>Sistemas ESCO</Authors>
     <Copyright>Sistemas ESCO srl.</Copyright>
     <Product>Esco.Reference.Data.Model.NET</Product>
-    <Version>3.3</Version>
+    <Version>3.5</Version>
     <PackageIcon>esco.png</PackageIcon>
     <Description>Dominio de tipos de Datos del Conector ESCO Reference Data</Description>
-    <PackageTags>3.3</PackageTags>
+    <PackageTags>3.5</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>

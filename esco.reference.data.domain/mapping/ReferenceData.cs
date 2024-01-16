@@ -198,7 +198,7 @@ namespace ESCO.Reference.Data.Model
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string PersonTypeId { get; set; }
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public string personTypeName { get; set; }
+        public string PersonTypeName { get; set; }
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string minQty { get; set; }
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
