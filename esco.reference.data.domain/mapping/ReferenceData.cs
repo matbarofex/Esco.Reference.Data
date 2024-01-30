@@ -255,6 +255,8 @@ namespace ESCO.Reference.Data.Model
         public List<TypeLegs> legs { get; set; }
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string securitySubType { get; set; }
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public Dictionary<string, object> tickers { get; set; } 
     }
 
     public class TypeTickPriceRules
