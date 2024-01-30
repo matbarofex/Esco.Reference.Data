@@ -372,7 +372,7 @@ namespace ESCO.Reference.Data.Services
 
         #region ReferenceDatas 
 
-        /// <summary>
+        /// <summary>S
         /// Retorna la lista de instruments actualizados en el día como cadena string
         /// </summary>
         /// <param name="type">(Optional) Filtrar por tipo de Instrumentos. Si es null devuelve la lista completa.</param>
@@ -691,6 +691,7 @@ namespace ESCO.Reference.Data.Services
                 IssuersList rest = JsonSerializer.Deserialize<IssuersList>(await GetAsString(null, schema, Url.Issuer));
                 if (rest != null && rest.data.Count > 0)
                 {
+                    rest.data.RemoveAll(x => x.fields == null || x.fields.issuer == "");
                     rest.data
                         .GroupBy(x => x.fields.issuer)
                         .Select(x => x.First())

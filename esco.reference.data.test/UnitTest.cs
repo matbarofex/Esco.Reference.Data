@@ -158,7 +158,7 @@ namespace esco.reference.data.test
         [TestCategory("OData")]
         public void GetODataConsolidate()
         {
-            string query = "?$filter=type eq 'CS'";
+            string query = "?$filter=type eq 'GO'";
             ReferenceDatas result = services.GetConsolidatedByOData(query).Result;
             Console.Write(JsonSerializer.Serialize(result, options));
 
@@ -251,7 +251,7 @@ namespace esco.reference.data.test
         [TestCategory("ByTypes")]
         public void GetAccionesADRS()
         {
-            Acciones result = services.GetAccionesADRS("schema-001").Result;
+            Acciones result = services.GetAccionesADRS().Result;
             Console.Write(JsonSerializer.Serialize(result, options));
 
             Assert.IsTrue(result.data.Count != 0);
@@ -476,7 +476,7 @@ namespace esco.reference.data.test
         public void GetReferenceData()
         {
             var date = DateTime.Parse("03-27-2023");
-            ReferenceDatas result = services.GetReferenceData(null, "OOFOTC").Result;
+            ReferenceDatas result = services.GetReferenceData(null, "FUT").Result;
             Console.Write(JsonSerializer.Serialize(result, options));
 
             Assert.IsTrue(result.data.Count != 0);

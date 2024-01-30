@@ -240,6 +240,9 @@ namespace ESCO.Reference.Data.Model
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public bool execInstValue { get; set; }
 
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public Dictionary<string, object> tickers { get; set; }
+
     }
 
     public class TypeTickPriceRules
