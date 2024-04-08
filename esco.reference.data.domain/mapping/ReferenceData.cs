@@ -225,7 +225,7 @@ namespace ESCO.Reference.Data.Model
         public string[] orderTypes { get; set; }
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string[] timeInForces { get; set; }
-        //[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public bool blockTrade { get; set; }
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string minLotSize { get; set; }
