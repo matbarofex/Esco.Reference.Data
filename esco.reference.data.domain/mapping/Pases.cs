@@ -47,7 +47,7 @@ namespace ESCO.Reference.Data.Model
         public string bloombergTicker { get; set; }        
         public string isinTicker { get; set; }        
         public string securityStatus { get; set; }
-        public string blockTrade { get; set; }
+        public bool blockTrade { get; set; }
         public string minLotSize { get; set; }
         public string maxLotSize { get; set; }
         public string roundLot { get; set; }

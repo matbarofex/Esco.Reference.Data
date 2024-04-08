@@ -34,7 +34,7 @@ namespace ESCO.Reference.Data.Model
         public string maturityMonthYear { get; set; }
         public string strikePrice { get; set; }
         public string strikeCurrency { get; set; }
-        public string blockTrade { get; set; }
+        public bool blockTrade { get; set; }
         public string minLotSize { get; set; }
         public string maxLotSize { get; set; }
         public string roundLot { get; set; }

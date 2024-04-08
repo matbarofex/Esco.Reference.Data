@@ -65,7 +65,7 @@ namespace ESCO.Reference.Data.Model
 
         public string[] timeInForces { get; set; }
 
-        public string blockTrade { get; set; }
+        public bool blockTrade { get; set; }
 
         public string minLotSize { get; set; }
 

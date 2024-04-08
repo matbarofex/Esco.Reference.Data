@@ -474,8 +474,8 @@ namespace esco.reference.data.test
         [TestCategory("ReferenceData")]
         public void GetReferenceDataAsString()
         {
-            var date = DateTime.Parse("03-13-2023");
-            string result = services.GetReferenceDataAsString(null, "OOFOTC").Result;
+            var date = DateTime.Parse("03-08-2024");
+            string result = services.GetReferenceDataAsString(null, "FUT").Result;
             Console.Write(JsonSerializer.Serialize(result, options));
 
             Assert.IsTrue(result != string.Empty);
@@ -485,8 +485,8 @@ namespace esco.reference.data.test
         [TestCategory("ReferenceData")]
         public void GetReferenceData()
         {
-            var date = DateTime.Parse("03-27-2023");
-            ReferenceDatas result = services.GetReferenceData(null, "OOFOTC").Result;
+            var date = DateTime.Parse("03-08-2024");
+            ReferenceDatas result = services.GetReferenceData(null, "FUT").Result;
             Console.Write(JsonSerializer.Serialize(result, options));
 
             Assert.IsTrue(result.data.Count != 0);
