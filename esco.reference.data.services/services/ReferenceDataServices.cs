@@ -58,34 +58,6 @@ namespace ESCO.Reference.Data.Services
         }
 
         #region Prices
-      
-        /// <summary>
-        /// Retorna los campos de precios actualizados de un instrumento financiero como una cadena.
-        /// </summary>
-        /// <param name="name">(Requeried) Filtrar por nombre de Instrumento.</param>    
-        /// <returns>string</returns>
-        public async Task<string> GetPriceAsString(string name = null)
-        {
-            return JsonSerializer.Serialize(await httpClient.GetPrice(string.Format(Url.PriceByInstrument, name)), httpClient.Options());
-        }
-
-        /// <summary>
-        /// Retorna los campos de precios actualizados de un instrumento financiero dado.
-        /// </summary>
-        /// <param name="name">(Requeried) Filtrar por nombre de Instrumentos.</param>      
-        /// <returns>Price</returns>
-        public async Task<Price> GetPrice(string name = null) =>
-            await httpClient.GetPrice(string.Format(Url.PriceByInstrument, name));
-
-
-        /// <summary>
-        /// Retorna la lista de campos de precios actualizados de los instrumentos financieros como una cadena.
-        /// </summary>
-        /// <param name="type">(Optional) Filtrar por tipo de Instrumentos.</param>  
-        /// <returns>string</returns>
-        public async Task<string> GetPricesAsString(string type = null) => 
-            JsonSerializer.Serialize(await GetAsPrices(type), httpClient.Options());
-
         /// <summary>
         /// Retorna la lista de campos de precios actualizados de los instrumentos financieros.
         /// </summary>   

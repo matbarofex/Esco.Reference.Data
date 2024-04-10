@@ -83,36 +83,6 @@ namespace esco.reference.data.test
 
         [TestMethod]
         [TestCategory("Precios")]
-        public void GetPriceAsString()
-        {
-            string result = services.GetPriceAsString("COME-0003-C-CT-ARS").Result;
-            Console.Write(JsonSerializer.Serialize(result, options));
-
-            Assert.IsTrue(result != string.Empty);
-        }
-
-        [TestMethod]
-        [TestCategory("Precios")]
-        public void GetPrice()
-        {
-            Price result = services.GetPrice("COME-0003-C-CT-ARS").Result;
-            Console.Write(JsonSerializer.Serialize(result, options));
-
-            Assert.IsNotNull(result);
-        }
-
-        [TestMethod]
-        [TestCategory("Precios")]
-        public void GetPricesAsString()
-        {
-            string result = services.GetPricesAsString().Result;
-            Console.Write(JsonSerializer.Serialize(result, options));
-
-            Assert.IsTrue(result != string.Empty);
-        }
-
-        [TestMethod]
-        [TestCategory("Precios")]
         public void GetPrices()
         {
             List<Price> result = services.GetPrices().Result;

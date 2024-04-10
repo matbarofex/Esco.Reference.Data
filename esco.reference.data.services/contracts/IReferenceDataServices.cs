@@ -16,10 +16,6 @@ namespace ESCO.Reference.Data.Services.Contracts
         void PaginatedMode(bool paginated = true);          //Habilitación del paginado de registros (por defecto es false: trae todos los registros sin paginar)
 
         #region Prices
-        Task<string> GetPriceAsString(string name);              //Retorna el precio actualizado de un  instrumentos financiero como una cadena.
-        Task<Price> GetPrice(string name);                       //Retorna el precio actualizado de un  instrumentos financiero.
-
-        Task<string> GetPricesAsString(string type = null);      //Retorna la lista de campos de precios actualizados de los instrumentos financieros como una cadena.
         Task<List<Price>> GetPrices(string type = null);         //Retorna la lista de campos de precios actualizados de los instrumentos financieros.
         #endregion
 
