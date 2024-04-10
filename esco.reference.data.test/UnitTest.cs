@@ -80,28 +80,7 @@ namespace esco.reference.data.test
         #endregion
 
         #region OData
-        [TestMethod]
-        [TestCategory("OData")]
-        public void GetODataReferenceDataTop()
-        {
-            string query = "?$filter=type eq 'MF'&$select=symbol,currency,cnvCode,country&$top=355&$skip=0";
-            ReferenceDatas result = services.GetReferenceDataByOData(query).Result;
-            Console.Write(JsonSerializer.Serialize(result, options));
-
-            Assert.IsTrue(result.data.Count != 0);
-        }
-
-        [TestMethod]
-        [TestCategory("OData")]
-        public void GetODataReferenceData()
-        {
-            string query = "?$filter=type eq 'MF'&$select=symbol,currency,cnvCode,country";
-            ReferenceDatas result = services.GetReferenceDataByOData(query).Result;
-            Console.Write(JsonSerializer.Serialize(result, options));
-
-            Assert.IsTrue(result.data.Count != 0);
-        }
-
+        
         [TestMethod]
         [TestCategory("OData")]
         public void GetByODataAsString()
@@ -124,22 +103,6 @@ namespace esco.reference.data.test
             Console.Write(result);
 
             Assert.IsNotNull(result);
-        }
-
-        [TestMethod]
-        [TestCategory("OData")]
-        public void GetODataReferenceDataNull()
-        {
-            string expected = "Response status code does not indicate success: 404 (Resource Not Found).";
-            string query = "top=6&$filter=type eq 'MF'";
-
-            var ex = Assert.ThrowsException<AggregateException>(() =>
-            {
-                _ = services.GetReferenceDataByOData(query).Result;
-            });
-
-            Console.Write(ex.InnerException.Message);
-            Assert.AreEqual(expected, ex.InnerException.Message);
         }
 
         [TestMethod]

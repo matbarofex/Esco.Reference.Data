@@ -58,15 +58,7 @@ namespace ESCO.Reference.Data.Services
         }
 
         #region OData
-        /// <summary>
-        /// Retorna la lista de instrumentos financieros filtrados con Query en formato OData.
-        /// </summary>
-        /// <param name="query">(Optional) Query de filtrado en formato OData. Diccionario de campos disponible con el método getReferenceDataSpecification(). (Ejemplo de consulta:"?$top=5 & $filter=type eq 'MF' & $select=currency,name,region" </param>
-        /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma por defecto el esquema activo.</param>
-        /// <returns>ReferenceDatas object Result.</returns>
-        public async Task<ReferenceDatas> GetReferenceDataByOData(string query = null, string schema = null) =>
-            await GetAsReferenceData(SetUrl(Url.ReferenceData + (query ?? Url.FilterAll), schema ?? Schema.actual));
-
+        
         /// <summary>
         /// Retorna la lista de instrumentos financieros como string, filtrados con Query en formato OData.
         /// </summary>

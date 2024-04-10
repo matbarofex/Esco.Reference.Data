@@ -15,9 +15,8 @@ namespace ESCO.Reference.Data.Services.Contracts
         void ChangeSuscriptionKey(string key);              //Cambiar la Suscription Key del usuario
         void PaginatedMode(bool paginated = true);          //Habilitación del paginado de registros (por defecto es false: trae todos los registros sin paginar)
 
-        #region OData
-        Task<ReferenceDatas> GetReferenceDataByOData(string query = null, string schema = null);                  // Retorna la lista de instrumentos filtrados con OData.        
-        Task<string> GetByODataAsString(string query, string schema);                                             // Retorna la lista de instrumentos financieros como string, filtrados con Query en formato OData.
+        #region OData        
+        
         Task<ReferenceDatas> GetConsolidatedByOData(string query = null, string schema = null);                   // Retorna la lista de instrumentos financieros consolidados filtrados con Query en formato OData.
         Task<string> GetConsolidatedAsString(string query = null, string schema = null);                          // Retorna la lista de instrumentos financieros consolidados como string filtrados con Query en formato OData.
         Task<Stream> GetCSVByOData(string query = null, string schema = null);                                    // Retorna la lista de instrumentos financieros filtrados en un CSV con Query en formato OData.
