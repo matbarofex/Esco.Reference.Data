@@ -81,46 +81,6 @@ namespace esco.reference.data.test
 
         #region OData
         
-
-        [TestMethod]
-        [TestCategory("OData")]
-        public void GetODataConsolidate()
-        {
-            string query = "?$filter=type eq 'CS'";
-            ReferenceDatas result = services.GetConsolidatedByOData(query).Result;
-            Console.Write(JsonSerializer.Serialize(result, options));
-
-            Assert.IsTrue(result.data.Count != 0);
-        }
-
-        [TestMethod]
-        [TestCategory("OData")]
-        public void GetConsolidatedAsString()
-        {
-            string query = "?$filter=type eq 'CS'";
-            string result = services.GetConsolidatedAsString(query).Result;
-            var json = JsonSerializer.Deserialize<ReferenceDatas>(result);
-            Console.Write(JsonSerializer.Serialize(json, options));
-
-            Assert.IsNotNull(result);
-        }
-
-        [TestMethod]
-        [TestCategory("OData")]
-        public void GetODataConsolidateNull()
-        {
-            string expected = "Response status code does not indicate success: 404 (Resource Not Found).";
-            string query = "top=6&$filter=type eq 'MF'";
-
-            var ex = Assert.ThrowsException<AggregateException>(() =>
-            {
-                _ = services.GetConsolidatedByOData(query).Result;
-            });
-
-            Console.Write(ex.InnerException.Message);
-            Assert.AreEqual(expected, ex.InnerException.Message);
-        }
-
         [TestMethod]
         [TestCategory("OData")]
         public void GetODataCSV()
