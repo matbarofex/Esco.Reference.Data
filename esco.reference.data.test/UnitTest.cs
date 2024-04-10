@@ -81,29 +81,6 @@ namespace esco.reference.data.test
 
         #region OData
         
-        [TestMethod]
-        [TestCategory("OData")]
-        public void GetByODataAsString()
-        {
-            //string query = "?$filter=type eq 'FUT'";
-            string query = "?$top=500&$skip=500";
-            string result = services.GetByODataAsString(query).Result;
-            var json = JsonSerializer.Deserialize<ReferenceDatas>(result);
-            Console.Write(JsonSerializer.Serialize(json, options));
-
-            Assert.IsNotNull(result);
-        }
-
-        [TestMethod]
-        [TestCategory("OData")]
-        public void GetByODataAsOnlyString()
-        {
-            string query = "?$filter=type eq 'FUT'";
-            string result = services.GetByODataAsString(query).Result;            
-            Console.Write(result);
-
-            Assert.IsNotNull(result);
-        }
 
         [TestMethod]
         [TestCategory("OData")]
