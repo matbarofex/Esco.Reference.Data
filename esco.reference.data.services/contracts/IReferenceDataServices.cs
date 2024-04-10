@@ -15,10 +15,6 @@ namespace ESCO.Reference.Data.Services.Contracts
         void ChangeSuscriptionKey(string key);              //Cambiar la Suscription Key del usuario
         void PaginatedMode(bool paginated = true);          //Habilitación del paginado de registros (por defecto es false: trae todos los registros sin paginar)
 
-        #region OData        
-        Task<bool> SaveCSVByOData(string filePath, string fileName, string query = null, string schema = null);   // Retorna la lista de instrumentos financieros en un CSV (compactado en archivo ZIP) filtrados con Query en formato OData.
-        #endregion
-
         #region Prices
         Task<string> GetPriceAsString(string name);              //Retorna el precio actualizado de un  instrumentos financiero como una cadena.
         Task<Price> GetPrice(string name);                       //Retorna el precio actualizado de un  instrumentos financiero.

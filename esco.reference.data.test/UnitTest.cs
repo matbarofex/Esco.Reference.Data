@@ -79,19 +79,6 @@ namespace esco.reference.data.test
         }
         #endregion
 
-        #region OData
-        
-        [TestMethod]
-        [TestCategory("OData")]
-        public void SaveDataCSV()
-        {
-            string query = "?$filter=type eq 'FUT'";
-            string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            bool export = services.SaveCSVByOData(path, "report", query).Result;
-            Assert.IsTrue(export);
-        }
-        #endregion
-
         #region ByTypes
         [TestMethod]
         [TestCategory("ByTypes")]

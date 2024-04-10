@@ -57,37 +57,6 @@ namespace ESCO.Reference.Data.Services
             httpClient.ChangeKey(key);
         }
 
-        #region OData
-        
-        /// <summary>
-        /// Retorna la lista de instrumentos financieros en un CSV (compactado en archivo ZIP) filtrados con Query en formato OData.
-        /// </summary>
-        /// <param name="filePath">(Required) Ruta del directorio donde se guarda el archivo exportado a formato .csv </param>
-        /// <param name="fileName">(Required) Nombre del archivo donde se guarda la exportación en formato .csv </param>
-        /// <param name="query">(Optional) Query de filtrado en formato OData. Diccionario de campos disponible con el método getReferenceDataSpecification(). (Ejemplo de consulta:"?$top=5 & $filter=type eq 'MF' & $select=currency,name,region" </param>
-        /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma por defecto el esquema activo.</param>
-        /// <returns>ReferenceDatas object Result.</returns>
-        public async Task<bool> SaveCSVByOData(string filePath, string fileName, string query = null, string schema = null)
-        {
-            DirectoryInfo info = new(filePath);
-            if (!info.Exists) info.Create();
-
-            try
-            {
-                using FileStream fileStream = new(Path.Combine(filePath, fileName + ".zip"), FileMode.Create, FileAccess.Write);
-                Stream stream = await GetCSVByOData(query, schema);
-                await stream.CopyToAsync(fileStream);
-
-                fileStream.Dispose();
-                return true;
-            }
-            catch
-            {
-                throw;
-            }
-        }
-        #endregion
-
         #region ReferenceDatasTypes
         /// <summary>
         /// Retorna la lista de instrumentos financieros de tipo Fondos Comunes de Inversion (MF).
