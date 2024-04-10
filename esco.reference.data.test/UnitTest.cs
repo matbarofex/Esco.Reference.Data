@@ -38,7 +38,7 @@ namespace esco.reference.data.test
 
             var ex = Assert.ThrowsException<AggregateException>(() =>
             {
-                _ = _services.GetMapping().Result;
+                
             });
 
             Console.Write(ex.InnerException.Message);
@@ -54,7 +54,7 @@ namespace esco.reference.data.test
 
             var ex = Assert.ThrowsException<AggregateException>(() =>
             {
-                _ = services.GetMapping().Result;
+                
             });
 
             Console.Write(ex.InnerException.Message);
@@ -71,23 +71,11 @@ namespace esco.reference.data.test
 
             var ex = Assert.ThrowsException<AggregateException>(() =>
             {
-                _ = _services.GetMapping().Result;
+                
             });
 
             Console.Write(ex.InnerException.Message);
             Assert.AreEqual(expected, ex.InnerException.Message);
-        }
-        #endregion
-
-        #region Schemas       
-        [TestMethod]
-        [TestCategory("Schemas")]
-        public void GetMapping()
-        {
-            Mappings result = services.GetMapping().Result;
-            Console.Write(JsonSerializer.Serialize(result, options));
-
-            Assert.IsNotNull(result);
         }
         #endregion
 

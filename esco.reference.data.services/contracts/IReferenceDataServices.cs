@@ -15,10 +15,6 @@ namespace ESCO.Reference.Data.Services.Contracts
         void ChangeSuscriptionKey(string key);              //Cambiar la Suscription Key del usuario
         void PaginatedMode(bool paginated = true);          //Habilitación del paginado de registros (por defecto es false: trae todos los registros sin paginar)
 
-        #region Schemas
-        Task<Mappings> GetMapping(string schema = null);    //Devuelve el mapping que tiene un schema.
-        #endregion
-
         #region OData
         Task<ReferenceDatas> GetReferenceDataByOData(string query = null, string schema = null);                  // Retorna la lista de instrumentos filtrados con OData.        
         Task<string> GetByODataAsString(string query, string schema);                                             // Retorna la lista de instrumentos financieros como string, filtrados con Query en formato OData.

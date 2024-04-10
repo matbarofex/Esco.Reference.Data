@@ -57,25 +57,6 @@ namespace ESCO.Reference.Data.Services
             httpClient.ChangeKey(key);
         }
 
-        #region Schemas
-        /// <summary>
-        /// Devuelve el mapping que tiene un schema.
-        /// </summary>       
-        /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma por defecto el esquema activo.</param>
-        /// <returns>ReferenceDatas json.</returns>
-        public async Task<Mappings> GetMapping(string schema = null)
-        {
-            try
-            {
-                return await httpClient.GetMapping(SetUrl(Url.Mapping, schema ?? Schema.actual));
-            }
-            catch
-            {
-                throw;
-            }
-        }
-        #endregion
-
         #region OData
         /// <summary>
         /// Retorna la lista de instrumentos financieros filtrados con Query en formato OData.
