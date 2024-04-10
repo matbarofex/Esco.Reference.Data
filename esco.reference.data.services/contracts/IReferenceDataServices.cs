@@ -16,7 +16,6 @@ namespace ESCO.Reference.Data.Services.Contracts
         void PaginatedMode(bool paginated = true);          //Habilitación del paginado de registros (por defecto es false: trae todos los registros sin paginar)
 
         #region OData        
-        Task<Stream> GetCSVByOData(string query = null, string schema = null);                                    // Retorna la lista de instrumentos financieros filtrados en un CSV con Query en formato OData.
         Task<bool> SaveCSVByOData(string filePath, string fileName, string query = null, string schema = null);   // Retorna la lista de instrumentos financieros en un CSV (compactado en archivo ZIP) filtrados con Query en formato OData.
         #endregion
 

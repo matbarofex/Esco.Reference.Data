@@ -83,18 +83,6 @@ namespace esco.reference.data.test
         
         [TestMethod]
         [TestCategory("OData")]
-        public void GetODataCSV()
-        {
-            string query = "?$filter=type eq 'FUT'";
-            Stream result = services.GetCSVByOData(query).Result;
-            StreamReader stream = new(result);
-            Console.Write(stream.ReadToEnd());
-
-            Assert.IsTrue(result.CanRead);
-        }
-
-        [TestMethod]
-        [TestCategory("OData")]
         public void SaveDataCSV()
         {
             string query = "?$filter=type eq 'FUT'";
