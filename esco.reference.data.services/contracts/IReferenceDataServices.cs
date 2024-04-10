@@ -32,27 +32,6 @@ namespace ESCO.Reference.Data.Services.Contracts
         Task<Specification> GetReferenceDataSpecification(string schema = null);                                //Retorna una especificación del estado actual.
         #endregion
 
-        #region ReferenceDatasTypes
-        Task<Fondos> GetFondos(string schema = null);       
-        Task<Cedears> GetCedears(string schema = null);
-        Task<Acciones> GetAcciones(string schema = null);
-        Task<Acciones> GetAccionesADRS(string schema = null);
-        Task<Acciones> GetAccionesPrivadas(string schema = null);
-        Task<Acciones> GetAccionesPYMES(string schema = null);
-        Task<Obligaciones> GetObligaciones(string schema = null);
-        Task<Titulos> GetTitulos(string schema = null);        
-        Task<Futuros> GetFuturos(string schema = null);
-        Task<FuturosOTC> GetFuturosOTC(string schema = null);
-        Task<Opciones> GetOpciones(string schema = null);
-        Task<OpcionesMTR> GetOpcionesMTR(string schema = null);
-        Task<OpcionesOTC> GetOpcionesOTC(string schema = null);
-        Task<Pases> GetPases(string schema = null);
-        Task<Cauciones> GetCauciones(string schema = null);
-        Task<Plazos> GetPlazos(string schema = null);
-        Task<Prestamos> GetPrestamosValores(string schema = null);
-        Task<Indices> GetIndices(string schema = null);
-        #endregion
-
         #region ESCO
         Task<Custodians> GetCustodians(string schema = null);                      // Retorna la lista de Sociedades Depositarias  
         Task<Managments> GetManagements(string schema = null);                     // Retorna la lista de Sociedades Administradoras
