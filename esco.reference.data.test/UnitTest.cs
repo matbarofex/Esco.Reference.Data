@@ -164,32 +164,6 @@ namespace esco.reference.data.test
 
             Assert.IsTrue(result.Count != 0);
         }
-
         #endregion
-
-        #region Reportes
-        [TestMethod]
-        [TestCategory("Fields")]
-        public void GetReports()
-        {
-            Reports result = services.GetFieldsReports().Result;
-            Console.Write(JsonSerializer.Serialize(result, options));
-
-            Assert.IsTrue(result.fields.Count != 0);
-        }
-
-        [TestMethod]
-        [TestCategory("Fields")]
-        public void GetReport()
-        {
-            Reports result = services.GetFields().Result;
-            Console.Write(JsonSerializer.Serialize(result, options));
-
-            Assert.IsTrue(result.fields.Count != 0);
-        }
-
-
-        #endregion
-
     }
 }

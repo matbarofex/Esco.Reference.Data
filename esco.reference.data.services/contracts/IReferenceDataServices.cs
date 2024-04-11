@@ -28,10 +28,5 @@ namespace ESCO.Reference.Data.Services.Contracts
         Task<Currencys> GetCurrencys(string schema = null);                        // Retorna la lista de Monedas 
         ReferenceDataTypes GetReferenceDataTypes(string schema = null);            // Retorna la lista de tipos de instrumentos financieros
         #endregion
-
-        #region Reportes
-        Task<Reports> GetFieldsReports(string schema = null);      //Devuelve la lista de campos para reportes.
-        Task<Reports> GetFields(string schema = null);             //Devuelve la lista completa de campos.
-        #endregion
     }
 }
