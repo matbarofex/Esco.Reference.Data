@@ -109,18 +109,6 @@ namespace esco.reference.data.test
 
         [TestMethod]
         [TestCategory("ReferenceData")]
-        public void GetUpdatedAsString()
-        {
-            string result = services.GetUpdatedAsString().Result;
-            var json = JsonSerializer.Deserialize<ReferenceDatas>(result);
-            Console.Write(JsonSerializer.Serialize(json, options));
-
-            Assert.IsNotNull(result);
-        }
-
-
-        [TestMethod]
-        [TestCategory("ReferenceData")]
         public void GetReferenceDataAsString()
         {
             var date = DateTime.Parse("03-08-2024");
@@ -149,81 +137,6 @@ namespace esco.reference.data.test
             Console.Write(JsonSerializer.Serialize(result, options));
 
             Assert.IsTrue(result.data.Count == 0);
-        }
-
-        [TestMethod]
-        [TestCategory("ReferenceData")]
-        public void SearchReferenceData()
-        {
-            ReferenceDatas result = services.SearchReferenceData("FUT", null, "USD", null, "ARG").Result;
-            Console.Write(JsonSerializer.Serialize(result, options));
-
-            Assert.IsTrue(result.data.Count != 0);
-        }
-
-        [TestMethod]
-        [TestCategory("ReferenceData")]
-        public void SearchReferenceDataNull()
-        {
-            ReferenceDatas result = services.SearchReferenceData("***").Result;
-            Console.Write(JsonSerializer.Serialize(result, options));
-
-            Assert.IsTrue(result.data.Count == 0);
-        }
-
-        [TestMethod]
-        [TestCategory("ReferenceData")]
-        public void SearchReferenceDataParam()
-        {
-            ReferenceDatas result = services.SearchReferenceData("FUT", "***").Result;
-            string strult = JsonSerializer.Serialize(result, options);
-            Console.Write(strult);
-
-            Assert.IsTrue(result.data.Count == 0);
-        }
-
-        [TestMethod]
-        [TestCategory("ReferenceData")]
-        public void GetReferenceDataSpecification()
-        {
-            Specification result = services.GetReferenceDataSpecification().Result;
-            Console.Write(JsonSerializer.Serialize(result, options));
-
-            Assert.IsNotNull(result);
-        }
-
-        [TestMethod]
-        [TestCategory("ReferenceData")]
-        public void SearchReferenceDataById()
-        {
-            ReferenceDatas result = services.SearchReferenceDataById("ALUA").Result;
-            Console.Write(JsonSerializer.Serialize(result, options));
-
-            Assert.IsTrue(result.data.Count != 0);
-        }
-
-        [TestMethod]
-        [TestCategory("ReferenceData")]
-        public void SearchReferenceDataByIdNull()
-        {
-            ReferenceDatas result = services.SearchReferenceDataById("***").Result;
-            Console.Write(JsonSerializer.Serialize(result, options));
-
-            Assert.IsTrue(result.data.Count == 0);
-        }
-
-        [TestMethod]
-        [TestCategory("ReferenceData")]
-        public void GetReferenceDataSpecificationNull()
-        {
-            string expected = "Response status code does not indicate success: 500 (Internal Server Error).";
-            var ex = Assert.ThrowsException<AggregateException>(() =>
-            {
-                _ = services.GetReferenceDataSpecification("***").Result;
-            });
-
-            Console.Write(ex.InnerException.Message);
-            Assert.AreEqual(expected, ex.InnerException.Message);
         }
 
         #endregion

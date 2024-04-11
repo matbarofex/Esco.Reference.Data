@@ -109,15 +109,6 @@ namespace ESCO.Reference.Data.Services
         #region ReferenceDatas 
 
         /// <summary>
-        /// Retorna la lista de instruments actualizados en el día como cadena string
-        /// </summary>
-        /// <param name="type">(Optional) Filtrar por tipo de Instrumentos. Si es null devuelve la lista completa.</param>
-        /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma por defecto el esquema activo.</param>
-        /// <returns>string</returns>
-        public async Task<string> GetUpdatedAsString(string type = null, string schema = null) =>
-            await httpClient.GetAsString(GetUrl(Url.FilterUpdated, type, schema));
-
-        /// <summary>
         /// Retorna la lista de instrumentos financieros.
         /// </summary>
         /// <param name="date">(Optional) Filtrar por Fecha de actualizacion de Instrumentos. Si es null devuelve la lista completa.</param>
@@ -129,34 +120,6 @@ namespace ESCO.Reference.Data.Services
             string cfg = (date != null) ? Url.FilterDated : null;
             return await GetAsReferenceData(GetUrl(cfg, type, schema, false, date));
         }
-
-        /// <summary>
-        /// Retorna la lista de instrumentos financieros filtrados por campos específicos (puede incluirse cadenas de búsqueda parcial).
-        /// </summary>
-        /// <param name="type">(Optional) Filtrar por tipo de Instrumentos financiero (Ej: "MF","FUT", "OPC", puede incluirse una cadena de búsqueda parcial.</param>
-        /// <param name="name">(Optional) Filtrar por nombre de Instrumentos (Ej: "ALUA", puede incluirse una cadena de búsqueda parcial).</param> 
-        /// <param name="currency">(Optional) Filtrar por tipo de Moneda. (Ej: "ARS", puede incluirse una cadena de búsqueda parcial)</param>
-        /// <param name="market">(Optional) Filtrar por Tipo de Mercado. (Ej "ROFX", "BYMA", puede incluirse una cadena de búsqueda parcial)</param>       
-        /// <param name="country">(Optional) Filtrar por nombre de País (Ej: "ARG", puede incluirse una cadena de búsqueda parcial).</param>
-        /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma el activo por defecto.</param>
-        /// <returns>ReferenceDatas object Result.</returns>
-        public async Task<ReferenceDatas> SearchReferenceData(
-            string type = null,
-            string name = null,
-            string currency = null,
-            string market = null,
-            string country = null,
-            string schema = null) =>
-            await GetAsReferenceData(GetUrlOData(Url.ReferenceData, type, name, currency, market, country, schema ?? Schema.actual));
-
-        /// <summary>
-        /// Retorna los Instrumentos financieros que contengan una cadena de búsqueda como parte del identificador (puede incluirse cadenas de búsqueda parcial).
-        /// </summary>
-        /// <param name="id">(Requeried) Cadena de búsqueda del Id de los Instrumentos financieros a filtrar.</param>
-        /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma el activo por defecto.</param>
-        /// <returns>ReferenceDatas object Result.</returns>
-        public async Task<ReferenceDatas> SearchReferenceDataById(string id = null, string schema = null) =>
-            await GetAsReferenceData(GetUrl(null, id, schema ?? Schema.actual, true));
 
 
         /// <summary>
@@ -228,22 +191,6 @@ namespace ESCO.Reference.Data.Services
             }
         }
 
-        /// <summary>
-        /// Retorna una especificación del estado actual de los modelos de datos Reference Data
-        /// </summary>
-        /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma por defecto el esquema activo.</param>
-        /// <returns>Specification json.</returns>
-        public async Task<Specification> GetReferenceDataSpecification(string schema = null)
-        {
-            try
-            {
-                return await httpClient.GetSpecification(SetUrl(Url.Specification, schema ?? Schema.actual));
-            }
-            catch
-            {
-                throw;
-            }
-        }
         #endregion
 
         #region ESCO
