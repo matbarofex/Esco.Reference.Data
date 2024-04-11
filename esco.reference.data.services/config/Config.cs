@@ -40,7 +40,7 @@ namespace ESCO.Reference.Data.Config
             public const string FilterDated = "?$filter=updated ge {1} and active eq true";
             public const string FilterAdded = "?$filter=date eq '{1}'";
             public const string FilterRemoved = "?$filter=updated ge {1} and active eq false";
-            public const string FilterAllArg = "?$filter=type ne null and (country eq 'ARG' or country eq 'URY')";
+            public const string FilterAllNeUSA = "?$filter=type ne null and country ne 'USA'";
 
             //Filters OData
             public const string FilterType = "indexof(type, '{0}') ne -1";
@@ -114,7 +114,7 @@ namespace ESCO.Reference.Data.Config
         {
             schema ??= Schema.actual;
             string format = (cfg == Url.FilterAdded) ? "d/MM/yyyy" : "yyyy-MM-d";
-            cfg = (cfg == null) ? Url.ReferenceData + Url.FilterAllArg : Url.ReferenceData + cfg;
+            cfg = (cfg == null) ? Url.ReferenceData + Url.FilterAllNeUSA : Url.ReferenceData + cfg;
             string date = (daterd != null)? daterd.Value.ToString(format): DateTime.Now.ToString(format);
             return (search) ?
                     SetUrl(cfg + Url.FilterIdStr, schema, date, typeorid) :
