@@ -20,12 +20,8 @@ namespace ESCO.Reference.Data.Services.Contracts
         #endregion
 
         #region ReferenceData
-        Task<string> GetUpdatedAsString(string type = null, string schema = null);                              //Retorna la lista de instruments actualizados en el día como cadena string.      
         Task<ReferenceDatas> GetReferenceData(DateTime? date, string type = null, string schema = null);        //Retorna la lista de instrumentos.
         Task<string> GetReferenceDataAsString(DateTime? date = null, string type = null, string schema = null); //Retorna la lista de instrumentos como una cadena.
-        Task<ReferenceDatas> SearchReferenceData(string type = null, string name = null, string currency = null, string market = null, string country = null, string schema = null); //Retorna la lista de instrumentos financieros filtrados por campos específicos.
-        Task<ReferenceDatas> SearchReferenceDataById(string id = null, string schema = null);                   //Retorna la lista de instrumentos financieros filtrados por el identificador.
-        Task<Specification> GetReferenceDataSpecification(string schema = null);                                //Retorna una especificación del estado actual.
         #endregion
 
         #region ESCO
