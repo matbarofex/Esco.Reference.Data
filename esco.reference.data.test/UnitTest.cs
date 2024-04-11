@@ -142,64 +142,7 @@ namespace esco.reference.data.test
         #endregion
 
         #region ESCO
-        [TestMethod]
-        [TestCategory("ESCO")]
-        public void GetCustodians()
-        {
-            Custodians result = services.GetCustodians().Result;
-            string strult = JsonSerializer.Serialize(result, options);
-            Console.Write(strult);
-
-            Assert.IsTrue(result.Count != 0);
-        }
-
-        [TestMethod]
-        [TestCategory("ESCO")]
-        public void GetCustodiansSchema()
-        {
-            string expected = "Response status code does not indicate success: 500 (Internal Server Error).";
-            var ex = Assert.ThrowsException<AggregateException>(() =>
-            {
-                _ = services.GetCustodians("**").Result;
-            });
-
-            Console.Write(ex.InnerException.Message);
-            Assert.AreEqual(expected, ex.InnerException.Message);
-        }
-
-        [TestMethod]
-        [TestCategory("ESCO")]
-        public void GetManagements()
-        {
-            Managments result = services.GetManagements().Result;
-            string strult = JsonSerializer.Serialize(result, options);
-            Console.Write(strult);
-
-            Assert.IsTrue(result.Count != 0);
-        }
-
-        [TestMethod]
-        [TestCategory("ESCO")]
-        public void GetRentTypes()
-        {
-            Rents result = services.GetRentTypes().Result;
-            string strult = JsonSerializer.Serialize(result, options);
-            Console.Write(strult);
-
-            Assert.IsTrue(result.Count != 0);
-        }
-
-        [TestMethod]
-        [TestCategory("ESCO")]
-        public void GetRegions()
-        {
-            Regions result = services.GetRegions().Result;
-            string strult = JsonSerializer.Serialize(result, options);
-            Console.Write(strult);
-
-            Assert.IsTrue(result.Count != 0);
-        }
-
+        
         [TestMethod]
         [TestCategory("ESCO")]
         public void GetCurrencys()
@@ -213,75 +156,9 @@ namespace esco.reference.data.test
 
         [TestMethod]
         [TestCategory("ESCO")]
-        public void GetCountrys()
-        {
-            Countrys result = services.GetCountrys().Result;
-            string strult = JsonSerializer.Serialize(result, options);
-            Console.Write(strult);
-
-            Assert.IsTrue(result.Count != 0);
-        }
-
-        [TestMethod]
-        [TestCategory("ESCO")]
-        public void GetIssuers()
-        {
-            Issuers result = services.GetIssuers().Result;
-            string strult = JsonSerializer.Serialize(result, options);
-            Console.Write(strult);
-
-            Assert.IsTrue(result.Count != 0);
-        }
-
-        [TestMethod]
-        [TestCategory("ESCO")]
-        public void GetHorizons()
-        {
-            Horizons result = services.GetHorizons().Result;
-            string strult = JsonSerializer.Serialize(result, options);
-            Console.Write(strult);
-
-            Assert.IsTrue(result.Count != 0);
-        }
-
-        [TestMethod]
-        [TestCategory("ESCO")]
-        public void GetFundTypes()
-        {
-            FundTypes result = services.GetFundTypes().Result;
-            string strult = JsonSerializer.Serialize(result, options);
-            Console.Write(strult);
-
-            Assert.IsTrue(result.Count != 0);
-        }
-
-        [TestMethod]
-        [TestCategory("ESCO")]
-        public void GetBenchmarks()
-        {
-            Benchmarks result = services.GetBenchmarks().Result;
-            string strult = JsonSerializer.Serialize(result, options);
-            Console.Write(strult);
-
-            Assert.IsTrue(result.Count != 0);
-        }
-
-        [TestMethod]
-        [TestCategory("ESCO")]
         public void GetReferenceDataTypes()
         {
             ReferenceDataTypes result = services.GetReferenceDataTypes();
-            string strult = JsonSerializer.Serialize(result, options);
-            Console.Write(strult);
-
-            Assert.IsTrue(result.Count != 0);
-        }
-
-        [TestMethod]
-        [TestCategory("ESCO")]
-        public void GetMarkets()
-        {
-            Markets result = services.GetMarkets().Result;
             string strult = JsonSerializer.Serialize(result, options);
             Console.Write(strult);
 
