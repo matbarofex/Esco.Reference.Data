@@ -9,11 +9,11 @@
     <Description>Conector que se integra con el Servicio que ofrece información de referencia de instrumentos financieros</Description>
     <Copyright>Sistemas ESCO srl.</Copyright>
     <PackageIcon>esco.png</PackageIcon>
-    <Version>4.2</Version>
+    <Version>4.3</Version>
     <PackageProjectUrl>https://github.com/matbarofex/esco.reference.data</PackageProjectUrl>
     <RepositoryUrl>https://github.com/matbarofex/esco.reference.data</RepositoryUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageTags>4.2</PackageTags>
+    <PackageTags>4.3</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
