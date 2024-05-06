@@ -14,7 +14,7 @@ using System.Xml.Linq;
 
 using static ESCO.Reference.Data.Config.Config;
 
-namespace ESCO.Reference.Data.Services2
+namespace ESCO.Reference.Data.Services
 {
     /// <summary>
     /// Servicios Reference Datas Conector que se integra con el Servicio Primary Information Reference.

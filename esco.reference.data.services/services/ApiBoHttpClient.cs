@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 using static ESCO.Reference.Data.Config.Config;
 
-namespace ESCO.Reference.Data.Services2
+namespace ESCO.Reference.Data.Services
 {
     class ApiBoHttpClient
     {
