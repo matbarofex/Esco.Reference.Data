@@ -1,5 +1,6 @@
 ﻿using ESCO.Reference.Data.Model;
 using ESCO.Reference.Data.Services;
+using ESCO.Reference.Data.Services2;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -19,6 +20,9 @@ namespace esco.reference.data.test
     {
         private const string subscriptionKey = "6VMzeCB2BqQucS6wXSMtkmRLv2IdzSI0Tl";
         private readonly ReferenceDataServices services = new(subscriptionKey);
+
+        private const string subscriptionKey2 = "Basic wsprimaryreference:PrimaryReference1";
+        private readonly ApiBoServices services2 = new(subscriptionKey2);
 
 
         private readonly JsonSerializerOptions options = new()
@@ -163,6 +167,18 @@ namespace esco.reference.data.test
             Console.Write(strult);
 
             Assert.IsTrue(result.Count != 0);
+        }
+        #endregion
+
+        #region Currecies
+        [TestMethod]
+        [TestCategory("Currencies")]
+        public void GetCurrencies()
+        {
+            CurrenciesToResponse result = services2.GetCurrencies().Result;
+            string strult = JsonSerializer.Serialize(result, options);
+            Console.Write(strult);
+
         }
         #endregion
     }
