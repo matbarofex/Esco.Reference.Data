@@ -15,7 +15,7 @@ namespace ESCO.Reference.Data.Services.Contracts
         void ChangeSuscriptionKey(string key);              //Cambiar la Suscription Key del usuario
 
         #region Cuerrencies
-        Task<CurrenciesToResponse> GetCurrencies();                      // Retorna la lista de Monedas de Referencedata
+        Task<CurrenciesToResponse> Currencies();                      // Retorna la lista de Monedas de Referencedata
         #endregion
     }
 }

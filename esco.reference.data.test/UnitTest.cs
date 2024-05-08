@@ -172,9 +172,9 @@ namespace esco.reference.data.test
         #region Currecies
         [TestMethod]
         [TestCategory("Currencies")]
-        public void GetCurrencies()
+        public void Currencies()
         {
-            CurrenciesToResponse result = services2.GetCurrencies().Result;
+            CurrenciesToResponse result = services2.Currencies().Result;
             string strult = JsonSerializer.Serialize(result, options);
             Console.Write(strult);
 

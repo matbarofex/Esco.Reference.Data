@@ -46,7 +46,7 @@ namespace ESCO.Reference.Data.Services
         }
 
         #region Currencies
-        public async Task<CurrenciesToResponse> GetCurrencies(string url) => await httpClient.GetFromJsonAsync<CurrenciesToResponse>(url, Options());
+        public async Task<CurrenciesToResponse> Currencies(string url) => await httpClient.GetFromJsonAsync<CurrenciesToResponse>(url, Options());
         #endregion
     }
 }

@@ -45,12 +45,12 @@ namespace ESCO.Reference.Data.Services
         }
 
         #region Currencies
-        public async Task<CurrenciesToResponse> GetCurrencies()
+        public async Task<CurrenciesToResponse> Currencies()
         {
             try
             {
                 // Obtener los datos de las monedas
-                var currenciesData = await httpClient.GetCurrencies(Url.Currencies);
+                var currenciesData = await httpClient.Currencies(Url.Currencies);
 
                 // Transformar los datos en la estructura requerida
                 var processedCurrencies = currenciesData.Value.Where(currency =>
@@ -86,12 +86,10 @@ namespace ESCO.Reference.Data.Services
         private string GetReferenceDataCurrency(string currency)
         {
             // Lógica para determinar la moneda de referencia
-            // Aquí puedes implementar tus reglas para determinar la moneda de referencia
-            // Para este ejemplo, lo dejo con valores fijos
             switch (currency)
             {
                 case "USD D":
-                    return null;
+                    return "";
                 case "USD C":
                     return "EXT";
                 default:
@@ -102,8 +100,6 @@ namespace ESCO.Reference.Data.Services
         private Dictionary<string, string> GetMarketInfo(string currency)
         {
             // Lógica para determinar la información del mercado
-            // Aquí puedes implementar tus reglas para proporcionar información específica del mercado
-            // Para este ejemplo, solo agregamos información para USD D
             if (currency == "USD D")
             {
                 return new Dictionary<string, string>
