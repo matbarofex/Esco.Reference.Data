@@ -12,8 +12,6 @@ namespace ESCO.Reference.Data.Services.Contracts
     /// </summary>  
     public interface IApiBoServices
     {
-        void ChangeSuscriptionKey(string key);              //Cambiar la Suscription Key del usuario
-
         #region Cuerrencies
         Task<CurrenciesToResponse> Currencies();                      // Retorna la lista de Monedas de Referencedata
         #endregion

@@ -20,8 +20,7 @@ namespace esco.reference.data.test
         private const string subscriptionKey = "6VMzeCB2BqQucS6wXSMtkmRLv2IdzSI0Tl";
         private readonly ReferenceDataServices services = new(subscriptionKey);
 
-        private const string subscriptionKey2 = "Basic wsprimaryreference:PrimaryReference1";
-        private readonly ApiBoServices services2 = new(subscriptionKey2);
+        private readonly ApiBoServices services2 = new();
 
 
         private readonly JsonSerializerOptions options = new()

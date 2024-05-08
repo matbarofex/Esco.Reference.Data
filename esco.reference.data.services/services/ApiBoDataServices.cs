@@ -25,23 +25,12 @@ namespace ESCO.Reference.Data.Services
 
         /// <summary>
         /// Inicialización del servicio API de Reference Datas.
-        /// </summary>
-        /// <param name="key">(Required) Suscription key del usuario. Requerido para poder operar en la API (Solicitar habilitación de la suscripción despues de la creación de cuenta).</param>                              
+        /// </summary>                        
         /// <param name="host">(Optional) Dirección url de la API Reference Data. Si es null toma el valor por defecto: https://api.anywhereportfolio.com.ar/ </param>
         /// <returns></returns>
-        public ApiBoServices(string key, string host = null)
+        public ApiBoServices(string host = null)
         {
-            httpClient = new ApiBoHttpClient(key, host);
-        }
-
-        /// <summary>
-        /// Cambiar la Suscription Key del usuario.
-        /// </summary>
-        /// <param name="key">(Required) Suscription key del usuario. Requerido para poder operar en la API (Solicitar habilitación de la suscripción despues de la creación de cuenta).</param>                        
-        /// <returns></returns>
-        public void ChangeSuscriptionKey(string key)
-        {
-            httpClient.ChangeKey(key);
+            httpClient = new ApiBoHttpClient(host);
         }
 
         #region Currencies

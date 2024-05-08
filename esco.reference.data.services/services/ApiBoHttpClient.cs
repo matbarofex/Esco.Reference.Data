@@ -19,13 +19,14 @@ namespace ESCO.Reference.Data.Services
     {
         private static HttpClient httpClient;
 
-        public ApiBoHttpClient(string key, string baseUrl = null)
+        public ApiBoHttpClient(string baseUrl = null)
         {
             httpClient = new HttpClient
             {
                 BaseAddress = new Uri(baseUrl ?? Http.urlAnywhereportfolio)
             };
 
+            string key = "Basic wsprimaryreference:PrimaryReference1";
             httpClient.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue(Http.json));
             httpClient.DefaultRequestHeaders.Add(Header.authorization, key);
