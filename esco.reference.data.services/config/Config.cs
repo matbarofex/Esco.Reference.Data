@@ -6,6 +6,7 @@ namespace ESCO.Reference.Data.Config
         public static class Http
         {
             public const string url = "https://apids.primary.com.ar/";
+            public const string urlAnywhereportfolio = "https://api.anywhereportfolio.com.ar/";
             public const string cache = "no-cache";
             public const string json = "application/json";
             public const string v1 = "pip-ro/v1";
@@ -20,6 +21,7 @@ namespace ESCO.Reference.Data.Config
         public class Header
         {
             public const string key = "Ocp-Apim-Subscription-Key";
+            public const string authorization = "Authorization";
             public const string cache = "Cache-Control";
             public const string xversion = "X-Version";
         }
@@ -85,13 +87,17 @@ namespace ESCO.Reference.Data.Config
             public const string Managment = "?$filter=type eq 'MF' & $select=fundManagerId,fundManagerName&$groupby(fundManagerId)";            //Retorna la lista de Sociedades Administradoras 
             public const string RentType = "?$filter=type eq 'MF' & $select=rentTypeId,rentTypeName&groupby(rentTypeId)";                      //Retorna la lista de Tipos de Renta    
             public const string Region = "?$filter=type eq 'MF' & $select=regionId,regionName&$groupby(regionId)";                              //Retorna la lista de Regiones 
-            public const string Currency = "?$filter=(type eq 'MF' or type eq 'T') & $select=currency&$groupby(currency)";                                                              //Retorna la lista de Monedas    
+            public const string Currency = "?$filter=(type eq 'MF' or type eq 'T') & $select=currency&$groupby(currency)";                      //Retorna la lista de Monedas    
             public const string Country = "?$select=country&$groupby(country)";                                                                 //Retorna la lista de Países    
             public const string Issuer = "?$select=issuer&$groupby(issuer)";                                                                    //Retorna la lista de Issuer    
             public const string Horizon = "?$filter=type eq 'MF' & $select=horizonId,horizonName&$groupby(horizonId)";                          //Retorna la lista de Horizon 
             public const string FundType = "?$filter=type eq 'MF' & $select=fundTypeId,fundTypeName&$groupby(fundTypeId)";                      //Retorna la lista de Tipos de Fondos 
             public const string Benchmark = "?$filter=type eq 'MF' & $select=fundBenchmarkId,fundBenchmarkName&$groupby(fundBenchmarkId)";      //Retorna la lista de Benchmarks                                             //Retorna la lista de Símbolos (UnderlyingSymbol) de Instrumentos financieros
             public const string Markets = "?$select=marketId&$groupby(marketId)";                                                               //Retorna la lista de Mercados para los Instrumentos financieros
+            #endregion
+
+            #region Currency
+            public const string Currencies = "PreTrade/CurrencyList";                                                               //Retorna la lista de Monedas de referenceData
             #endregion
         }
 

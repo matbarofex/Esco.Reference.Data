@@ -20,6 +20,8 @@ namespace esco.reference.data.test
         private const string subscriptionKey = "6VMzeCB2BqQucS6wXSMtkmRLv2IdzSI0Tl";
         private readonly ReferenceDataServices services = new(subscriptionKey);
 
+        private readonly ApiBoServices services2 = new();
+
 
         private readonly JsonSerializerOptions options = new()
         {
@@ -163,6 +165,18 @@ namespace esco.reference.data.test
             Console.Write(strult);
 
             Assert.IsTrue(result.Count != 0);
+        }
+        #endregion
+
+        #region Currecies
+        [TestMethod]
+        [TestCategory("Currencies")]
+        public void Currencies()
+        {
+            CurrenciesToResponse result = services2.Currencies().Result;
+            string strult = JsonSerializer.Serialize(result, options);
+            Console.Write(strult);
+
         }
         #endregion
     }
