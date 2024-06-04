@@ -26,6 +26,7 @@ namespace ESCO.Reference.Data.Model
     {
         public string CurrencyDescription { get; set; }
         public string Currency { get; set; }
+        public string MarketDataCurrency { get; set; }
         public string ReferenceDataCurrency { get; set; }
         public Dictionary<string, string> Market { get; set; }
     }

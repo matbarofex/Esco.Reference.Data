@@ -57,6 +57,7 @@ namespace ESCO.Reference.Data.Services
                     {
                         CurrencyDescription = currency.CurrencyDescription,
                         Currency = currency.Currency,
+                        MarketDataCurrency = GetMarketDataCurrency(currency.Currency),
                         ReferenceDataCurrency = GetReferenceDataCurrency(currency.Currency),
                         Market = GetMarketInfo(currency.Currency)
                     };
@@ -81,6 +82,25 @@ namespace ESCO.Reference.Data.Services
                     return "";
                 case "USD C":
                     return "EXT";
+                default:
+                    return currency;
+            }
+        }
+        private string GetMarketDataCurrency(string currency)
+        {
+            // Lógica para determinar la moneda del mercado
+            switch (currency)
+            {
+                case "USD G":
+                    return "USD-G";
+                case "ARS":
+                    return "ARS";
+                case "USD D":
+                    return "MEP";
+                case "USD C":
+                    return "CCL";
+                case "USD UY":
+                    return "USD-UY";
                 default:
                     return currency;
             }
