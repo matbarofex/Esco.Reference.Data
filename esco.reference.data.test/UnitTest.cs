@@ -17,7 +17,7 @@ namespace esco.reference.data.test
     [TestClass]
     public class ReferenceDataTest
     {
-        private const string subscriptionKey = "";
+        private const string subscriptionKey = "6VMzeCB2BqQucS6wXSMtkmRLv2IdzSI0Tl";
         private readonly ReferenceDataServices services = new(subscriptionKey);
 
 
