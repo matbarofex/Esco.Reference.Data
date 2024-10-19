@@ -25,40 +25,42 @@ namespace ESCO.Reference.Data.Model
         public double? tradeVolume { get; set; }
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string type { get; set; }
-    }
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public string instrumentCode{ get; set; }
 
-    public class PriceOld
-    {
-        public string name { get; set; }
-        public string type { get; set; }
-        public bool? active { get; set; }
-        public PriceFields fields { get; set; }
-        public DateTime? updated { get; set; }
-    }
+        public class PriceOld
+        {
+            public string name { get; set; }
+            public string type { get; set; }
+            public bool? active { get; set; }
+            public PriceFields fields { get; set; }
+            public DateTime? updated { get; set; }
+        }
 
-    
 
-    public class PriceFields
-    {                  
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public string strikePrice { get; set; }   
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public string priceDecimals { get; set; }
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public string unitPrice { get; set; }
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public string price { get; set; }
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public string closePrice { get; set; }
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public string closePriceDate  { get; set; }
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public string volume { get; set; }
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public string volumeDate { get; set; }
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public string settlementPrice { get; set; }
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public string settlementPriceDate { get; set; }
+
+        public class PriceFields
+        {
+            [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+            public string strikePrice { get; set; }
+            [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+            public string priceDecimals { get; set; }
+            [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+            public string unitPrice { get; set; }
+            [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+            public string price { get; set; }
+            [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+            public string closePrice { get; set; }
+            [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+            public string closePriceDate { get; set; }
+            [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+            public string volume { get; set; }
+            [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+            public string volumeDate { get; set; }
+            [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+            public string settlementPrice { get; set; }
+            [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+            public string settlementPriceDate { get; set; }
+        }
     }
 }

@@ -22,7 +22,7 @@ namespace ESCO.Reference.Data.Model
                                                    //Especies de Fideicomisos GO // Incluido en Type GO y se refiere a TITULOS DE DEUDA, CERTIF. PARTICIP.
         public const string Futuros = "FUT";       //FUT es estándar fix y se refiere a FUTUROS
         public const string Opciones = "OPT";      //OPT y OOF son estándar fix y se refiere a OPCIONES
-        public const string OpcionesF = "OOF";     //OPT y OOF son estándar fix y se refiere a OPCIONES
+        public const string OpcionesMTR = "OOF";     //OPT y OOF son estándar fix y se refiere a OPCIONES
         public const string Pases = "BUYSELL";     //BUYSELL es estándar fix y se refiere a PASES
         public const string Cauciones = "REPO";    //REPO es estándar fix y se refiere a CAUCIONES
         public const string STN = "STN";           //Acciones Privadas
@@ -41,8 +41,8 @@ namespace ESCO.Reference.Data.Model
         public const string Obligaciones = "CORP es estándar fix y se refiere a Obligaciones Negociables";
         public const string Titulos = "Títulos Públicos > Bonos GO GO es estándar fix y se refiere a BONOS EXTERNOS, TITULOS PUBLICOS, BONOS CONSOLIDADOS / Títulos Públicos > Letras GO / Incluido en Type GO y se refiere a LETRAS, LETRAS TESORO NACIONAL / Especies de Fideicomisos GO / Incluido en Type GO y se refiere a TITULOS DE DEUDA, CERTIF. PARTICIP.";
         public const string Futuros = "FUT es estándar fix y se refiere a FUTUROS";
-        public const string Opciones = "OPT y OOF son estándar fix y se refiere a OPCIONES";
-        public const string OpcionesF = "OPT y OOF son estándar fix y se refiere a OPCIONES";
+        public const string Opciones = "OPT es estándar fix y se refiere a OPCIONES BYMA";
+        public const string OpcionesMTR = "OOF se refiere a OPCIONES MTR";
         public const string Pases = "BUYSELL es estándar fix y se refiere a PASES";
         public const string Cauciones = "REPO es estándar fix y se refiere a CAUCIONES";
         public const string STN = "Acciones Privadas";
@@ -68,7 +68,7 @@ namespace ESCO.Reference.Data.Model
                         { new Type() { id = 4, type = Types.Titulos, description = TypesDesc.Titulos } },
                         { new Type() { id = 5, type = Types.Futuros, description = TypesDesc.Futuros } },
                         { new Type() { id = 6, type = Types.Opciones, description = TypesDesc.Opciones } },
-                        { new Type() { id = 7, type = Types.OpcionesF, description = TypesDesc.OpcionesF } },
+                        { new Type() { id = 7, type = Types.OpcionesMTR, description = TypesDesc.OpcionesMTR } },
                         { new Type() { id = 8, type = Types.Pases, description = TypesDesc.Pases } },
                         { new Type() { id = 9, type = Types.Cauciones, description = TypesDesc.Cauciones } },
                         { new Type() { id = 10, type = Types.STN, description = TypesDesc.STN } },

@@ -32,5 +32,6 @@ namespace ESCO.Reference.Data.Model
         public string currency { get; set; }
         public string marketId { get; set; }
         public string country { get; set; } 
+        public string marketSegmentId { get; set; }
     }
 }

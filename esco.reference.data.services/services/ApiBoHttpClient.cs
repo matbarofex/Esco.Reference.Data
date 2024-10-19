@@ -15,21 +15,21 @@ using static ESCO.Reference.Data.Config.Config;
 
 namespace ESCO.Reference.Data.Services
 {
-    class ReferenceDataHttpClient
+    class ApiBoHttpClient
     {
         private static HttpClient httpClient;
 
-        public ReferenceDataHttpClient(string key, string baseUrl = null)
+        public ApiBoHttpClient(string baseUrl = null)
         {
             httpClient = new HttpClient
             {
-                BaseAddress = new Uri(baseUrl ?? Http.url)
+                BaseAddress = new Uri(baseUrl ?? Http.urlAnywhereportfolio)
             };
 
+            string key = "Basic wsprimaryreference:PrimaryReference1";
             httpClient.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue(Http.json));
-            httpClient.DefaultRequestHeaders.Add(Header.cache, Http.cache);
-            httpClient.DefaultRequestHeaders.Add(Header.key, key);
+            httpClient.DefaultRequestHeaders.Add(Header.authorization, key);
         }
 
 
@@ -46,11 +46,8 @@ namespace ESCO.Reference.Data.Services
             httpClient.DefaultRequestHeaders.Add(Header.key, key);
         }
 
-        #region ReferenceDatas
-        //Retorna la lista de instrumentos financieros.
-        public async Task<ReferenceDatas> GetReferenceData(string url) => await httpClient.GetFromJsonAsync<ReferenceDatas>(url, Options());
-
-        public async Task<Prices> GetPrices(string url) => await httpClient.GetFromJsonAsync<Prices>(url, Options());
+        #region Currencies
+        public async Task<CurrenciesToResponse> Currencies(string url) => await httpClient.GetFromJsonAsync<CurrenciesToResponse>(url, Options());
         #endregion
     }
 }

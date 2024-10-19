@@ -6,6 +6,7 @@ namespace ESCO.Reference.Data.Config
         public static class Http
         {
             public const string url = "https://apids.primary.com.ar/";
+            public const string urlAnywhereportfolio = "https://api.anywhereportfolio.com.ar/";
             public const string cache = "no-cache";
             public const string json = "application/json";
             public const string v1 = "pip-ro/v1";
@@ -20,6 +21,7 @@ namespace ESCO.Reference.Data.Config
         public class Header
         {
             public const string key = "Ocp-Apim-Subscription-Key";
+            public const string authorization = "Authorization";
             public const string cache = "Cache-Control";
             public const string xversion = "X-Version";
         }
@@ -40,6 +42,7 @@ namespace ESCO.Reference.Data.Config
             public const string FilterDated = "?$filter=updated ge {1} and active eq true";
             public const string FilterAdded = "?$filter=date eq '{1}'";
             public const string FilterRemoved = "?$filter=updated ge {1} and active eq false";
+            public const string FilterAllNeUSA = "?$filter=type ne null and country ne 'USA'";
 
             //Filters OData
             public const string FilterType = "indexof(type, '{0}') ne -1";
@@ -48,7 +51,6 @@ namespace ESCO.Reference.Data.Config
             public const string FilterMarketId = "indexof(marketId, '{0}') ne -1";
             public const string FilterCountry = "indexof(country, '{0}') ne -1";
 
-            public const string FilterOpts = "?$filter=type eq 'OPT' or type eq 'OOF'";
             public const string FilterADRS = "?$filter=text eq 'A.D.R.S (ACCIONES)'&orderby name";
             public const string FilterPrivadas = "?$filter=text eq 'ACCIONES PRIVADAS'&orderby name";
             public const string FilterPymes = "?$filter=text eq 'ACCIONES PYMES'&orderby name";
@@ -85,13 +87,17 @@ namespace ESCO.Reference.Data.Config
             public const string Managment = "?$filter=type eq 'MF' & $select=fundManagerId,fundManagerName&$groupby(fundManagerId)";            //Retorna la lista de Sociedades Administradoras 
             public const string RentType = "?$filter=type eq 'MF' & $select=rentTypeId,rentTypeName&groupby(rentTypeId)";                      //Retorna la lista de Tipos de Renta    
             public const string Region = "?$filter=type eq 'MF' & $select=regionId,regionName&$groupby(regionId)";                              //Retorna la lista de Regiones 
-            public const string Currency = "?$filter=(type eq 'MF' or type eq 'T') & $select=currency&$groupby(currency)";                                                              //Retorna la lista de Monedas    
+            public const string Currency = "?$filter=(type eq 'MF' or type eq 'T') & $select=currency&$groupby(currency)";                      //Retorna la lista de Monedas    
             public const string Country = "?$select=country&$groupby(country)";                                                                 //Retorna la lista de Países    
             public const string Issuer = "?$select=issuer&$groupby(issuer)";                                                                    //Retorna la lista de Issuer    
             public const string Horizon = "?$filter=type eq 'MF' & $select=horizonId,horizonName&$groupby(horizonId)";                          //Retorna la lista de Horizon 
             public const string FundType = "?$filter=type eq 'MF' & $select=fundTypeId,fundTypeName&$groupby(fundTypeId)";                      //Retorna la lista de Tipos de Fondos 
             public const string Benchmark = "?$filter=type eq 'MF' & $select=fundBenchmarkId,fundBenchmarkName&$groupby(fundBenchmarkId)";      //Retorna la lista de Benchmarks                                             //Retorna la lista de Símbolos (UnderlyingSymbol) de Instrumentos financieros
             public const string Markets = "?$select=marketId&$groupby(marketId)";                                                               //Retorna la lista de Mercados para los Instrumentos financieros
+            #endregion
+
+            #region Currency
+            public const string Currencies = "PreTrade/CurrencyList";                                                               //Retorna la lista de Monedas de referenceData
             #endregion
         }
 
@@ -114,7 +120,7 @@ namespace ESCO.Reference.Data.Config
         {
             schema ??= Schema.actual;
             string format = (cfg == Url.FilterAdded) ? "d/MM/yyyy" : "yyyy-MM-d";
-            cfg = (cfg == null) ? Url.ReferenceData + Url.FilterAll : Url.ReferenceData + cfg;
+            cfg = (cfg == null) ? Url.ReferenceData + Url.FilterAllNeUSA : Url.ReferenceData + cfg;
             string date = (daterd != null)? daterd.Value.ToString(format): DateTime.Now.ToString(format);
             return (search) ?
                     SetUrl(cfg + Url.FilterIdStr, schema, date, typeorid) :

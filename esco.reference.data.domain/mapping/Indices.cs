@@ -48,6 +48,9 @@ namespace ESCO.Reference.Data.Model
         public string isinTicker { get; set; }        
         public string securityStatus { get; set; }
         public string indexComposition { get; set; }
-        
+        public string tickSize { get; set; }
+        public List<TypeTickPriceRules> tickPriceRules { get; set; }
+
+
     }
 }
