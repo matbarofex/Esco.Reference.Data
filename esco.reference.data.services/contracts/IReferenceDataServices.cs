@@ -20,8 +20,8 @@ namespace ESCO.Reference.Data.Services.Contracts
         #endregion
 
         #region ReferenceData
-        Task<ReferenceDatas> GetReferenceData(DateTime? date, string type = null, string schema = null);        //Retorna la lista de instrumentos.
-        Task<string> GetReferenceDataAsString(DateTime? date = null, string type = null, string schema = null); //Retorna la lista de instrumentos como una cadena.
+        Task<ReferenceDatas> GetReferenceData(DateTime? date, string type = null, string schema = null, bool treasuries = false);        //Retorna la lista de instrumentos.
+        Task<string> GetReferenceDataAsString(DateTime? date = null, string type = null, string schema = null, bool treasuries = false); //Retorna la lista de instrumentos como una cadena.
         #endregion
 
         #region ESCO     

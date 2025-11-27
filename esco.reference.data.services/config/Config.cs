@@ -15,7 +15,7 @@ namespace ESCO.Reference.Data.Config
 
         public static class Schema
         {
-            public const string actual = "schema-015";
+            public const string actual = "schema-014";
         }
 
         public class Header
@@ -118,11 +118,16 @@ namespace ESCO.Reference.Data.Config
         }
 
         //Format Url
-        public static string GetUrl(string cfg, string typeorid, string schema, bool search = false, DateTime? daterd = null, bool includeTreasuries = true)
+        public static string GetUrl(string cfg, string typeorid, string schema, bool search = false, DateTime? daterd = null, bool includeTreasuries = false)
         {
             schema ??= Schema.actual;
             string format = (cfg == Url.FilterAdded) ? "d/MM/yyyy" : "yyyy-MM-d";
-            cfg = (cfg == null) ? Url.ReferenceData + Url.FilterAllNeUSA : Url.ReferenceData + cfg;
+            
+            // Si includeTreasuries es true, usar FilterAll en lugar de FilterAllNeUSA
+            cfg = (cfg == null) ? 
+                Url.ReferenceData + (includeTreasuries ? Url.FilterAll : Url.FilterAllNeUSA) : 
+                Url.ReferenceData + cfg;
+            
             string date = (daterd != null)? daterd.Value.ToString(format): DateTime.Now.ToString(format);
             
             string result = (search) ?

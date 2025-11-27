@@ -113,12 +113,13 @@ namespace ESCO.Reference.Data.Services
         /// </summary>
         /// <param name="date">(Optional) Filtrar por Fecha de actualizacion de Instrumentos. Si es null devuelve la lista completa.</param>
         /// <param name="type">(Optional) Filtrar por Id del tipo de Instrumentos. Si es null devuelve la lista completa.</param>
-        /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma por defecto el esquema activo.</param>        
+        /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma por defecto el esquema activo.</param>
+        /// <param name="treasuries">(Optional) Habilitar filtro de treasuries (por defecto false).</param>
         /// <returns>ReferenceDatas json.</returns>
-        public async Task<ReferenceDatas> GetReferenceData(DateTime? date = null, string type = null, string schema = null)
+        public async Task<ReferenceDatas> GetReferenceData(DateTime? date = null, string type = null, string schema = null, bool treasuries = false)
         {
             string cfg = (date != null) ? Url.FilterDated : null;
-            return await GetAsReferenceData(GetUrl(cfg, type, schema, false, date));
+            return await GetAsReferenceData(GetUrl(cfg, type, schema, false, date, treasuries));
         }
 
 
@@ -126,17 +127,18 @@ namespace ESCO.Reference.Data.Services
         /// Retorna la lista de instrumentos financieros como una cadena.
         /// </summary>
         /// <param name="type">(Optional) Filtrar por Id del tipo de Instrumentos. Si es null devuelve la lista completa.</param>
-        /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma por defecto el esquema activo.</param>        
+        /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma por defecto el esquema activo.</param>
+        /// <param name="treasuries">(Optional) Habilitar filtro de treasuries (por defecto false).</param>
         /// <returns>string</returns>
-        public async Task<string> GetReferenceDataAsString(DateTime? date = null, string type = null, string schema = null) =>
-            await GetAsString(type, schema, null, date);
+        public async Task<string> GetReferenceDataAsString(DateTime? date = null, string type = null, string schema = null, bool treasuries = false) =>
+            await GetAsString(type, schema, null, date, treasuries);
 
-        private async Task<string> GetAsString(string type = null, string schema = null, string cfg = null, DateTime? date = null)
+        private async Task<string> GetAsString(string type = null, string schema = null, string cfg = null, DateTime? date = null, bool treasuries = false)
         {
             try
             {
                 cfg = (date != null) ? Url.FilterDated : cfg;
-                var result = await GetAsReferenceData(GetUrl(cfg, type, schema, false, date));
+                var result = await GetAsReferenceData(GetUrl(cfg, type, schema, false, date, treasuries));
                 var serializedResult = JsonSerializer.Serialize(result, httpClient.Options());
 
                 return serializedResult;
