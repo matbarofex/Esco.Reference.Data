@@ -87,6 +87,14 @@ namespace ESCO.Reference.Data.Model
         public string personTypeName { get; set; }
         public string speciesCode { get; set; }
         public string denomination { get; set; }
+        public string fundManagerCode { get; set; }
+        public string fundId { get; set; }
+        public bool? mfci { get; set; }
+        public string amlink { get; set; }
+        public string subscriptionStartTime { get; set; }
+        public string subscriptionEndTime { get; set; }
+        public string redemptionStartTime { get; set; }
+        public string redemptionEndTime { get; set; }
 
     }
 }

@@ -82,6 +82,10 @@ namespace ESCO.Reference.Data.Model
         public string settlementDate { get; set; }
 
         public bool execInstValue { get; set; }
+        public string contractSize { get; set; }
+        public string quoteSizeLowLimit { get; set; }
+        public string quoteSizeHighLimit { get; set; }
+        public bool? dispoMtR { get; set; }
     }
 
 

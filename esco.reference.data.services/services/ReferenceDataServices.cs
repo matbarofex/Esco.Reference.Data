@@ -191,6 +191,21 @@ namespace ESCO.Reference.Data.Services
             }
         }
 
+        /// <summary>
+        /// Retorna la lista de instrumentos filtrados por país con treasuries habilitado.
+        /// </summary>
+        /// <param name="country">(Required) País a filtrar (ej: 'USA').</param>
+        /// <param name="schema">(Optional) Id del esquema de devolución de la información.</param>        
+        /// <returns>ReferenceDatas</returns>
+        public async Task<ReferenceDatas> GetReferenceDataByCountry(string country, string schema = null)
+        {
+            schema ??= Schema.actual;
+            string filter = $"?$filter=country eq '{country}'";
+            string url = SetUrl(Url.ReferenceData, schema) + filter + Url.treasuries;
+            
+            return await GetAsReferenceData(url);
+        }
+
         #endregion
 
         #region ESCO

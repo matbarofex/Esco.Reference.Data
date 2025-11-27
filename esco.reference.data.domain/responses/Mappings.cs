@@ -22,6 +22,8 @@ namespace ESCO.Reference.Data.Model
         public List<string> STN { get; set; }
         public List<string> T { get; set; }
         public List<string> TERM { get; set; }
-        public List<string> XLINKD { get; set; }        
+        public List<string> XLINKD { get; set; }
+        public List<string> CC { get; set; }
+        public List<string> FT { get; set; }
     }
 }

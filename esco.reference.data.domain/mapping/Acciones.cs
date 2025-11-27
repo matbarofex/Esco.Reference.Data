@@ -60,5 +60,10 @@ namespace ESCO.Reference.Data.Model
         public string[] orderTypes { get; set; }
         public string[] timeInForces { get; set; }
         public string securitySubType { get; set; }
+        public string securityId { get; set; }
+        public string clearingInstruction { get; set; }
+        public bool? rfq { get; set; }
+        public string quoteSizeHighLimit { get; set; }
+        public string quoteSizeLowLimit { get; set; }
     }
 }
