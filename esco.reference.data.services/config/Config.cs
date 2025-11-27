@@ -15,7 +15,7 @@ namespace ESCO.Reference.Data.Config
 
         public static class Schema
         {
-            public const string actual = "schema-010";
+            public const string actual = "schema-015";
         }
 
         public class Header
@@ -43,6 +43,7 @@ namespace ESCO.Reference.Data.Config
             public const string FilterAdded = "?$filter=date eq '{1}'";
             public const string FilterRemoved = "?$filter=updated ge {1} and active eq false";
             public const string FilterAllNeUSA = "?$filter=type ne null and country ne 'USA'";
+            public const string treasuries = "&treasuries=true";
 
             //Filters OData
             public const string FilterType = "indexof(type, '{0}') ne -1";
@@ -54,6 +55,7 @@ namespace ESCO.Reference.Data.Config
             public const string FilterADRS = "?$filter=text eq 'A.D.R.S (ACCIONES)'&orderby name";
             public const string FilterPrivadas = "?$filter=text eq 'ACCIONES PRIVADAS'&orderby name";
             public const string FilterPymes = "?$filter=text eq 'ACCIONES PYMES'&orderby name";
+
 
             #endregion
 
@@ -68,7 +70,7 @@ namespace ESCO.Reference.Data.Config
 
             #region ReferenceDatas
             public const string Specification = Http.v3 + "/api/Schemas/{0}/Data/specification";           //Retorna una especificación del estado actual.      
-            public const string ReferenceData = Http.v3 + "/api/Schemas/{0}/Data/by-odata";                //Retorna la lista de instrumentos.        
+            public const string ReferenceData = Http.v3 + "/api/Schemas/{0}/Data/by-odata";                //Retorna la lista de instrumentos.
             #endregion
 
             #region Reports
@@ -116,17 +118,25 @@ namespace ESCO.Reference.Data.Config
         }
 
         //Format Url
-        public static string GetUrl(string cfg, string typeorid, string schema, bool search = false, DateTime? daterd = null)
+        public static string GetUrl(string cfg, string typeorid, string schema, bool search = false, DateTime? daterd = null, bool includeTreasuries = true)
         {
             schema ??= Schema.actual;
             string format = (cfg == Url.FilterAdded) ? "d/MM/yyyy" : "yyyy-MM-d";
             cfg = (cfg == null) ? Url.ReferenceData + Url.FilterAllNeUSA : Url.ReferenceData + cfg;
             string date = (daterd != null)? daterd.Value.ToString(format): DateTime.Now.ToString(format);
-            return (search) ?
+            
+            string result = (search) ?
                     SetUrl(cfg + Url.FilterIdStr, schema, date, typeorid) :
                     ((typeorid != null) ?
                         SetUrl(cfg + Url.FilterTypeStr, schema, date, typeorid) :
                         SetUrl(cfg, schema, date));
+            
+            if (includeTreasuries)
+            {
+                result += Url.treasuries;
+            }
+            
+            return result;
         }
 
         //Format OData Url
@@ -137,7 +147,8 @@ namespace ESCO.Reference.Data.Config
             string currency,
             string market,
             string country,
-            string schema)
+            string schema,
+            bool includeTreasuries = true)
         {
             string url = SetUrl(urlodata, schema);
             string empty = string.Empty;
@@ -167,7 +178,14 @@ namespace ESCO.Reference.Data.Config
             urlStr += ((urlStr == empty) ? urlMarketFilter : urlMarketAnd);
             urlStr += ((urlStr == empty) ? urlCountryFilter : urlCountryAnd);
 
-            return url + urlStr;
+            string result = url + urlStr;
+            
+            if (includeTreasuries)
+            {
+                result += Url.treasuries;
+            }
+            
+            return result;
         }
 
         #endregion

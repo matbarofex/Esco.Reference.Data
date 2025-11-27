@@ -1,26 +1,25 @@
 ﻿using System.Collections.Generic;
 using System;
-using System.Text.Json.Serialization;
 
 namespace ESCO.Reference.Data.Model
 {
-    public class Cedears
+    public class Fideicomisos
     {
-        public CedearsList data { get; set; }
+        public FideicomisosList data { get; set; }
         public int? totalCount { get; set; }
     }
-    public class CedearsList : List<Cedear> { }
+    public class FideicomisosList : List<Fideicomiso> { }
 
-    public class Cedear
+    public class Fideicomiso
     {
         public string name { get; set; }
         public string type { get; set; }
         public bool? active { get; set; }
-        public CedearsFields fields { get; set; }
+        public FideicomisosFields fields { get; set; }
         public DateTime? updated { get; set; }
     }
 
-    public class CedearsFields
+    public class FideicomisosFields
     {
         public string cfiCode { get; set; }
         public string contractMultiplier { get; set; }
@@ -39,6 +38,7 @@ namespace ESCO.Reference.Data.Model
         public string country { get; set; }
         public string isinTicker { get; set; }
         public string bloombergTicker { get; set; }
+        public string settlDate2 { get; set; }        
         public string speciesCode { get; set; }
         public string denomination { get; set; }
         public string collateralHaircut { get; set; }
@@ -59,9 +59,6 @@ namespace ESCO.Reference.Data.Model
         public string settlType { get; set; }
         public string[] orderTypes { get; set; }
         public string[] timeInForces { get; set; }
-        public string issuerCode { get; set; }
-        public string issuerId { get; set; }
-        public string issuedQuantity { get; set; }
-        public string lotSize { get; set; }
+        public string securitySubType { get; set; }
     }
 }

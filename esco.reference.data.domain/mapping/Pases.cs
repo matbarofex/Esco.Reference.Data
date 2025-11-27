@@ -62,6 +62,8 @@ namespace ESCO.Reference.Data.Model
         public string settlementDate { get; set; }
         public List<TypeTickPriceRules> tickPriceRules { get; set; }
         public bool execInstValue { get; set; }
+        public string quoteSizeLowLimit { get; set; }
+        public string quoteSizeHighLimit { get; set; }
 
     }
 }

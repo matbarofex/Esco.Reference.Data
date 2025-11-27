@@ -31,6 +31,8 @@ namespace ESCO.Reference.Data.Model
         public const string Indices = "XLINKD";    //Índices XLINKD
         public const string FuturosOTC = "FUTOTC";    //Futuros OTC
         public const string OpcionesOTC = "OOFOTC";    //Opciones OTC
+        public const string Criptomonedas = "CC";   //Criptomonedas
+        public const string Fideicomisos = "FT";    //Fideicomisos Financieros
     }
 
     public static class TypesDesc
@@ -51,6 +53,8 @@ namespace ESCO.Reference.Data.Model
         public const string Indices = "Índices XLINKD";
         public const string FuturosOTC = "Futuros OTC";
         public const string OpcionesOTC = "Opciones OTC";
+        public const string Criptomonedas = "Criptomonedas";
+        public const string Fideicomisos = "Fideicomisos Financieros";
     }
 
     public class ReferenceDataTypes : List<Type> { }
@@ -77,6 +81,8 @@ namespace ESCO.Reference.Data.Model
                         { new Type() { id = 13, type = Types.Indices, description = TypesDesc.Indices } },
                         { new Type() { id = 14, type = Types.FuturosOTC, description = TypesDesc.FuturosOTC } },
                         { new Type() { id = 15, type = Types.OpcionesOTC, description = TypesDesc.OpcionesOTC } },
+                        { new Type() { id = 16, type = Types.Criptomonedas, description = TypesDesc.Criptomonedas } },
+                        { new Type() { id = 17, type = Types.Fideicomisos, description = TypesDesc.Fideicomisos } }
                 };
         }
     }

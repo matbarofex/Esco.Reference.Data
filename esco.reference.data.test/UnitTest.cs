@@ -6,6 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -114,7 +115,7 @@ namespace esco.reference.data.test
         public void GetReferenceDataAsString()
         {
             var date = DateTime.Parse("03-08-2024");
-            string result = services.GetReferenceDataAsString(null, "FUT").Result;
+            string result = services.GetReferenceDataAsString(null, "FT").Result;
             Console.Write(JsonSerializer.Serialize(result, options));
 
             Assert.IsTrue(result != string.Empty);
@@ -125,7 +126,7 @@ namespace esco.reference.data.test
         public void GetReferenceData()
         {
             var date = DateTime.Parse("03-08-2024");
-            ReferenceDatas result = services.GetReferenceData(null, "FUT").Result;
+            ReferenceDatas result = services.GetReferenceData(null, "XLINKD").Result;
             Console.Write(JsonSerializer.Serialize(result, options));
 
             Assert.IsTrue(result.data.Count != 0);
@@ -141,6 +142,32 @@ namespace esco.reference.data.test
             Assert.IsTrue(result.data.Count == 0);
         }
 
+        [TestMethod]
+        [TestCategory("ReferenceData")]
+        public void GetReferenceDataUSAWithTreasuries()
+        {
+            // Arrange
+            string country = "USA";
+            
+            // Act
+            ReferenceDatas result = services.GetReferenceDataByCountry(country).Result;
+            
+            // Assert
+            string resultJson = JsonSerializer.Serialize(result, options);
+            Console.Write(resultJson);
+            Console.WriteLine($"\nTotal USA instruments with treasuries: {result.totalCount}");
+            
+            Assert.IsNotNull(result, "Result should not be null");
+            Assert.IsTrue(result.data.Count > 0, "Should return USA instruments");
+            
+            // Verificar que todos los instrumentos retornados son de USA
+            var allFromUSA = result.data.All(d =>
+                d.fields != null &&
+                !string.IsNullOrEmpty(d.fields.country) &&
+                d.fields.country == country);
+            
+            Assert.IsTrue(allFromUSA, $"All instruments should be from {country}");
+        }
         #endregion
 
         #region ESCO
