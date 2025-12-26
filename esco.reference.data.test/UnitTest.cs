@@ -502,7 +502,7 @@ namespace esco.reference.data.test
             Assert.IsNotNull(result, "Result should not be null");
             Assert.IsTrue(result.data.Count > 0, "Should return CS instruments");
 
-            // Verificar que TODOS los instrumentos son tipo CORP
+            // Verificar que TODOS los instrumentos son tipo CS
             var allAreCORP = result.data.All(d =>
                 d.fields != null &&
                 !string.IsNullOrEmpty(d.type) &&
@@ -538,7 +538,7 @@ namespace esco.reference.data.test
             Assert.IsNotNull(result, "Result should not be null");
             Assert.IsTrue(result.data.Count > 0, "Should return GO instruments");
 
-            // Verificar que TODOS los instrumentos son tipo CORP
+            // Verificar que TODOS los instrumentos son tipo GO
             var allAreCORP = result.data.All(d =>
                 d.fields != null &&
                 !string.IsNullOrEmpty(d.type) &&
@@ -552,6 +552,35 @@ namespace esco.reference.data.test
                 d.fields.marketId == "A3");
 
             Assert.IsTrue(atLeastOneTIVAInstrument, "Should include at least one TIVA instrument when a3=true");
+        }
+
+        [TestMethod]
+        [TestCategory("ReferenceData")]
+        public void GetReferenceDataByTypeMF()
+        {
+            // Arrange
+            string type = "MF";
+            bool treasuries = false;
+            bool a3 = false;
+
+            // Act
+            ReferenceDatas result = services.GetReferenceData(null, type, null, treasuries, a3).Result;
+
+            // Assert
+            string resultJson = JsonSerializer.Serialize(result, options);
+            Console.Write(resultJson);
+            Console.WriteLine($"\nTotal MF instruments: {result.totalCount}");
+
+            Assert.IsNotNull(result, "Result should not be null");
+            Assert.IsTrue(result.data.Count > 0, "Should return MF instruments");
+
+            // Verificar que TODOS los instrumentos son tipo MF
+            var allAreMF = result.data.All(d =>
+                d.fields != null &&
+                !string.IsNullOrEmpty(d.type) &&
+                d.type == type);
+
+            Assert.IsTrue(allAreMF, "All instruments should be of type MF");
         }
 
         [TestMethod]

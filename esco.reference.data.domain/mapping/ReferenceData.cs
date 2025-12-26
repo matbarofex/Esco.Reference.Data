@@ -304,8 +304,6 @@ namespace ESCO.Reference.Data.Model
         public string contractSize { get; set; }
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public bool? dispoMtR { get; set; }
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public bool? extendedTradeSessionEnabled { get; set; }
     }
 
     public class TypeTickPriceRules
