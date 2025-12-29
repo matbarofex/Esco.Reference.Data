@@ -415,35 +415,172 @@ namespace esco.reference.data.test
             // Arrange
             string type = "GO";
             bool treasuries = false;
-            
+
             // Act
             ReferenceDatas result = services.GetReferenceData(null, type, null, treasuries).Result;
-            
+
             // Assert
             string resultJson = JsonSerializer.Serialize(result, options);
             Console.Write(resultJson);
             Console.WriteLine($"\nTotal GO instruments (treasuries=false): {result.totalCount}");
-            
+
             Assert.IsNotNull(result, "Result should not be null");
             Assert.IsTrue(result.data.Count > 0, "Should return GO instruments");
-            
+
             // Verificar que TODOS los instrumentos son tipo GO
             var allAreGO = result.data.All(d =>
                 d.fields != null &&
                 !string.IsNullOrEmpty(d.type) &&
                 d.type == type);
-            
+
             Assert.IsTrue(allAreGO, "All instruments should be of type GO");
-            
+
             // Verificar que NO hay instrumentos de USA
             var hasUSAInstruments = result.data.Any(d =>
                 d.fields != null &&
                 !string.IsNullOrEmpty(d.fields.country) &&
                 d.fields.country == "USA");
-            
+
             Assert.IsFalse(hasUSAInstruments, "Should NOT include USA GO instruments when treasuries=false");
-            
+
             Console.WriteLine($"Non-USA GO instruments: {result.data.Count}");
+        }
+
+        [TestMethod]
+        [TestCategory("ReferenceData")]
+        public void GetReferenceDataByTypeCORP_withTIVA()
+        {
+            // Arrange
+            string type = "CORP";
+            bool treasuries = false;
+            bool a3 = true;
+
+            // Act
+            ReferenceDatas result = services.GetReferenceData(null, type, null, treasuries, a3).Result;
+
+            // Assert
+            string resultJson = JsonSerializer.Serialize(result, options);
+            Console.Write(resultJson);
+            Console.WriteLine($"\nTotal CORP instruments (a3=true): {result.totalCount}");
+
+            Assert.IsNotNull(result, "Result should not be null");
+            Assert.IsTrue(result.data.Count > 0, "Should return CORP instruments");
+
+            // Verificar que TODOS los instrumentos son tipo CORP
+            var allAreCORP = result.data.All(d =>
+                d.fields != null &&
+                !string.IsNullOrEmpty(d.type) &&
+                d.type == type);
+
+            Assert.IsTrue(allAreCORP, "All instruments should be of type CORP");
+
+            // Verificar que el filtro a3 está funcionando (al menos un registro debe ser del segmento TIVA)
+            var atLeastOneTIVAInstrument = result.data.Any(d =>
+                d.fields != null &&
+                d.fields.marketId == "A3");
+
+            Assert.IsTrue(atLeastOneTIVAInstrument, "Should include at least one TIVA instrument when a3=true");
+        }
+
+        [TestMethod]
+        [TestCategory("ReferenceData")]
+        public void GetReferenceDataByTypeCS_withTIVA()
+        {
+            // Arrange
+            string type = "CS";
+            bool treasuries = false;
+            bool a3 = true;
+
+            // Act
+            ReferenceDatas result = services.GetReferenceData(null, type, null, treasuries, a3).Result;
+
+            // Assert
+            string resultJson = JsonSerializer.Serialize(result, options);
+            Console.Write(resultJson);
+            Console.WriteLine($"\nTotal CS instruments (a3=true): {result.totalCount}");
+
+            Assert.IsNotNull(result, "Result should not be null");
+            Assert.IsTrue(result.data.Count > 0, "Should return CS instruments");
+
+            // Verificar que TODOS los instrumentos son tipo CS
+            var allAreCORP = result.data.All(d =>
+                d.fields != null &&
+                !string.IsNullOrEmpty(d.type) &&
+                d.type == type);
+
+            Assert.IsTrue(allAreCORP, "All instruments should be of type CS");
+
+            // Verificar que el filtro a3 está funcionando (al menos un registro debe ser del segmento TIVA)
+            var atLeastOneTIVAInstrument = result.data.Any(d =>
+                d.fields != null &&
+                d.fields.marketId == "A3");
+
+            Assert.IsTrue(atLeastOneTIVAInstrument, "Should include at least one TIVA instrument when a3=true");
+        }
+
+        [TestMethod]
+        [TestCategory("ReferenceData")]
+        public void GetReferenceDataByTypeGO_withTIVA()
+        {
+            // Arrange
+            string type = "GO";
+            bool treasuries = false;
+            bool a3 = true;
+
+            // Act
+            ReferenceDatas result = services.GetReferenceData(null, type, null, treasuries, a3).Result;
+
+            // Assert
+            string resultJson = JsonSerializer.Serialize(result, options);
+            Console.Write(resultJson);
+            Console.WriteLine($"\nTotal GO instruments (a3=true): {result.totalCount}");
+
+            Assert.IsNotNull(result, "Result should not be null");
+            Assert.IsTrue(result.data.Count > 0, "Should return GO instruments");
+
+            // Verificar que TODOS los instrumentos son tipo GO
+            var allAreCORP = result.data.All(d =>
+                d.fields != null &&
+                !string.IsNullOrEmpty(d.type) &&
+                d.type == type);
+
+            Assert.IsTrue(allAreCORP, "All instruments should be of type GO");
+
+            // Verificar que el filtro a3 está funcionando (al menos un registro debe ser del segmento TIVA)
+            var atLeastOneTIVAInstrument = result.data.Any(d =>
+                d.fields != null &&
+                d.fields.marketId == "A3");
+
+            Assert.IsTrue(atLeastOneTIVAInstrument, "Should include at least one TIVA instrument when a3=true");
+        }
+
+        [TestMethod]
+        [TestCategory("ReferenceData")]
+        public void GetReferenceDataByTypeMF()
+        {
+            // Arrange
+            string type = "MF";
+            bool treasuries = false;
+            bool a3 = false;
+
+            // Act
+            ReferenceDatas result = services.GetReferenceData(null, type, null, treasuries, a3).Result;
+
+            // Assert
+            string resultJson = JsonSerializer.Serialize(result, options);
+            Console.Write(resultJson);
+            Console.WriteLine($"\nTotal MF instruments: {result.totalCount}");
+
+            Assert.IsNotNull(result, "Result should not be null");
+            Assert.IsTrue(result.data.Count > 0, "Should return MF instruments");
+
+            // Verificar que TODOS los instrumentos son tipo MF
+            var allAreMF = result.data.All(d =>
+                d.fields != null &&
+                !string.IsNullOrEmpty(d.type) &&
+                d.type == type);
+
+            Assert.IsTrue(allAreMF, "All instruments should be of type MF");
         }
 
         [TestMethod]

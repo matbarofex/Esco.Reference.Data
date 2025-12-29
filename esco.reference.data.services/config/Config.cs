@@ -15,7 +15,7 @@ namespace ESCO.Reference.Data.Config
 
         public static class Schema
         {
-            public const string actual = "schema-014";
+            public const string actual = "schema-015";
         }
 
         public class Header
@@ -44,6 +44,7 @@ namespace ESCO.Reference.Data.Config
             public const string FilterRemoved = "?$filter=updated ge {1} and active eq false";
             public const string FilterAllNeUSA = "?$filter=type ne null and country ne 'USA'";
             public const string treasuries = "&treasuries=true";
+            public const string A3TIVA = "&a3=true";
 
             //Filters OData
             public const string FilterType = "indexof(type, '{0}') ne -1";
@@ -118,7 +119,7 @@ namespace ESCO.Reference.Data.Config
         }
 
         //Format Url
-        public static string GetUrl(string cfg, string typeorid, string schema, bool search = false, DateTime? daterd = null, bool includeTreasuries = false)
+        public static string GetUrl(string cfg, string typeorid, string schema, bool search = false, DateTime? daterd = null, bool includeTreasuries = false, bool includeA3TIVA = false)
         {
             schema ??= Schema.actual;
             string format = (cfg == Url.FilterAdded) ? "d/MM/yyyy" : "yyyy-MM-d";
@@ -140,7 +141,12 @@ namespace ESCO.Reference.Data.Config
             {
                 result += Url.treasuries;
             }
-            
+
+            if(includeA3TIVA)
+            {
+                result += Url.A3TIVA;
+            }
+
             return result;
         }
 
