@@ -33,6 +33,7 @@ namespace ESCO.Reference.Data.Model
         public const string OpcionesOTC = "OOFOTC";    //Opciones OTC
         public const string Criptomonedas = "CC";   //Criptomonedas
         public const string Fideicomisos = "FT";    //Fideicomisos Financieros
+        public const string ETF = "ETF";            //Exchange Traded Funds
     }
 
     public static class TypesDesc
@@ -55,6 +56,7 @@ namespace ESCO.Reference.Data.Model
         public const string OpcionesOTC = "Opciones OTC";
         public const string Criptomonedas = "Criptomonedas";
         public const string Fideicomisos = "Fideicomisos Financieros";
+        public const string ETF = "ETF es estándar financiero y se refiere a Exchange Traded Funds";
     }
 
     public class ReferenceDataTypes : List<Type> { }
@@ -82,7 +84,8 @@ namespace ESCO.Reference.Data.Model
                         { new Type() { id = 14, type = Types.FuturosOTC, description = TypesDesc.FuturosOTC } },
                         { new Type() { id = 15, type = Types.OpcionesOTC, description = TypesDesc.OpcionesOTC } },
                         { new Type() { id = 16, type = Types.Criptomonedas, description = TypesDesc.Criptomonedas } },
-                        { new Type() { id = 17, type = Types.Fideicomisos, description = TypesDesc.Fideicomisos } }
+                        { new Type() { id = 17, type = Types.Fideicomisos, description = TypesDesc.Fideicomisos } },
+                        { new Type() { id = 18, type = Types.ETF, description = TypesDesc.ETF } }
                 };
         }
     }

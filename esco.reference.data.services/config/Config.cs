@@ -15,7 +15,7 @@ namespace ESCO.Reference.Data.Config
 
         public static class Schema
         {
-            public const string actual = "schema-015";
+            public const string actual = "schema-016";
         }
 
         public class Header
@@ -43,7 +43,7 @@ namespace ESCO.Reference.Data.Config
             public const string FilterAdded = "?$filter=date eq '{1}'";
             public const string FilterRemoved = "?$filter=updated ge {1} and active eq false";
             public const string FilterAllNeUSA = "?$filter=type ne null and country ne 'USA'";
-            public const string treasuries = "&treasuries=true";
+            public const string usa = "&usa=true";
 
             //Filters OData
             public const string FilterType = "indexof(type, '{0}') ne -1";
@@ -118,14 +118,14 @@ namespace ESCO.Reference.Data.Config
         }
 
         //Format Url
-        public static string GetUrl(string cfg, string typeorid, string schema, bool search = false, DateTime? daterd = null, bool includeTreasuries = false)
+        public static string GetUrl(string cfg, string typeorid, string schema, bool search = false, DateTime? daterd = null, bool includeUSA = false)
         {
             schema ??= Schema.actual;
             string format = (cfg == Url.FilterAdded) ? "d/MM/yyyy" : "yyyy-MM-d";
             
-            // Si includeTreasuries es true, usar FilterAll en lugar de FilterAllNeUSA
+            // Si includeUSA es true, usar FilterAll en lugar de FilterAllNeUSA
             cfg = (cfg == null) ? 
-                Url.ReferenceData + (includeTreasuries ? Url.FilterAll : Url.FilterAllNeUSA) : 
+                Url.ReferenceData + (includeUSA ? Url.FilterAll : Url.FilterAllNeUSA) : 
                 Url.ReferenceData + cfg;
             
             string date = (daterd != null)? daterd.Value.ToString(format): DateTime.Now.ToString(format);
@@ -136,9 +136,9 @@ namespace ESCO.Reference.Data.Config
                         SetUrl(cfg + Url.FilterTypeStr, schema, date, typeorid) :
                         SetUrl(cfg, schema, date));
             
-            if (includeTreasuries)
+            if (includeUSA)
             {
-                result += Url.treasuries;
+                result += Url.usa;
             }
             
             return result;
@@ -153,7 +153,7 @@ namespace ESCO.Reference.Data.Config
             string market,
             string country,
             string schema,
-            bool includeTreasuries = true)
+            bool includeUSA = true)
         {
             string url = SetUrl(urlodata, schema);
             string empty = string.Empty;
@@ -185,9 +185,9 @@ namespace ESCO.Reference.Data.Config
 
             string result = url + urlStr;
             
-            if (includeTreasuries)
+            if (includeUSA)
             {
-                result += Url.treasuries;
+                result += Url.usa;
             }
             
             return result;
