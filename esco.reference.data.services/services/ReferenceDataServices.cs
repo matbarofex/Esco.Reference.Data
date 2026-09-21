@@ -74,7 +74,8 @@ namespace ESCO.Reference.Data.Services
 
             while (count != 0)
             {
-                string pages = SetUrl(url + Url.FilterSkip, skip.ToString());
+                string separator = url.Contains("?") ? "&" : "?";
+                string pages = SetUrl(url + separator + "$skip={0}", skip.ToString());
                 var prices = await httpClient.GetPrices(pages);
                 count = prices.Count;
                 if (count != 0)
@@ -90,8 +91,12 @@ namespace ESCO.Reference.Data.Services
         {
             try
             {
-                var typestr = (type != null) ? string.Format(Url.FilterTypeStr, null, null, type) : string.Empty;
-                var url = Url.Prices + Url.FilterAll + typestr;
+                var url = Url.Prices;
+                if (type != null)
+                {
+                    url += $"?$filter=type eq '{type}'";
+                }
+                
                 if (_paginated)
                 {
                     return await httpClient.GetPrices(url);
