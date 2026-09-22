@@ -43,7 +43,7 @@ namespace ESCO.Reference.Data.Config
             public const string FilterAdded = "?$filter=date eq '{1}'";
             public const string FilterRemoved = "?$filter=updated ge {1} and active eq false";
             public const string FilterAllNeUSA = "?$filter=type ne null and country ne 'USA'";
-            public const string treasuries = "&treasuries=true";
+            public const string usa = "&usa=true";
             public const string A3TIVA = "&a3=true";
 
             //Filters OData
@@ -119,7 +119,7 @@ namespace ESCO.Reference.Data.Config
         }
 
         //Format Url
-        public static string GetUrl(string cfg, string typeorid, string schema, bool search = false, DateTime? daterd = null, bool includeUSA = false)
+        public static string GetUrl(string cfg, string typeorid, string schema, bool search = false, DateTime? daterd = null, bool includeUSA = false, bool includeA3TIVA = false)
         {
             schema ??= Schema.actual;
             string format = (cfg == Url.FilterAdded) ? "d/MM/yyyy" : "yyyy-MM-d";

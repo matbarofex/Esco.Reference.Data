@@ -119,13 +119,13 @@ namespace ESCO.Reference.Data.Services
         /// <param name="date">(Optional) Filtrar por Fecha de actualizacion de Instrumentos. Si es null devuelve la lista completa.</param>
         /// <param name="type">(Optional) Filtrar por Id del tipo de Instrumentos. Si es null devuelve la lista completa.</param>
         /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma por defecto el esquema activo.</param>
-        /// <param name="treasuries">(Optional) Habilitar filtro de treasuries (por defecto false).</param>
+        /// <param name="usa">(Optional) Habilitar filtro de usa (por defecto false).</param>
         /// <param name="a3">(Optional)  Incorporar instrumentos del segmento TIVA (A3) en la respuesta .</param>
         /// <returns>ReferenceDatas json.</returns>
-        public async Task<ReferenceDatas> GetReferenceData(DateTime? date = null, string type = null, string schema = null, bool treasuries = false, bool a3 = false)
+        public async Task<ReferenceDatas> GetReferenceData(DateTime? date = null, string type = null, string schema = null, bool usa = false, bool a3 = false)
         {
             string cfg = (date != null) ? Url.FilterDated : null;
-            return await GetAsReferenceData(GetUrl(cfg, type, schema, false, date, treasuries, a3));
+            return await GetAsReferenceData(GetUrl(cfg, type, schema, false, date, usa, a3));
         }
 
 
@@ -136,8 +136,8 @@ namespace ESCO.Reference.Data.Services
         /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma por defecto el esquema activo.</param>
         /// <param name="usa">(Optional) Habilitar filtro de USA (por defecto false).</param>
         /// <returns>string</returns>
-        public async Task<string> GetReferenceDataAsString(DateTime? date = null, string type = null, string schema = null, bool treasuries = false, bool a3 = false) =>
-            await GetAsString(type, schema, null, date, treasuries);
+        public async Task<string> GetReferenceDataAsString(DateTime? date = null, string type = null, string schema = null, bool usa = false, bool a3 = false) =>
+            await GetAsString(type, schema, null, date, usa);
 
         private async Task<string> GetAsString(string type = null, string schema = null, string cfg = null, DateTime? date = null, bool usa = false)
         {
