@@ -43,7 +43,8 @@ namespace ESCO.Reference.Data.Config
             public const string FilterAdded = "?$filter=date eq '{1}'";
             public const string FilterRemoved = "?$filter=updated ge {1} and active eq false";
             public const string FilterAllNeUSA = "?$filter=type ne null and country ne 'USA'";
-            public const string usa = "&usa=true";
+            public const string treasuries = "&treasuries=true";
+            public const string A3TIVA = "&a3=true";
 
             //Filters OData
             public const string FilterType = "indexof(type, '{0}') ne -1";
@@ -140,7 +141,12 @@ namespace ESCO.Reference.Data.Config
             {
                 result += Url.usa;
             }
-            
+
+            if(includeA3TIVA)
+            {
+                result += Url.A3TIVA;
+            }
+
             return result;
         }
 
