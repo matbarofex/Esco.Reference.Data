@@ -897,6 +897,10 @@ namespace ESCO.Reference.Data.App
                     //Retorna la lista de instrumentos financieros de tipo Indice (XLINKD)
                     urlReports.Text = Config.ReferenceData + Config.SetUrl(Types.Indices);
                     break;
+                case 18:
+                    //Retorna la lista de instrumentos financieros de tipo ETF
+                    urlReports.Text = Config.ReferenceData + Config.SetUrl(Types.ETF);
+                    break;
                 default:
                     break;
             }

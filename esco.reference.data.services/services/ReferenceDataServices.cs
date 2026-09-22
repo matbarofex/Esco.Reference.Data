@@ -119,13 +119,13 @@ namespace ESCO.Reference.Data.Services
         /// <param name="date">(Optional) Filtrar por Fecha de actualizacion de Instrumentos. Si es null devuelve la lista completa.</param>
         /// <param name="type">(Optional) Filtrar por Id del tipo de Instrumentos. Si es null devuelve la lista completa.</param>
         /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma por defecto el esquema activo.</param>
-        /// <param name="treasuries">(Optional) Habilitar filtro de treasuries (por defecto false).</param>
+        /// <param name="usa">(Optional) Habilitar filtro de usa (por defecto false).</param>
         /// <param name="a3">(Optional)  Incorporar instrumentos del segmento TIVA (A3) en la respuesta .</param>
         /// <returns>ReferenceDatas json.</returns>
-        public async Task<ReferenceDatas> GetReferenceData(DateTime? date = null, string type = null, string schema = null, bool treasuries = false, bool a3 = false)
+        public async Task<ReferenceDatas> GetReferenceData(DateTime? date = null, string type = null, string schema = null, bool usa = false, bool a3 = false)
         {
             string cfg = (date != null) ? Url.FilterDated : null;
-            return await GetAsReferenceData(GetUrl(cfg, type, schema, false, date, treasuries, a3));
+            return await GetAsReferenceData(GetUrl(cfg, type, schema, false, date, usa, a3));
         }
 
 
@@ -134,17 +134,17 @@ namespace ESCO.Reference.Data.Services
         /// </summary>
         /// <param name="type">(Optional) Filtrar por Id del tipo de Instrumentos. Si es null devuelve la lista completa.</param>
         /// <param name="schema">(Optional) Id del esquema de devolución de la información. Si es null se toma por defecto el esquema activo.</param>
-        /// <param name="treasuries">(Optional) Habilitar filtro de treasuries (por defecto false).</param>
+        /// <param name="usa">(Optional) Habilitar filtro de USA (por defecto false).</param>
         /// <returns>string</returns>
-        public async Task<string> GetReferenceDataAsString(DateTime? date = null, string type = null, string schema = null, bool treasuries = false, bool a3 = false) =>
-            await GetAsString(type, schema, null, date, treasuries);
+        public async Task<string> GetReferenceDataAsString(DateTime? date = null, string type = null, string schema = null, bool usa = false, bool a3 = false) =>
+            await GetAsString(type, schema, null, date, usa);
 
-        private async Task<string> GetAsString(string type = null, string schema = null, string cfg = null, DateTime? date = null, bool treasuries = false)
+        private async Task<string> GetAsString(string type = null, string schema = null, string cfg = null, DateTime? date = null, bool usa = false)
         {
             try
             {
                 cfg = (date != null) ? Url.FilterDated : cfg;
-                var result = await GetAsReferenceData(GetUrl(cfg, type, schema, false, date, treasuries));
+                var result = await GetAsReferenceData(GetUrl(cfg, type, schema, false, date, usa));
                 var serializedResult = JsonSerializer.Serialize(result, httpClient.Options());
 
                 return serializedResult;
@@ -200,17 +200,33 @@ namespace ESCO.Reference.Data.Services
         }
 
         /// <summary>
-        /// Retorna la lista de instrumentos filtrados por país con treasuries habilitado.
+        /// Retorna la lista de instrumentos filtrados por país.
         /// </summary>
         /// <param name="country">(Required) País a filtrar (ej: 'USA').</param>
-        /// <param name="schema">(Optional) Id del esquema de devolución de la información.</param>        
+        /// <param name="schema">(Optional) Id del esquema de devolución de la información.</param>       
         /// <returns>ReferenceDatas</returns>
         public async Task<ReferenceDatas> GetReferenceDataByCountry(string country, string schema = null)
         {
             schema ??= Schema.actual;
             string filter = $"?$filter=country eq '{country}'";
-            string url = SetUrl(Url.ReferenceData, schema) + filter + Url.treasuries;
-            
+            string url = SetUrl(Url.ReferenceData, schema) + filter + Url.usa;
+
+            return await GetAsReferenceData(url);
+        }
+
+        /// <summary>
+        /// Retorna la lista de instrumentos filtrados por país y tipo.
+        /// </summary>
+        /// <param name="country">(Required) País a filtrar (ej: 'USA').</param>
+        /// <param name="type">(Required) Tipo de instrumento a filtrar (ej: 'CS', 'ETF').</param>
+        /// <param name="schema">(Optional) Id del esquema de devolución de la información.</param>       
+        /// <returns>ReferenceDatas</returns>
+        public async Task<ReferenceDatas> GetReferenceDataByCountryAndType(string country, string type, string schema = null)
+        {
+            schema ??= Schema.actual;
+            string filter = $"?$filter=country eq '{country}' and type eq '{type}'";
+            string url = SetUrl(Url.ReferenceData, schema) + filter + Url.usa;
+
             return await GetAsReferenceData(url);
         }
 
